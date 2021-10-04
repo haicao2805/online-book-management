@@ -58,7 +58,6 @@ namespace BulkyBook.Areas.Customer.Controllers
         [Authorize]
         public IActionResult Details(ShoppingCart cartObj)
         {
-            cartObj.Id = 0;
             if (ModelState.IsValid)
             {
                 var claimsIdentity = (ClaimsIdentity)User.Identity;
@@ -72,7 +71,16 @@ namespace BulkyBook.Areas.Customer.Controllers
                 
                 if(cartFromDatabase == null)
                 {
-                    _unitOfWork.ShoppingCart.Add(cartObj);
+                    ShoppingCart newCart = new ShoppingCart()
+                    {
+                        Price = cartObj.Price,
+                        Count = cartObj.Count,
+                        Product = cartObj.Product,
+                        ProductId = cartObj.ProductId,
+                        ApplicationUser = cartObj.ApplicationUser,
+                        ApplicationUserId = cartObj.ApplicationUserId
+                    };
+                    _unitOfWork.ShoppingCart.Add(newCart);
                 }
                 else
                 {
