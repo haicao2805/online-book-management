@@ -1,0 +1,42 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<PropertyGroup>
+		<TargetFramework>net5.0</TargetFramework>
+		<UserSecretsId>aspnet-FptBookStore-18EE223E-69A5-41F2-9882-EABAB4318E96</UserSecretsId>
+		<CopyRefAssembliesToPublishDirectory>false</CopyRefAssembliesToPublishDirectory>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="MaterialDesignThemes" Version="4.2.1" />
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.Facebook" Version="5.0.10" />
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="5.0.10" />
+		<PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="5.0.9" />
+		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.9" />
+		<PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="5.0.9" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.9" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.9" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.9" />
+		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
+		<PackageReference Include="Stripe.net" Version="39.70.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\FptBookStore.Entities\FptBookStore.Entities.csproj" />
+		<ProjectReference Include="..\FptBookStore.Utility\FptBookStore.Utility.csproj" />
+		<ProjectReference Include="..\FptBookStore.Entities\FptBookStore.Entities.csproj">
+		  <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+		</ProjectReference>
+		<ProjectReference Include="..\FptBookStore.DataAccess\FptBookStore.DataAccess.csproj">
+		  <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+		</ProjectReference>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="wwwroot\image\product\" />
+	  <Folder Include="ViewModels\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Remove="ViewModels\" />
+	</ItemGroup>
+</Project>
