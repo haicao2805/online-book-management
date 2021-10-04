@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FptBookStore.DataAccess.OrderDetails
+namespace FptBookStore.DataAccess.Company
 {
-    public interface IOrderDetailRepository : IRepository<OrderDetail>
+    public interface ICompanyRepository : IRepository<Entities.Company>
     {
     }
 }
