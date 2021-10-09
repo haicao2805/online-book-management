@@ -177,9 +177,6 @@ namespace FptBookStore.Areas.Customer.Controllers
             var claimsIdentity = (ClaimsIdentity)User.Identity;
             var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
 
-            ShoppingCartVM.OrderHeader.ApplicationUser = _unitOfWork.ApplicationUser.GetFirstOrDefault(
-                                                            item => item.Id == claim.Value, includeProperties: "Company");
-
             ShoppingCartVM.ListCart = _unitOfWork.ShoppingCart.GetAll(item => item.ApplicationUserId == claim.Value, includeProperties: "Product");
             ShoppingCartVM.OrderHeader.PaymentStatus = PaymentStatus.Pending;
             ShoppingCartVM.OrderHeader.OrderStatus = Status.Pending;
