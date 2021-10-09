@@ -96,7 +96,7 @@ namespace FptBookStore.Areas.Customer.Controllers
             }
             else
             {
-                var product = _unitOfWork.Product.GetFirstOrDefault(item => item.Id == cartObj.ProductId, includeProperties: "Category,CoverType");
+                var product = _unitOfWork.Product.GetFirstOrDefault(item => item.Id == cartObj.ProductId, includeProperties: "Category");
                 ShoppingCart shoppingCart = new ShoppingCart()
                 {
                     Product = product,

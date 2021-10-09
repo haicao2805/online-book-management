@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.WebUtilities;
+using Stripe;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -172,7 +173,7 @@ namespace FptBookStore.Areas.Customer.Controllers
         [HttpPost]
         [ActionName("Summary")]
         [ValidateAntiForgeryToken]
-        public IActionResult SummaryPOST()
+        public IActionResult SummaryPOST(string stripeToken)
         {
             var claimsIdentity = (ClaimsIdentity)User.Identity;
             var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
@@ -181,13 +182,14 @@ namespace FptBookStore.Areas.Customer.Controllers
             ShoppingCartVM.OrderHeader.PaymentStatus = PaymentStatus.Pending;
             ShoppingCartVM.OrderHeader.OrderStatus = Status.Pending;
             ShoppingCartVM.OrderHeader.OrderDate = DateTime.Now;
+            ShoppingCartVM.OrderHeader.ApplicationUserId = claim.Value;
 
             _unitOfWork.OrderHeader.Add(ShoppingCartVM.OrderHeader);
             _unitOfWork.Save();
 
-            List<OrderDetail> orderDetails = new List<OrderDetail>();
             foreach (var item in ShoppingCartVM.ListCart)
             {
+                item.Price = Helper.GetProductPriceBaseOnQuantity(item.Count, item.Product.Price, item.Product.Price50, item.Product.Price100);
                 OrderDetail orderDetail = new OrderDetail()
                 {
                     ProductId = item.ProductId,
@@ -198,11 +200,49 @@ namespace FptBookStore.Areas.Customer.Controllers
 
                 ShoppingCartVM.OrderHeader.OrderTotal += orderDetail.Price * orderDetail.Count;
                 _unitOfWork.OrderDetail.Add(orderDetail);
-                _unitOfWork.Save();
             }
 
             _unitOfWork.ShoppingCart.Remove(ShoppingCartVM.ListCart);
             HttpContext.Session.SetInt32(SessionKey.ShoppingCart, 0);
+            _unitOfWork.Save();
+
+            if (stripeToken == null)
+            {
+                // order will be created for delayed payment for authorized company
+                ShoppingCartVM.OrderHeader.PaymentDueDate = DateTime.Now.AddDays(30);
+                ShoppingCartVM.OrderHeader.PaymentStatus = PaymentStatus.DelayedPayment;
+                ShoppingCartVM.OrderHeader.OrderStatus = Status.Approved;
+            }
+            else
+            {
+                var options = new ChargeCreateOptions()
+                {
+                    Amount = Convert.ToInt32(ShoppingCartVM.OrderHeader.OrderTotal * 100),
+                    Currency = "usd",
+                    Description = "Order ID: " + ShoppingCartVM.OrderHeader.Id,
+                    Source = stripeToken
+                };
+
+                var service = new ChargeService();
+                Charge charge = service.Create(options);
+
+                if (charge.BalanceTransactionId == null)
+                {
+                    ShoppingCartVM.OrderHeader.PaymentStatus = PaymentStatus.Rejected;
+                }
+                else
+                {
+                    ShoppingCartVM.OrderHeader.TransactionId = charge.Id;
+                }
+
+                if (charge.Status.ToLower() == "succeeded")
+                {
+                    ShoppingCartVM.OrderHeader.PaymentStatus = PaymentStatus.Approved;
+                    ShoppingCartVM.OrderHeader.OrderStatus = Status.Approved;
+                    ShoppingCartVM.OrderHeader.OrderDate = DateTime.Now;
+                }
+            }
+
             _unitOfWork.Save();
 
             return RedirectToAction("OrderConfirmation", "Cart", new { id = ShoppingCartVM.OrderHeader.Id });
