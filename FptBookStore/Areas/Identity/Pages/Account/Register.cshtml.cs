@@ -132,24 +132,6 @@ namespace FptBookStore.Areas.Identity.Pages.Account
                 {
                     _logger.LogInformation("User created a new account with password.");
 
-                    if (!await _roleManager.RoleExistsAsync(UserRole.Admin))
-                    {
-                        await _roleManager.CreateAsync(new IdentityRole(UserRole.Admin));
-                    }
-                    if (!await _roleManager.RoleExistsAsync(UserRole.Employee))
-                    {
-                        await _roleManager.CreateAsync(new IdentityRole(UserRole.Employee));
-                    }
-                    if (!await _roleManager.RoleExistsAsync(UserRole.User_Individual))
-                    {
-                        await _roleManager.CreateAsync(new IdentityRole(UserRole.User_Individual));
-                    }
-                    if (!await _roleManager.RoleExistsAsync(UserRole.User_Company))
-                    {
-                        await _roleManager.CreateAsync(new IdentityRole(UserRole.User_Company));
-                    }
-
-                    //await _userManager.AddToRoleAsync(user, Role.Employee);
                     if (user.Role == null)
                     {
                         await _userManager.AddToRoleAsync(user, UserRole.User_Individual);
