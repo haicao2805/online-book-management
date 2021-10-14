@@ -43,6 +43,7 @@ namespace FptBookStore.Entities
         public Category Category { get; set; }
 
         [Required]
-        public int CoverTypeId { get; set; }
+        [Range(1, 10000)]
+        public int Quantity { get; set; }
     }
 }

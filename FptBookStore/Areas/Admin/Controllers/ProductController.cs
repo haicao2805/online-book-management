@@ -155,7 +155,6 @@ namespace FptBookStore.Areas.Admin.Controllers
             {
                 string webRootPath = _webHostEnv.WebRootPath;
                 var imagePath = Path.Combine(webRootPath, obj.ImageUrl.TrimStart('\\'));
-                Console.WriteLine(imagePath);
                 if (System.IO.File.Exists(imagePath))
                 {
                     System.IO.File.Delete(imagePath);
