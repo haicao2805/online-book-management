@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace FptBookStore.Areas.Admin.Controllers
@@ -53,6 +54,13 @@ namespace FptBookStore.Areas.Admin.Controllers
             var userRoles = _unitOfWork.IdentityUserRole.GetAll().ToList();
             var roles = _unitOfWork.IdentityRole.GetAll().ToList();
 
+            // get data of login user
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+            var loginUser = _unitOfWork.ApplicationUser.GetFirstOrDefault(item => item.Id == claim.Value);
+            var roleLoginUserId = userRoles.FirstOrDefault(item => item.UserId == loginUser.Id).RoleId;
+            var roleLoginUser = roles.FirstOrDefault(item => item.Id == roleLoginUserId).Name;
+
             if (obj == null)
             {
                 return Json(new { success = false, message = "Error while Locking/Unlocking" });
@@ -62,6 +70,11 @@ namespace FptBookStore.Areas.Admin.Controllers
             var role = roles.FirstOrDefault(item => item.Id == roleId).Name;
             
             if (role == UserRole.Admin)
+            {
+                return Json(new { success = false, message = "Error while Locking/Unlocking" });
+            }
+
+            if(roleLoginUser == UserRole.Employee && role == UserRole.Employee)
             {
                 return Json(new { success = false, message = "Error while Locking/Unlocking" });
             }
