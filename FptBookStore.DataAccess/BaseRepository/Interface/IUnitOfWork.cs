@@ -1,5 +1,4 @@
 ﻿using FptBookStore.DataAccess.Categories;
-using FptBookStore.DataAccess.Company;
 using FptBookStore.DataAccess.IdentityUserRole;
 using FptBookStore.DataAccess.OrderDetails;
 using FptBookStore.DataAccess.Orders;
@@ -20,7 +19,6 @@ namespace FptBookStore.DataAccess.BaseRepository.Interface
     {
         ICategoryRepository Category { get; }
         IProductRepository Product { get; }
-        ICompanyRepository Company { get; }
         IApplicationUserRepository ApplicationUser { get; }
         IIdentityUserRoleRepository IdentityUserRole { get; }
         IIdentityRoleRepository IdentityRole { get; }

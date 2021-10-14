@@ -1,5 +1,4 @@
 ﻿using FptBookStore.DataAccess.BaseRepository.Interface;
-using FptBookStore.DataAccess.Company;
 using FptBookStore.DataAccess.Data;
 using FptBookStore.DataAccess.IdentityUserRole;
 using FptBookStore.DataAccess.OrderDetails;
@@ -20,7 +19,6 @@ namespace FptBookStore.DataAccess.Categories
         private readonly ApplicationDbContext _db;
         public ICategoryRepository Category { get; private set; }
         public IProductRepository Product { get; private set; }
-        public ICompanyRepository Company { get; private set; }
         public IApplicationUserRepository ApplicationUser { get; private set; }
         public IIdentityRoleRepository IdentityRole { get; private set; }
         public IIdentityUserRoleRepository IdentityUserRole { get; private set; }
@@ -29,16 +27,11 @@ namespace FptBookStore.DataAccess.Categories
         public IOrderHeaderRepository OrderHeader { get; private set; }
         public ISP_Call SP_Call { get; private set; }
 
-        IApplicationUserRepository IUnitOfWork.ApplicationUser => throw new NotImplementedException();
-
-        IIdentityRoleRepository IUnitOfWork.IdentityRole => throw new NotImplementedException();
-
         public UnitOfWork(ApplicationDbContext db)
         {
             _db = db;
             Category = new CategoryRepository(_db);
             Product = new ProductRepository(_db);
-            Company = new CompanyRepository(_db);
             ApplicationUser = new ApplicationUserRepository(_db);
             IdentityRole = new IdentityRoleRepository(_db);
             IdentityUserRole = new IdentityUserRoleRepository(_db);
@@ -57,11 +50,6 @@ namespace FptBookStore.DataAccess.Categories
         public void Save()
         {
             _db.SaveChanges();
-        }
-
-        public IIdentityUserRoleRepository GetIdentityUserRole()
-        {
-            throw new NotImplementedException();
         }
     }
 }

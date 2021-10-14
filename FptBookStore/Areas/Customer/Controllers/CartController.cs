@@ -45,8 +45,7 @@ namespace FptBookStore.Areas.Customer.Controllers
                 ListCart = _unitOfWork.ShoppingCart.GetAll(item => item.ApplicationUserId == claim.Value, includeProperties: "Product")
             };
             ShoppingCartVM.OrderHeader.OrderTotal = 0;
-            ShoppingCartVM.OrderHeader.ApplicationUser = _unitOfWork.ApplicationUser.GetFirstOrDefault(item => item.Id == claim.Value,
-                                                                                                        includeProperties: "Company");
+            ShoppingCartVM.OrderHeader.ApplicationUser = _unitOfWork.ApplicationUser.GetFirstOrDefault(item => item.Id == claim.Value);
 
             foreach (var cart in ShoppingCartVM.ListCart)
             {
@@ -147,8 +146,7 @@ namespace FptBookStore.Areas.Customer.Controllers
                                                            includeProperties: "Product")
             };
 
-            ShoppingCartVM.OrderHeader.ApplicationUser = _unitOfWork.ApplicationUser.GetFirstOrDefault(item => item.Id == claim.Value,
-                                                                                                        includeProperties: "Company");
+            ShoppingCartVM.OrderHeader.ApplicationUser = _unitOfWork.ApplicationUser.GetFirstOrDefault(item => item.Id == claim.Value);
             ShoppingCartVM.OrderHeader.ApplicationUserId = claim.Value;
             foreach (var cart in ShoppingCartVM.ListCart)
             {

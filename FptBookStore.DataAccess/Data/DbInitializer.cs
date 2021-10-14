@@ -42,7 +42,6 @@ namespace FptBookStore.DataAccess.Data
             _roleManager.CreateAsync(new IdentityRole(UserRole.Admin)).GetAwaiter().GetResult();
             _roleManager.CreateAsync(new IdentityRole(UserRole.Employee)).GetAwaiter().GetResult();
             _roleManager.CreateAsync(new IdentityRole(UserRole.User_Individual)).GetAwaiter().GetResult();
-            _roleManager.CreateAsync(new IdentityRole(UserRole.User_Company)).GetAwaiter().GetResult();
 
             IConfiguration Config = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json", true, true)

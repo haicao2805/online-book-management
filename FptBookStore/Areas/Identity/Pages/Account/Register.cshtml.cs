@@ -79,9 +79,6 @@ namespace FptBookStore.Areas.Identity.Pages.Account
             public string PostalCode { get; set; }
             public string PhoneNumber { get; set; }
             public string Role { get; set; }
-            public int? CompanyId { get; set; }
-
-            public IEnumerable<SelectListItem> CompanyList { get; set; }
             public IEnumerable<SelectListItem> RoleList { get; set; }
         }
 
@@ -91,12 +88,6 @@ namespace FptBookStore.Areas.Identity.Pages.Account
 
             Input = new InputModel
             {
-                CompanyList = _unitOfWork.Company.GetAll().Select(c => new SelectListItem
-                {
-                    Text = c.Name,
-                    Value = c.Id.ToString()
-
-                }),
                 RoleList = _roleManager.Roles.Where(r => r.Name != UserRole.User_Individual).Select(r => new SelectListItem
                 {
                     Text = r.Name,
@@ -118,7 +109,6 @@ namespace FptBookStore.Areas.Identity.Pages.Account
                 {
                     UserName = Input.Email,
                     Email = Input.Email,
-                    CompanyId = Input.CompanyId,
                     StreetAddress = Input.StreetAddress,
                     City = Input.City,
                     State = Input.State,
@@ -138,11 +128,6 @@ namespace FptBookStore.Areas.Identity.Pages.Account
                     }
                     else
                     {
-                        if (user.CompanyId > 0)
-                        {
-                            await _userManager.AddToRoleAsync(user, UserRole.User_Company);
-                        }
-
                         await _userManager.AddToRoleAsync(user, user.Role);
                     }
 
@@ -186,12 +171,6 @@ namespace FptBookStore.Areas.Identity.Pages.Account
             // If we got this far, something failed, redisplay form
             Input = new InputModel
             {
-                CompanyList = _unitOfWork.Company.GetAll().Select(c => new SelectListItem
-                {
-                    Text = c.Name,
-                    Value = c.Id.ToString()
-
-                }),
                 RoleList = _roleManager.Roles.Where(r => r.Name != UserRole.User_Individual).Select(r => new SelectListItem
                 {
                     Text = r.Name,

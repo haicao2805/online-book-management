@@ -111,28 +111,7 @@
                             <p style="color:maroon; font-size:14px;">Estimate Arrival Date: @DateTime.Now.AddDays(7).ToShortDateString() - @DateTime.Now.AddDays(14).ToShortDateString()</p>
                         </div>
                         <div class="col-12 col-md-4">
-                            @if (Model.OrderHeader.ApplicationUser.Company == null
-                               || !Model.OrderHeader.ApplicationUser.Company.IsAuthorized)
-                            {
-                                <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                                        @{ string stripePublishableKey = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json", true, true).Build()["StripeStrings:StripePublishableKey"]; }
-                                        data-key="@stripePublishableKey"
-                                        @{ var orderTotal = @Model.OrderHeader.OrderTotal * 100;}
-                                        data-amount=@orderTotal
-                                        data-name="Bulky Book"
-                                        data-label="Place Order"
-                                        data-locale="auto"
-                                        data-allow-remember-me="false"
-                                        data-image="https://stripe.com/img/documentation/checkout/marketplace.png"></script>
-                                <script>
-                                    document.getElementsByClassName("stripe-button-el")[0].style.display = "none";
-                                </script>
-                                <button type="submit" value="Place Order" class="btn btn-success form-control">Place Order</button>
-                            }
-                            else
-                            {
-                                <button type="submit" value="Place Order" class="btn btn-primary form-control">Place Order</button>
-                            }
+                            <button type="submit" value="Place Order" class="btn btn-primary form-control">Place Order</button>
                         </div>
                     </div>
                 </div>
