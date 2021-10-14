@@ -1,22 +1,22 @@
 ﻿using FptBookStore.DataAccess.Data;
-using FptBookStore.DataAccess.Repository.Interface;
+
 using FptBookStore.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FptBookStore.DataAccess.BaseRepository;
 
-namespace FptBookStore.DataAccess.Repository
+namespace FptBookStore.DataAccess.Orders
 {
-    public class CompanyRepository : Repository<Company>, ICompanyRepository
+    public class OrderHeaderRepository : Repository<OrderHeader>, IOrderHeaderRepository
     {
         private readonly ApplicationDbContext _db;
-
-        public CompanyRepository(ApplicationDbContext db) : base(db)
+        public OrderHeaderRepository(ApplicationDbContext db) : base(db)
         {
             _db = db;
-            DbSet = _db.Company;
+            DbSet = _db.OrderHeader;
         }
     }
 }

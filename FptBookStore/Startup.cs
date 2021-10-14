@@ -1,6 +1,6 @@
 using FptBookStore.DataAccess.Data;
-using FptBookStore.DataAccess.Repository;
-using FptBookStore.DataAccess.Repository.Interface;
+using FptBookStore.DataAccess.Categories;
+
 using FptBookStore.Utility;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -17,6 +17,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FptBookStore.DataAccess.BaseRepository.Interface;
 
 namespace FptBookStore
 {

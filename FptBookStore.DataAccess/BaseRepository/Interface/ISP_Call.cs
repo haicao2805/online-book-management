@@ -5,7 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FptBookStore.DataAccess.Repository.Interface
+
+namespace FptBookStore.DataAccess.BaseRepository.Interface
 {
     public interface ISP_Call : IDisposable
     {
