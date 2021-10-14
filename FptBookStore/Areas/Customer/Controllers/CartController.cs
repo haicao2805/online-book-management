@@ -3,6 +3,7 @@ using FptBookStore.DataAccess.BaseRepository.Interface;
 using FptBookStore.Entities;
 using FptBookStore.Utility;
 using FptBookStore.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
@@ -20,6 +21,7 @@ using System.Threading.Tasks;
 namespace FptBookStore.Areas.Customer.Controllers
 {
     [Area("Customer")]
+    [Authorize(Roles = UserRole.User_Individual)]
     public class CartController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;

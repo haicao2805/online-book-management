@@ -42,6 +42,7 @@ namespace FptBookStore.Areas.Customer.Controllers
             return View(productList);
         }
 
+        [Authorize(Roles = UserRole.User_Individual)]
         public IActionResult Details(int id)
         {
             var product = _unitOfWork.Product.GetFirstOrDefault(item => item.Id == id, includeProperties: "Category");
@@ -56,7 +57,7 @@ namespace FptBookStore.Areas.Customer.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize]
+        [Authorize(Roles = UserRole.User_Individual)]
         public IActionResult Details(ShoppingCart cartObj)
         {
             if (ModelState.IsValid)

@@ -40,20 +40,21 @@
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                     <a class="dropdown-item" asp-area="Admin" asp-controller="Category" asp-action="Index">Category List</a>
                                     <a class="dropdown-item" asp-area="Admin" asp-controller="Product" asp-action="Index">Product List</a>
+                                    <a class="dropdown-item" asp-area="Admin" asp-controller="User" asp-action="Index">User List</a>
                                 </div>
                             </li>
                         }
-                        @if (User.IsInRole(UserRole.Admin) || User.IsInRole(UserRole.Employee))
+                        @if (User.IsInRole(UserRole.Employee))
                         {
-                            <li class="nav-item dropdown" style="cursor:pointer;">
-                                <a class="nav-link dropdown-toggle text-dark" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    User/Company
-                                </a>
+                    <li class="nav-item dropdown" style="cursor:pointer;">
+                        <a class="nav-link dropdown-toggle text-dark" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Content Managament
+                        </a>
 
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" asp-area="Admin" asp-controller="User" asp-action="Index">User</a>
-                                </div>
-                            </li>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" asp-area="Admin" asp-controller="User" asp-action="Index">User List</a>
+                        </div>
+                    </li>
                         }
 
                         <li class="nav-item">
@@ -67,25 +68,29 @@
                             </a>
                         </li>
 
-                        @if (HttpContextAccessor.HttpContext.Session.GetInt32(SessionKey.ShoppingCart) != null)
+                        @if (User.IsInRole(UserRole.User_Individual))
                         {
-                            <li style="color:white;">
-                                <a asp-area="Customer" asp-controller="Cart" asp-action="Index" class="nav-link">
-                                    @{
-                                        var count = HttpContextAccessor.HttpContext.Session.GetInt32(SessionKey.ShoppingCart);
-                                    }
-                                    Cart(@count)
-                                </a>
-                            </li>
+                            @if (HttpContextAccessor.HttpContext.Session.GetInt32(SessionKey.ShoppingCart) != null)
+                            {
+                                <li style="color:white;">
+                                    <a asp-area="Customer" asp-controller="Cart" asp-action="Index" class="nav-link">
+                                        @{
+                                            var count = HttpContextAccessor.HttpContext.Session.GetInt32(SessionKey.ShoppingCart);
+                                        }
+                                        Cart(@count)
+                                    </a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li style="color:white;">
+                                    <a class="nav-link">
+                                        Cart(0)
+                                    </a>
+                                </li>
+                            }
                         }
-                        else
-                        {
-                            <li style="color:white;">
-                                <a class="nav-link">
-                                    Cart(0)
-                                </a>
-                            </li>
-                        }
+
                     </ul>
 
                     <partial name="_LoginPartial" />
