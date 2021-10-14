@@ -29,10 +29,6 @@ namespace FptBookStore.DataAccess.Categories
         public IOrderHeaderRepository OrderHeader { get; private set; }
         public ISP_Call SP_Call { get; private set; }
 
-        IApplicationUserRepository IUnitOfWork.ApplicationUser => throw new NotImplementedException();
-
-        IIdentityRoleRepository IUnitOfWork.IdentityRole => throw new NotImplementedException();
-
         public UnitOfWork(ApplicationDbContext db)
         {
             _db = db;
@@ -57,11 +53,6 @@ namespace FptBookStore.DataAccess.Categories
         public void Save()
         {
             _db.SaveChanges();
-        }
-
-        public IIdentityUserRoleRepository GetIdentityUserRole()
-        {
-            throw new NotImplementedException();
         }
     }
 }
