@@ -1,4 +1,5 @@
-﻿using FptBookStore.DataAccess.Repository.Interface;
+﻿
+using FptBookStore.DataAccess.BaseRepository.Interface;
 using FptBookStore.Entities;
 using FptBookStore.Utility;
 using FptBookStore.ViewModels;

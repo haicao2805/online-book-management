@@ -11,9 +11,10 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
-using FptBookStore.DataAccess.Repository.Interface;
+
 using Microsoft.AspNetCore.Http;
 using FptBookStore.Utility;
+using FptBookStore.DataAccess.BaseRepository.Interface;
 
 namespace FptBookStore.Areas.Identity.Pages.Account
 {

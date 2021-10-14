@@ -1,13 +1,14 @@
 ﻿using FptBookStore.DataAccess.Data;
-using FptBookStore.DataAccess.Repository.Interface;
+
 using FptBookStore.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FptBookStore.DataAccess.BaseRepository;
 
-namespace FptBookStore.DataAccess.Repository
+namespace FptBookStore.DataAccess.Products
 {
     public class ProductRepository : Repository<Product>, IProductRepository
     {

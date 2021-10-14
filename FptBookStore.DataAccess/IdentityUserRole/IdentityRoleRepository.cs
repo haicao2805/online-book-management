@@ -1,5 +1,5 @@
-﻿using FptBookStore.DataAccess.Data;
-using FptBookStore.DataAccess.Repository.Interface;
+﻿using FptBookStore.DataAccess.BaseRepository;
+using FptBookStore.DataAccess.Data;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FptBookStore.DataAccess.Repository
+namespace FptBookStore.DataAccess.IdentityUserRole
 {
     public class IdentityRoleRepository : Repository<IdentityRole>, IIdentityRoleRepository
     {

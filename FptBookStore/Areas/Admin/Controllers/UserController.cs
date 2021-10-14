@@ -1,4 +1,5 @@
-﻿using FptBookStore.DataAccess.Repository.Interface;
+﻿
+using FptBookStore.DataAccess.BaseRepository.Interface;
 using FptBookStore.Entities;
 using FptBookStore.Utility;
 using Microsoft.AspNetCore.Authorization;
@@ -70,6 +71,7 @@ namespace FptBookStore.Areas.Admin.Controllers
             {
                 obj.LockoutEnd = DateTime.Now.AddYears(2000);
             }
+            _unitOfWork.ApplicationUser.Update(obj);
             _unitOfWork.Save();
             return Json(new { success = true, message = "Locking/Unlocking successful" });
         }

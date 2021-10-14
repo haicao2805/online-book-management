@@ -1,5 +1,5 @@
-﻿using FptBookStore.DataAccess.Data;
-using FptBookStore.DataAccess.Repository.Interface;
+﻿using FptBookStore.DataAccess.BaseRepository.Interface;
+using FptBookStore.DataAccess.Data;
 using FptBookStore.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -9,7 +9,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FptBookStore.DataAccess.Repository
+namespace FptBookStore.DataAccess.BaseRepository
 {
     public class Repository<T> : IRepository<T> where T : class
     {
