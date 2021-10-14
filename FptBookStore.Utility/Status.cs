@@ -14,5 +14,6 @@ namespace FptBookStore.Utility
         public const string Shipped = "Shipped";
         public const string Canceled = "Canceled";
         public const string Refunded = "Refunded";
+        public const string Rejected = "Rejected";
     }
 }

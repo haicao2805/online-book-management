@@ -47,14 +47,15 @@ namespace FptBookStore.DataAccess.Data
             IConfiguration Config = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json", true, true)
                 .Build();
+            string adminEmail = Config["AdminEmail"];
             string adminPassword = Config["AdminPassword"];
 
             var user = new ApplicationUser()
             {
-                UserName = "haicao2805@gmail.com",
-                Email = "haicao2805@gmail.com",
+                UserName = adminEmail,
+                Email = adminEmail,
                 EmailConfirmed = true,
-                Name = "Cao Chi Hai"
+                Name = "Admin"
             };
 
             var result = _userManager.CreateAsync(user, adminPassword).GetAwaiter().GetResult();

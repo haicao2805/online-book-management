@@ -70,6 +70,7 @@ namespace FptBookStore.Areas.Admin.Controllers
             {
                 obj.LockoutEnd = DateTime.Now.AddYears(2000);
             }
+            _unitOfWork.ApplicationUser.Update(obj);
             _unitOfWork.Save();
             return Json(new { success = true, message = "Locking/Unlocking successful" });
         }
