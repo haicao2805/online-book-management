@@ -30,7 +30,7 @@ namespace FptBookStore.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            var users = _unitOfWork.ApplicationUser.GetAll(includeProperties: "Company").ToList();
+            var users = _unitOfWork.ApplicationUser.GetAll().ToList();
             var userRoles = _unitOfWork.IdentityUserRole.GetAll().ToList();
             var roles = _unitOfWork.IdentityRole.GetAll().ToList();
 
@@ -38,13 +38,6 @@ namespace FptBookStore.Areas.Admin.Controllers
             {
                 var roleId = userRoles.FirstOrDefault(item => item.UserId == user.Id).RoleId;
                 user.Role = roles.FirstOrDefault(item => item.Id == roleId).Name;
-                if (user.Company == null)
-                {
-                    user.Company = new Company()
-                    {
-                        Name = ""
-                    };
-                }
             }
 
             return Json(new
@@ -57,7 +50,18 @@ namespace FptBookStore.Areas.Admin.Controllers
         public IActionResult LockOrUnlock([FromBody] string id)
         {
             var obj = _unitOfWork.ApplicationUser.GetFirstOrDefault(item => item.Id == id);
+            var userRoles = _unitOfWork.IdentityUserRole.GetAll().ToList();
+            var roles = _unitOfWork.IdentityRole.GetAll().ToList();
+
             if (obj == null)
+            {
+                return Json(new { success = false, message = "Error while Locking/Unlocking" });
+            }
+
+            var roleId = userRoles.FirstOrDefault(item => item.UserId == obj.Id).RoleId;
+            var role = roles.FirstOrDefault(item => item.Id == roleId).Name;
+            
+            if (role == UserRole.Admin)
             {
                 return Json(new { success = false, message = "Error while Locking/Unlocking" });
             }
