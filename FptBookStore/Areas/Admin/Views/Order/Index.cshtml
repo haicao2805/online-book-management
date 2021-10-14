@@ -14,9 +14,6 @@
         case "inprocess":
             inprocess = "active text-white";
             break;
-        case "pending":
-            pending = "active text-white";
-            break;
         case "compeleted":
             compeleted = "active text-white";
             break;
@@ -38,10 +35,6 @@
             <ul class="list-group list-group-horizontal-sm">
                 <a asp-controller="Order" asp-action="Index" asp-route-status="inprocess" style="text-decoration:none;">
                 <li class="list-group-item @inprocess">In Process</li>
-                </a>
-
-                <a asp-controller="Order" asp-action="Index" asp-route-status="pending" style="text-decoration:none;">
-                <li class="list-group-item @pending">Payment Pending</li>
                 </a>
 
                 <a asp-controller="Order" asp-action="Index" asp-route-status="compeleted" style="text-decoration:none;">

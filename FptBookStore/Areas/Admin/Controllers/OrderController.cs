@@ -157,20 +157,20 @@ namespace FptBookStore.Areas.Admin.Controllers
             switch (status)
             {
                 case "inprocess":
-                    orders.Where(item => item.OrderStatus == Status.Approved ||
-                                         item.OrderStatus == Status.Processing ||
-                                         item.OrderStatus == Status.Pending);
-                    break;
-                case "pending":
-                    orders.Where(item => item.PaymentStatus == PaymentStatus.Pending);
+                    orders = orders.Where(item => (item.OrderStatus == Status.Processing ||
+                                         item.PaymentStatus == PaymentStatus.Approved) &&
+                                         item.OrderStatus != Status.Shipped);
                     break;
                 case "compeleted":
-                    orders.Where(item => item.OrderStatus == Status.Shipped);
+                    orders = orders.Where(item => item.OrderStatus == Status.Shipped);
                     break;
                 case "rejected":
-                    orders.Where(item => item.OrderStatus == Status.Refunded ||
+                    orders = orders.Where(item => item.OrderStatus == Status.Refunded ||
                                          item.OrderStatus == Status.Canceled ||
-                                         item.OrderStatus == Status.Rejected);
+                                         item.OrderStatus == Status.Rejected ||
+                                         item.PaymentStatus == PaymentStatus.Refunded ||
+                                         item.PaymentStatus == PaymentStatus.Canceled ||
+                                         item.PaymentStatus == PaymentStatus.Rejected);
                     break;
                 default:
                     break;
