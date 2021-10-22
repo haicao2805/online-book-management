@@ -43,7 +43,7 @@ namespace FptBookStore.Entities
         public Category Category { get; set; }
 
         [Required]
-        [Range(1, 10000)]
+        [Range(0, 10000)]
         public int Quantity { get; set; }
     }
 }
