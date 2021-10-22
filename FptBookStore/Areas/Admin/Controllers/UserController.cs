@@ -1,4 +1,5 @@
-﻿using FptBookStore.DataAccess.Repository.Interface;
+﻿
+using FptBookStore.DataAccess.BaseRepository.Interface;
 using FptBookStore.Entities;
 using FptBookStore.Utility;
 using Microsoft.AspNetCore.Authorization;
@@ -6,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace FptBookStore.Areas.Admin.Controllers
@@ -29,7 +31,7 @@ namespace FptBookStore.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            var users = _unitOfWork.ApplicationUser.GetAll(includeProperties: "Company").ToList();
+            var users = _unitOfWork.ApplicationUser.GetAll().ToList();
             var userRoles = _unitOfWork.IdentityUserRole.GetAll().ToList();
             var roles = _unitOfWork.IdentityRole.GetAll().ToList();
 
@@ -37,13 +39,6 @@ namespace FptBookStore.Areas.Admin.Controllers
             {
                 var roleId = userRoles.FirstOrDefault(item => item.UserId == user.Id).RoleId;
                 user.Role = roles.FirstOrDefault(item => item.Id == roleId).Name;
-                if (user.Company == null)
-                {
-                    user.Company = new Company()
-                    {
-                        Name = ""
-                    };
-                }
             }
 
             return Json(new
@@ -56,7 +51,30 @@ namespace FptBookStore.Areas.Admin.Controllers
         public IActionResult LockOrUnlock([FromBody] string id)
         {
             var obj = _unitOfWork.ApplicationUser.GetFirstOrDefault(item => item.Id == id);
+            var userRoles = _unitOfWork.IdentityUserRole.GetAll().ToList();
+            var roles = _unitOfWork.IdentityRole.GetAll().ToList();
+
+            // get data of login user
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+            var loginUser = _unitOfWork.ApplicationUser.GetFirstOrDefault(item => item.Id == claim.Value);
+            var roleLoginUserId = userRoles.FirstOrDefault(item => item.UserId == loginUser.Id).RoleId;
+            var roleLoginUser = roles.FirstOrDefault(item => item.Id == roleLoginUserId).Name;
+
             if (obj == null)
+            {
+                return Json(new { success = false, message = "Error while Locking/Unlocking" });
+            }
+
+            var roleId = userRoles.FirstOrDefault(item => item.UserId == obj.Id).RoleId;
+            var role = roles.FirstOrDefault(item => item.Id == roleId).Name;
+            
+            if (role == UserRole.Admin)
+            {
+                return Json(new { success = false, message = "Error while Locking/Unlocking" });
+            }
+
+            if(roleLoginUser == UserRole.Employee && role == UserRole.Employee)
             {
                 return Json(new { success = false, message = "Error while Locking/Unlocking" });
             }
@@ -70,6 +88,7 @@ namespace FptBookStore.Areas.Admin.Controllers
             {
                 obj.LockoutEnd = DateTime.Now.AddYears(2000);
             }
+            _unitOfWork.ApplicationUser.Update(obj);
             _unitOfWork.Save();
             return Json(new { success = true, message = "Locking/Unlocking successful" });
         }

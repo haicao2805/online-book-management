@@ -40,41 +40,57 @@
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                     <a class="dropdown-item" asp-area="Admin" asp-controller="Category" asp-action="Index">Category List</a>
                                     <a class="dropdown-item" asp-area="Admin" asp-controller="Product" asp-action="Index">Product List</a>
+                                    <a class="dropdown-item" asp-area="Admin" asp-controller="User" asp-action="Index">User List</a>
                                 </div>
                             </li>
                         }
-                        @if (User.IsInRole(UserRole.Admin) || User.IsInRole(UserRole.Employee))
+                        @if (User.IsInRole(UserRole.Employee))
                         {
-                            <li class="nav-item dropdown" style="cursor:pointer;">
-                                <a class="nav-link dropdown-toggle text-dark" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    User/Company
-                                </a>
+                    <li class="nav-item dropdown" style="cursor:pointer;">
+                        <a class="nav-link dropdown-toggle text-dark" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Content Managament
+                        </a>
 
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" asp-area="Admin" asp-controller="Company" asp-action="Index">Company</a>
-                                    <a class="dropdown-item" asp-area="Admin" asp-controller="User" asp-action="Index">User</a>
-                                </div>
-                            </li>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" asp-area="Admin" asp-controller="User" asp-action="Index">User List</a>
+                        </div>
+                    </li>
                         }
-                        @if (HttpContextAccessor.HttpContext.Session.GetInt32(SessionKey.ShoppingCart) != null)
+
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="Admin" asp-controller="Order" asp-action="Index">
+                                @if (User.IsInRole(UserRole.Admin) || User.IsInRole(UserRole.Employee))
+                                {
+                                    <span>Manage Order</span> }
+                                else
+                                {
+                                    <span>Order History</span>}
+                            </a>
+                        </li>
+
+                        @if (User.IsInRole(UserRole.User_Individual))
                         {
-                            <li style="color:white;">
-                                <a asp-area="Customer" asp-controller="Cart" asp-action="Index" class="nav-link">
-                                    @{
-                                        var count = HttpContextAccessor.HttpContext.Session.GetInt32(SessionKey.ShoppingCart);
-                                    }
-                                    Cart(@count)
-                                </a>
-                            </li>
+                            @if (HttpContextAccessor.HttpContext.Session.GetInt32(SessionKey.ShoppingCartCount) != null)
+                            {
+                                <li style="color:white;">
+                                    <a asp-area="Customer" asp-controller="Cart" asp-action="Index" class="nav-link">
+                                        @{
+                                            var count = HttpContextAccessor.HttpContext.Session.GetInt32(SessionKey.ShoppingCartCount);
+                                        }
+                                        Cart(@count)
+                                    </a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li style="color:white;">
+                                    <a class="nav-link">
+                                        Cart(0)
+                                    </a>
+                                </li>
+                            }
                         }
-                        else
-                        {
-                            <li style="color:white;">
-                                <a class="nav-link">
-                                    Cart(0)
-                                </a>
-                            </li>
-                        }
+
                     </ul>
 
                     <partial name="_LoginPartial" />
@@ -90,7 +106,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2021 - FptBookStore - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2021 - FptBookStore
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

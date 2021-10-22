@@ -3,17 +3,28 @@
 <div class="row pb-3" style="background-color: white">
     @foreach (Product product in Model)
     {
+        if (product.Quantity > 0)
+        {
         <div class="col-lg-3 col-md-6 ">
             <div class="row p-2">
                 <div class="col-12 p-1" style="border: 1px solid #008cba; border-radius: 5px;">
                     <div class="card" style="border: 0px">
-                        <img src="@product.ImageUrl" class="card-img-top rounded" />
+                        <img src="@product.ImageUrl" style="height: 300px;" class="card-img-top rounded" />
                         <div class="pl-1">
                             <p class="card-title h5"><b style="color: #2c3e50">@product.Title</b></p>
                             <p class="card-title text-primary">by <b>@product.Author</b></p>
                         </div>
                         <div style="padding-left: 5px">
-                            <p style="color:maroon">As low as: <b>@product.Price100</b></p>
+                            <p style="color:maroon">Price: <b>@product.Price</b></p>
+                        </div>
+                        <div style="padding-left: 5px">
+                            <p style="color:maroon">Price 50: <b>@product.Price50</b></p>
+                        </div>
+                        <div style="padding-left: 5px">
+                            <p style="color:maroon">Price 100: <b>@product.Price100</b></p>
+                        </div>
+                        <div style="padding-left: 5px">
+                            <p style="color:forestgreen">Remain Quantity: <b>@product.Quantity</b></p>
                         </div>
                     </div>
                     <div>
@@ -22,6 +33,7 @@
                 </div>
             </div>
         </div>
+        }
     }
 
 </div>

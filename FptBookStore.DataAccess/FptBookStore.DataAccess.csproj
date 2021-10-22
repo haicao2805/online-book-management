@@ -24,6 +24,8 @@
 	  <None Remove="OrderDetails\" />
 	  <None Remove="ShoppingCarts\" />
 	  <None Remove="Orders\" />
+	  <None Remove="Company\" />
+	  <None Remove="IdentityUserRole\" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Folder Include="Products\" />
@@ -31,5 +33,6 @@
 	  <Folder Include="OrderDetails\" />
 	  <Folder Include="ShoppingCarts\" />
 	  <Folder Include="Orders\" />
+	  <Folder Include="IdentityUserRole\" />
 	</ItemGroup>
 </Project>

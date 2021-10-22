@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
-using FptBookStore.DataAccess.Repository.Interface;
+using FptBookStore.DataAccess.BaseRepository.Interface;
 using FptBookStore.Entities;
 using FptBookStore.Utility;
 using Microsoft.AspNetCore.Authentication;
@@ -79,9 +79,6 @@ namespace FptBookStore.Areas.Identity.Pages.Account
             public string PostalCode { get; set; }
             public string PhoneNumber { get; set; }
             public string Role { get; set; }
-            public int? CompanyId { get; set; }
-
-            public IEnumerable<SelectListItem> CompanyList { get; set; }
             public IEnumerable<SelectListItem> RoleList { get; set; }
         }
 
@@ -91,12 +88,6 @@ namespace FptBookStore.Areas.Identity.Pages.Account
 
             Input = new InputModel
             {
-                CompanyList = _unitOfWork.Company.GetAll().Select(c => new SelectListItem
-                {
-                    Text = c.Name,
-                    Value = c.Id.ToString()
-
-                }),
                 RoleList = _roleManager.Roles.Where(r => r.Name != UserRole.User_Individual).Select(r => new SelectListItem
                 {
                     Text = r.Name,
@@ -118,7 +109,6 @@ namespace FptBookStore.Areas.Identity.Pages.Account
                 {
                     UserName = Input.Email,
                     Email = Input.Email,
-                    CompanyId = Input.CompanyId,
                     StreetAddress = Input.StreetAddress,
                     City = Input.City,
                     State = Input.State,
@@ -132,35 +122,12 @@ namespace FptBookStore.Areas.Identity.Pages.Account
                 {
                     _logger.LogInformation("User created a new account with password.");
 
-                    if (!await _roleManager.RoleExistsAsync(UserRole.Admin))
-                    {
-                        await _roleManager.CreateAsync(new IdentityRole(UserRole.Admin));
-                    }
-                    if (!await _roleManager.RoleExistsAsync(UserRole.Employee))
-                    {
-                        await _roleManager.CreateAsync(new IdentityRole(UserRole.Employee));
-                    }
-                    if (!await _roleManager.RoleExistsAsync(UserRole.User_Individual))
-                    {
-                        await _roleManager.CreateAsync(new IdentityRole(UserRole.User_Individual));
-                    }
-                    if (!await _roleManager.RoleExistsAsync(UserRole.User_Company))
-                    {
-                        await _roleManager.CreateAsync(new IdentityRole(UserRole.User_Company));
-                    }
-
-                    //await _userManager.AddToRoleAsync(user, Role.Employee);
                     if (user.Role == null)
                     {
                         await _userManager.AddToRoleAsync(user, UserRole.User_Individual);
                     }
                     else
                     {
-                        if (user.CompanyId > 0)
-                        {
-                            await _userManager.AddToRoleAsync(user, UserRole.User_Company);
-                        }
-
                         await _userManager.AddToRoleAsync(user, user.Role);
                     }
 
@@ -204,12 +171,6 @@ namespace FptBookStore.Areas.Identity.Pages.Account
             // If we got this far, something failed, redisplay form
             Input = new InputModel
             {
-                CompanyList = _unitOfWork.Company.GetAll().Select(c => new SelectListItem
-                {
-                    Text = c.Name,
-                    Value = c.Id.ToString()
-
-                }),
                 RoleList = _roleManager.Roles.Where(r => r.Name != UserRole.User_Individual).Select(r => new SelectListItem
                 {
                     Text = r.Name,
