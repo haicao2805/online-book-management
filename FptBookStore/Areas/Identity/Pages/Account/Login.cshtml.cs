@@ -93,7 +93,7 @@ namespace FptBookStore.Areas.Identity.Pages.Account
                 {
                     var user = _unitOfWork.ApplicationUser.GetFirstOrDefault(item => item.Email == Input.Email);
                     int count = _unitOfWork.ShoppingCart.GetAll(item => item.ApplicationUserId == user.Id).ToList().Count();
-                    HttpContext.Session.SetInt32(SessionKey.ShoppingCart, count);
+                    HttpContext.Session.SetInt32(SessionKey.ShoppingCartCount, count);
 
                     _logger.LogInformation("User logged in.");
                     return LocalRedirect(returnUrl);

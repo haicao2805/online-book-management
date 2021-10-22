@@ -70,12 +70,12 @@
 
                         @if (User.IsInRole(UserRole.User_Individual))
                         {
-                            @if (HttpContextAccessor.HttpContext.Session.GetInt32(SessionKey.ShoppingCart) != null)
+                            @if (HttpContextAccessor.HttpContext.Session.GetInt32(SessionKey.ShoppingCartCount) != null)
                             {
                                 <li style="color:white;">
                                     <a asp-area="Customer" asp-controller="Cart" asp-action="Index" class="nav-link">
                                         @{
-                                            var count = HttpContextAccessor.HttpContext.Session.GetInt32(SessionKey.ShoppingCart);
+                                            var count = HttpContextAccessor.HttpContext.Session.GetInt32(SessionKey.ShoppingCartCount);
                                         }
                                         Cart(@count)
                                     </a>
@@ -106,7 +106,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2021 - FptBookStore - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2021 - FptBookStore
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

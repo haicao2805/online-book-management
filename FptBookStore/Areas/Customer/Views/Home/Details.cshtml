@@ -1,4 +1,7 @@
 ﻿@model FptBookStore.Entities.ShoppingCart
+@{
+    var errorMessage = ViewData["errorMessage"];
+}
 
 <form method="post">
     <input type="hidden" asp-for="ProductId" />
@@ -58,6 +61,7 @@
                                     <h4>Count</h4>
                                 </div>
                                 <div class="col-10"><input class="form-control" asp-for="Count" /></div>
+                                <span asp-validation-for="Count" class="text-danger"></span>
                             </div>
                         </div>
                         <div class="col-12 col-lg-3 offset-lg-1 text-center">
@@ -79,6 +83,11 @@
                             Add to Cart
                         </button>
 
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="col-5 offset-7">
+                        <p class="text-danger">@errorMessage</p>
                     </div>
                 </div>
             </div>

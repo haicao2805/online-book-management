@@ -1,5 +1,4 @@
-﻿
-using FptBookStore.DataAccess.BaseRepository.Interface;
+﻿using FptBookStore.DataAccess.BaseRepository.Interface;
 using FptBookStore.Entities;
 using FptBookStore.Utility;
 using FptBookStore.ViewModels;
@@ -32,13 +31,9 @@ namespace FptBookStore.Areas.Customer.Controllers
         {
             IEnumerable<Product> productList = _unitOfWork.Product.GetAll(includeProperties: "Category");
 
-            var claimsIdentity = (ClaimsIdentity)User.Identity;
-            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
-            if (claim != null)
-            {
-                var count = _unitOfWork.ShoppingCart.GetAll(item => item.ApplicationUserId == claim.Value).ToList().Count();
-                HttpContext.Session.SetInt32(SessionKey.ShoppingCart, count);
-            }
+            var listCart = HttpContext.Session.GetObject<List<(int, int)>>(SessionKey.ShoppingCartList);
+            HttpContext.Session.SetInt32(SessionKey.ShoppingCartCount, listCart == null ? 0 : listCart.Count);
+
             return View(productList);
         }
 
@@ -62,37 +57,76 @@ namespace FptBookStore.Areas.Customer.Controllers
         {
             if (ModelState.IsValid)
             {
-                var claimsIdentity = (ClaimsIdentity)User.Identity;
-                var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
-                cartObj.ApplicationUserId = claim.Value;
+                Product product = _unitOfWork.Product.GetFirstOrDefault(item => item.Id == cartObj.ProductId, includeProperties: "Category");
 
-                ShoppingCart cartFromDatabase = _unitOfWork.ShoppingCart.GetFirstOrDefault(
-                    item => item.ApplicationUserId == cartObj.ApplicationUserId
-                             && item.ProductId == cartObj.ProductId,
-                    includeProperties: "Product");
-
-                if (cartFromDatabase == null)
+                List<(int, int)> listCart = HttpContext.Session.GetObject<List<(int, int)>>(SessionKey.ShoppingCartList);
+                if (listCart == null)
                 {
-                    ShoppingCart newCart = new ShoppingCart()
+                    if (product.Quantity < cartObj.Count)
                     {
-                        Price = cartObj.Price,
-                        Count = cartObj.Count,
-                        Product = cartObj.Product,
-                        ProductId = cartObj.ProductId,
-                        ApplicationUser = cartObj.ApplicationUser,
-                        ApplicationUserId = cartObj.ApplicationUserId
-                    };
-                    _unitOfWork.ShoppingCart.Add(newCart);
+                        ViewData["errorMessage"] = "Cannot add more than the remaining quantity";
+                        ShoppingCart shoppingCart = new ShoppingCart()
+                        {
+                            Product = product,
+                            ProductId = product.Id
+
+                        };
+                        return View(shoppingCart);
+                    }
+                    else
+                    {
+                        listCart = new List<(int, int)>();
+                        listCart.Add((product.Id, cartObj.Count));
+                    }
                 }
                 else
                 {
-                    cartFromDatabase.Count += cartObj.Count;
-                    _unitOfWork.ShoppingCart.Update(cartFromDatabase);
-                }
-                _unitOfWork.Save();
+                    bool IsContainThisBook = false;
+                    for (int i = 0; i < listCart.Count; i++)
+                    {
+                        if (listCart[i].Item1 == product.Id)
+                        {
+                            if (product.Quantity < listCart[i].Item2 + cartObj.Count)
+                            {
+                                ViewData["errorMessage"] = "Cannot add more than the remaining quantity";
+                                ShoppingCart shoppingCart = new ShoppingCart()
+                                {
+                                    Product = product,
+                                    ProductId = product.Id
 
-                var count = _unitOfWork.ShoppingCart.GetAll(item => item.ApplicationUserId == cartObj.ApplicationUserId).ToList().Count();
-                HttpContext.Session.SetInt32(SessionKey.ShoppingCart, count);
+                                };
+                                return View(shoppingCart);
+                            }
+                            else
+                            {
+                                listCart[i] = (listCart[i].Item1, listCart[i].Item2 + cartObj.Count);
+                            }
+                            IsContainThisBook = true;
+                            break;
+                        }
+                    }
+                    if (!IsContainThisBook)
+                    {
+                        if (product.Quantity < cartObj.Count)
+                        {
+                            ViewData["errorMessage"] = "Cannot add more than the remaining quantity";
+                            ShoppingCart shoppingCart = new ShoppingCart()
+                            {
+                                Product = product,
+                                ProductId = product.Id
+
+                            };
+                            return View(shoppingCart);
+                        }
+                        else
+                        {
+                            listCart.Add((product.Id, cartObj.Count));
+                        }
+                    }
+                }
+
+                HttpContext.Session.SetObject(SessionKey.ShoppingCartList, listCart);
+                HttpContext.Session.SetInt32(SessionKey.ShoppingCartCount, listCart.Count);
 
                 return RedirectToAction(nameof(Index));
             }
