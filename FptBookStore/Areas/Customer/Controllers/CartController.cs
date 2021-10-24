@@ -292,6 +292,9 @@ namespace FptBookStore.Areas.Customer.Controllers
                     Count = item.Count
                 };
 
+                Product product = _unitOfWork.Product.GetFirstOrDefault(p => p.Id == item.ProductId);
+                product.Quantity = product.Quantity - item.Count;
+                _unitOfWork.Product.Update(product);
                 ShoppingCartVM.OrderHeader.OrderTotal += orderDetail.Price * orderDetail.Count;
                 _unitOfWork.OrderDetail.Add(orderDetail);
             }
