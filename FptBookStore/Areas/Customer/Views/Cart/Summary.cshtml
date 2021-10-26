@@ -30,7 +30,7 @@
                                         <label>Name</label>
                                     </div>
                                     <div class="col-9">
-                                        <input asp-for="OrderHeader.Name" type="text" class="form-control" />
+                                        <input asp-for="OrderHeader.Name" type="text" class="form-control" readonly />
                                         <span asp-validation-for="OrderHeader.Name" class="text-danger"></span>
                                     </div>
                                 </div>
@@ -39,7 +39,7 @@
                                         <label>PhoneNumber</label>
                                     </div>
                                     <div class="col-9">
-                                        <input asp-for="OrderHeader.PhoneNumber" type="text" class="form-control" />
+                                        <input asp-for="OrderHeader.PhoneNumber" type="text" class="form-control" readonly />
                                         <span asp-validation-for="OrderHeader.PhoneNumber" class="text-danger"></span>
                                     </div>
                                 </div>
@@ -48,7 +48,7 @@
                                         <label>StreetAddress</label>
                                     </div>
                                     <div class="col-9">
-                                        <input asp-for="OrderHeader.StreetAddress" type="text" class="form-control" />
+                                        <input asp-for="OrderHeader.StreetAddress" type="text" class="form-control" readonly />
                                         <span asp-validation-for="OrderHeader.StreetAddress" class="text-danger"></span>
                                     </div>
                                 </div>
@@ -57,7 +57,7 @@
                                         <label>City</label>
                                     </div>
                                     <div class="col-9">
-                                        <input asp-for="OrderHeader.City" type="text" class="form-control" />
+                                        <input asp-for="OrderHeader.City" type="text" class="form-control" readonly />
                                         <span asp-validation-for="OrderHeader.City" class="text-danger"></span>
                                     </div>
                                 </div>
@@ -66,7 +66,7 @@
                                         <label>State</label>
                                     </div>
                                     <div class="col-9">
-                                        <input asp-for="OrderHeader.State" type="text" class="form-control" />
+                                        <input asp-for="OrderHeader.State" type="text" class="form-control" readonly />
                                         <span asp-validation-for="OrderHeader.State" class="text-danger"></span>
                                     </div>
                                 </div>
@@ -75,7 +75,7 @@
                                         <label>PostalCode</label>
                                     </div>
                                     <div class="col-9">
-                                        <input asp-for="OrderHeader.PostalCode" type="text" class="form-control" />
+                                        <input asp-for="OrderHeader.PostalCode" type="text" class="form-control" readonly />
                                         <span asp-validation-for="OrderHeader.PostalCode" class="text-danger"></span>
                                     </div>
                                 </div>
@@ -95,7 +95,7 @@
                                             </div>
                                             <span class="text-muted">@(item.Price * @item.Count)</span>
                                         </li>
-}
+                                    }
                                     <li class="list-group-item d-flex justify-content-between bg-light">
                                         <small class="text-info">Total</small>
                                         <strong class="text-info">@Model.OrderHeader.OrderTotal</strong>
@@ -122,7 +122,7 @@
                                     data-allow-remember-me="false"
                                     data-image="https://stripe.com/img/documentation/checkout/marketplace.png"></script>
                             <script>
-                                    document.getElementsByClassName("stripe-button-el")[0].style.display = "none";
+                                document.getElementsByClassName("stripe-button-el")[0].style.display = "none";
                             </script>
                             <button type="submit" value="Place Order" class="btn btn-primary form-control">Place Order</button>
                         </div>

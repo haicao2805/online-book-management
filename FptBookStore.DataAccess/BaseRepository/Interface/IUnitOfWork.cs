@@ -3,7 +3,6 @@ using FptBookStore.DataAccess.IdentityUserRole;
 using FptBookStore.DataAccess.OrderDetails;
 using FptBookStore.DataAccess.Orders;
 using FptBookStore.DataAccess.Products;
-using FptBookStore.DataAccess.ShoppingCarts;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -22,7 +21,6 @@ namespace FptBookStore.DataAccess.BaseRepository.Interface
         IApplicationUserRepository ApplicationUser { get; }
         IIdentityUserRoleRepository IdentityUserRole { get; }
         IIdentityRoleRepository IdentityRole { get; }
-        IShoppingCartRepository ShoppingCart { get; }
         IOrderDetailRepository OrderDetail { get; }
         IOrderHeaderRepository OrderHeader { get; }
         ISP_Call SP_Call { get; }

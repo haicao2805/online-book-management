@@ -31,7 +31,6 @@
 	  <Folder Include="Products\" />
 	  <Folder Include="Categories\" />
 	  <Folder Include="OrderDetails\" />
-	  <Folder Include="ShoppingCarts\" />
 	  <Folder Include="Orders\" />
 	  <Folder Include="IdentityUserRole\" />
 	</ItemGroup>
