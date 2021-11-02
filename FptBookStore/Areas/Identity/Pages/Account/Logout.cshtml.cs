@@ -30,7 +30,7 @@ namespace FptBookStore.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnPost(string returnUrl = null)
         {
-            HttpContext.Session.SetInt32(SessionKey.ShoppingCart, 0);
+            HttpContext.Session.SetInt32(SessionKey.ShoppingCartCount, 0);
             await _signInManager.SignOutAsync();
             _logger.LogInformation("User logged out.");
             if (returnUrl != null)

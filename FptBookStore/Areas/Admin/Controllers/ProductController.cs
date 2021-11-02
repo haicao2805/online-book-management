@@ -41,12 +41,7 @@ namespace FptBookStore.Areas.Admin.Controllers
                 {
                     Text = category.Name,
                     Value = category.Id.ToString()
-                }),
-                //CoverTypeList = _unitOfWork.CoverType.GetAll().Select(coverType => new SelectListItem
-                //{
-                //    Text = coverType.Name,
-                //    Value = coverType.Id.ToString()
-                //})
+                })
             };
 
             if (id == null)
@@ -122,11 +117,6 @@ namespace FptBookStore.Areas.Admin.Controllers
                     Text = category.Name,
                     Value = category.Id.ToString()
                 });
-                //productViewModel.CoverTypeList = _unitOfWork.CoverType.GetAll().Select(coverType => new SelectListItem
-                //{
-                //    Text = coverType.Name,
-                //    Value = coverType.Id.ToString()
-                //});
                 if (productViewModel.Product.Id != 0)
                 {
                     productViewModel.Product = _unitOfWork.Product.Get(productViewModel.Product.Id);
@@ -165,7 +155,6 @@ namespace FptBookStore.Areas.Admin.Controllers
             {
                 string webRootPath = _webHostEnv.WebRootPath;
                 var imagePath = Path.Combine(webRootPath, obj.ImageUrl.TrimStart('\\'));
-                Console.WriteLine(imagePath);
                 if (System.IO.File.Exists(imagePath))
                 {
                     System.IO.File.Delete(imagePath);

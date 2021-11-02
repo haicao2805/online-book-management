@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -91,10 +91,8 @@ namespace FptBookStore.Areas.Identity.Pages.Account
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
-                    var a = _unitOfWork.ApplicationUser;
-                    var user = a.GetFirstOrDefault(item => item.Email.Equals(Input.Email));
-                    int count = _unitOfWork.ShoppingCart.GetAll(item => item.ApplicationUserId == user.Id).ToList().Count();
-                    HttpContext.Session.SetInt32(SessionKey.ShoppingCart, count);
+
+                    var user = _unitOfWork.ApplicationUser.GetFirstOrDefault(item => item.Email == Input.Email);
 
                     _logger.LogInformation("User logged in.");
                     return LocalRedirect(returnUrl);

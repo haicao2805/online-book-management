@@ -8,6 +8,7 @@ namespace FptBookStore.Utility
 {
     public class SessionKey
     {
-        public const string ShoppingCart = "SessionKey_ShoppingCart";
+        public const string ShoppingCartCount = "SessionKey_ShoppingCartCount";
+        public const string ShoppingCartList = "SessionKey_ShoppingCartList";
     }
 }
