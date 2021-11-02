@@ -7,6 +7,7 @@ using FptBookStore.DataAccess.Orders;
 using FptBookStore.DataAccess.Products;
 using FptBookStore.DataAccess.Repository;
 using FptBookStore.DataAccess.ShoppingCarts;
+using FptBookStore.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,9 +30,9 @@ namespace FptBookStore.DataAccess.Categories
         public IOrderHeaderRepository OrderHeader { get; private set; }
         public ISP_Call SP_Call { get; private set; }
 
-        IApplicationUserRepository IUnitOfWork.ApplicationUser => throw new NotImplementedException();
+        IApplicationUserRepository IUnitOfWork.ApplicationUser => ApplicationUser;
 
-        IIdentityRoleRepository IUnitOfWork.IdentityRole => throw new NotImplementedException();
+        IIdentityRoleRepository IUnitOfWork.IdentityRole => IdentityRole;
 
         public UnitOfWork(ApplicationDbContext db)
         {
