@@ -23,7 +23,8 @@ namespace FptBookStore.Areas.Admin.Controllers
         }
         public IActionResult Index()
         {
-            return View();
+            IEnumerable<Category>categoriesList =  _unitOfWork.Category.GetAll();
+            return View(categoriesList);
         }
 
         public IActionResult Upsert(int? id)
