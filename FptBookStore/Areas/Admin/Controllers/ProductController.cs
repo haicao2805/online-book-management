@@ -72,7 +72,7 @@ namespace FptBookStore.Areas.Admin.Controllers
                     string fileName = Guid.NewGuid().ToString();
                     var uploadFolder = Path.Combine(webRootPath, "image/product");
                     var extension = Path.GetExtension(files[0].FileName);
-
+                    productViewModel.Product.CreatedDate = DateTime.Now;
                     if (productViewModel.Product.ImageUrl != null)
                     {
                         // Update image mới, ta xóa image cái cũ và update image mới

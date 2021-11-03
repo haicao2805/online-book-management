@@ -45,5 +45,7 @@ namespace FptBookStore.Entities
         [Required]
         [Range(0, 10000)]
         public int Quantity { get; set; }
+
+        public DateTime CreatedDate { get; set; }
     }
 }
