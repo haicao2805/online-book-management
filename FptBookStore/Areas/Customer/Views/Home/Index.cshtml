@@ -1,8 +1,97 @@
 ﻿@model HomeViewModel
-<head>
-    <link rel="stylesheet" href="~/css/theme.css">
-</head>
+@{
+    Layout = "~/Views/shared/_layout.cshtml";
+}
 <body class="left-sidebar">
+    <section class="space-bottom-3">
+        <div class="bg-gray-200 space-2 space-lg-0 bg-img-hero" style="background-image: url(img/1920x588/img1.jpg);">
+            <div class="container">
+                <div class="js-slick-carousel u-slick slick-initialized slick-slider slick-dotted" data-pagi-classes="text-center u-slick__pagination position-absolute right-0 left-0 mb-n8 mb-lg-4 bottom-0">
+                    <div class="slick-list draggable">
+                        <div class="slick-track" style="opacity: 1; width: 4680px; transform: translate3d(0px, 0px, 0px);">
+                            <div class="js-slide slick-slide slick-current slick-active" data-slick-index="0" aria-hidden="false" style="width: 1170px; height: auto;" tabindex="0" role="tabpanel" id="slick-slide00" aria-describedby="slick-slide-control00">
+                                <div class="hero row min-height-588 align-items-center">
+                                    <div class="col-lg-7 col-wd-6 mb-4 mb-lg-0">
+                                        <div class="media-body mr-wd-4 align-self-center mb-4 mb-md-0">
+                                            <p class="hero__pretitle text-uppercase font-weight-bold text-gray-400 mb-2 animated fadeInUp" data-scs-animation-in="fadeInUp" data-scs-animation-delay="200" style="animation-delay: 200ms; opacity: 1;">The FptBook Editors'</p>
+                                            <h2 class="hero__title font-size-14 mb-4 animated fadeInUp" data-scs-animation-in="fadeInUp" data-scs-animation-delay="300" style="animation-delay: 300ms; opacity: 1;">
+                                                <span class="hero__title-line-1 font-weight-regular d-block">Featured Books of the</span>
+                                                <span class="hero__title-line-2 font-weight-bold d-block">February</span>
+                                            </h2>
+                                            <a href="../shop/v1.html" class="btn btn-dark btn-wide rounded-0 hero__btn animated fadeInLeft" data-scs-animation-in="fadeInLeft" data-scs-animation-delay="400" tabindex="0" style="animation-delay: 400ms; opacity: 1;">See More</a>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-5 col-wd-6 animated fadeInRight" data-scs-animation-in="fadeInRight" data-scs-animation-delay="500" style="animation-delay: 500ms; opacity: 1;">
+                                        <img class="img-fluid" src="img/800x420/img1.png" alt="image-description">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="js-slide slick-slide" data-slick-index="1" aria-hidden="true" style="width: 1170px; height: auto;" tabindex="-1" role="tabpanel" id="slick-slide01" aria-describedby="slick-slide-control01">
+                                <div class="hero row min-height-588 align-items-center">
+                                    <div class="col-lg-7 col-wd-6 mb-4 mb-lg-0">
+                                        <div class="media-body mr-wd-4 align-self-center mb-4 mb-md-0">
+                                            <p class="hero__pretitle text-uppercase font-weight-bold text-gray-400 mb-2" data-scs-animation-in="fadeInUp" data-scs-animation-delay="200" style="opacity: 1; animation-delay: 200ms;">The FptBook Editors'</p>
+                                            <h2 class="hero__title font-size-14 mb-4" data-scs-animation-in="fadeInUp" data-scs-animation-delay="300" style="opacity: 1; animation-delay: 300ms;">
+                                                <span class="hero__title-line-1 font-weight-regular d-block">Featured Books of the</span>
+                                                <span class="hero__title-line-2 font-weight-bold d-block">February</span>
+                                            </h2>
+                                            <a href="../shop/v1.html" class="btn btn-dark btn-wide rounded-0 hero__btn" data-scs-animation-in="fadeInLeft" data-scs-animation-delay="400" tabindex="-1" style="opacity: 1; animation-delay: 400ms;">See More</a>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-5 col-wd-6" data-scs-animation-in="fadeInRight" data-scs-animation-delay="500" style="opacity: 1; animation-delay: 500ms;">
+                                        <img class="img-fluid" src="img/800x420/img1.png" alt="image-description">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="js-slide slick-slide" data-slick-index="2" aria-hidden="true" style="width: 1170px; height: auto;" tabindex="-1" role="tabpanel" id="slick-slide02" aria-describedby="slick-slide-control02">
+                                <div class="hero row min-height-588 align-items-center">
+                                    <div class="col-lg-7 col-wd-6 mb-4 mb-lg-0">
+                                        <div class="media-body mr-wd-4 align-self-center mb-4 mb-md-0">
+                                            <p class="hero__pretitle text-uppercase font-weight-bold text-gray-400 mb-2" data-scs-animation-in="fadeInUp" data-scs-animation-delay="200" style="opacity: 1; animation-delay: 200ms;">The FptBook Editors'</p>
+                                            <h2 class="hero__title font-size-14 mb-4" data-scs-animation-in="fadeInUp" data-scs-animation-delay="300" style="opacity: 1; animation-delay: 300ms;">
+                                                <span class="hero__title-line-1 font-weight-regular d-block">Featured Books of the</span>
+                                                <span class="hero__title-line-2 font-weight-bold d-block">February</span>
+                                            </h2>
+                                            <a href="../shop/v1.html" class="btn btn-dark btn-wide rounded-0 hero__btn" data-scs-animation-in="fadeInLeft" data-scs-animation-delay="400" tabindex="-1" style="opacity: 1; animation-delay: 400ms;">See More</a>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-5 col-wd-6" data-scs-animation-in="fadeInRight" data-scs-animation-delay="500" style="opacity: 1; animation-delay: 500ms;">
+                                        <img class="img-fluid" src="~/img/800x420/img1.png" alt="image-description">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="js-slide slick-slide" data-slick-index="3" aria-hidden="true" style="width: 1170px; height: auto;" tabindex="-1" role="tabpanel" id="slick-slide03" aria-describedby="slick-slide-control03">
+                                <div class="hero row min-height-588 align-items-center">
+                                    <div class="col-lg-7 col-wd-6 mb-4 mb-lg-0">
+                                        <div class="media-body mr-wd-4 align-self-center mb-4 mb-md-0">
+                                            <p class="hero__pretitle text-uppercase font-weight-bold text-gray-400 mb-2" data-scs-animation-in="fadeInUp" data-scs-animation-delay="200" style="opacity: 1; animation-delay: 200ms;">The FptBook Editors'</p>
+                                            <h2 class="hero__title font-size-14 mb-4" data-scs-animation-in="fadeInUp" data-scs-animation-delay="300" style="opacity: 1; animation-delay: 300ms;">
+                                                <span class="hero__title-line-1 font-weight-regular d-block">Featured Books of the</span>
+                                                <span class="hero__title-line-2 font-weight-bold d-block">February</span>
+                                            </h2>
+                                            <a href="../shop/v1.html" class="btn btn-dark btn-wide rounded-0 hero__btn" data-scs-animation-in="fadeInLeft" data-scs-animation-delay="400" tabindex="-1" style="opacity: 1; animation-delay: 400ms;">See More</a>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-5 col-wd-6" data-scs-animation-in="fadeInRight" data-scs-animation-delay="500" style="opacity: 1; animation-delay: 500ms;">
+                                        <img class="img-fluid" src="~/img/800x420/img1.png" alt="image-description">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <ul class="js-pagination text-center u-slick__pagination position-absolute right-0 left-0 mb-n8 mb-lg-4 bottom-0" style="" role="tablist">
+                        <li class="slick-active-right slick-active slick-current" role="presentation"><span></span></li>
+                        <li role="presentation" class=""><span></span></li>
+                        <li role="presentation" class=""><span></span></li>
+                        <li role="presentation" class=""><span></span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
     <div class="site-content space-bottom-3" id="content">
         <div class="container">
             <div class="row pt-4 mt-4">
