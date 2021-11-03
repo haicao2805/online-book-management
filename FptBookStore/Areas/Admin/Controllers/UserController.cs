@@ -24,7 +24,8 @@ namespace FptBookStore.Areas.Admin.Controllers
         }
         public IActionResult Index()
         {
-            return View();
+            IEnumerable<ApplicationUser> usersList = _unitOfWork.ApplicationUser.GetAll();
+            return View(usersList);
         }
 
         #region API Call
