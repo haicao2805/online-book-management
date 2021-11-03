@@ -33,6 +33,8 @@ namespace FptBookStore.Areas.Customer.Controllers
         {
             Console.WriteLine("CategoryId: " + categoryId);
             IEnumerable<Product> productList;
+            IEnumerable<Product> newestProductList = new List<Product>();
+
             if (categoryId != null)
             {
                 productList = _unitOfWork.Product.GetAll((product => product.CategoryId == (categoryId)), includeProperties: "Category");
@@ -42,10 +44,13 @@ namespace FptBookStore.Areas.Customer.Controllers
                 productList = _unitOfWork.Product.GetAll(includeProperties: "Category");
             }
 
+            //newestProductList = _unitOfWork.Product.GetAll((product => product.))
+
+
             IEnumerable<Category> categories = _unitOfWork.Category.GetAll();
             var listCart = HttpContext.Session.GetObject<List<(int, int)>>(SessionKey.ShoppingCartList);
             HttpContext.Session.SetInt32(SessionKey.ShoppingCartCount, listCart == null ? 0 : listCart.Count);
-            var viewModel = new HomeViewModel(productList.ToList(), categories.ToList());
+            var viewModel = new HomeViewModel(productList.ToList(), categories.ToList(), newestProductList.ToList());
             return View(viewModel);
         }
 
