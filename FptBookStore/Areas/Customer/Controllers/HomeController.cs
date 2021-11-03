@@ -1,4 +1,5 @@
-﻿using FptBookStore.DataAccess.BaseRepository.Interface;
+﻿using FptBookStore.Areas.Customer.ViewModels;
+using FptBookStore.DataAccess.BaseRepository.Interface;
 using FptBookStore.Entities;
 using FptBookStore.Utility;
 using FptBookStore.ViewModels;
@@ -27,14 +28,25 @@ namespace FptBookStore.Areas.Customer.Controllers
             _unitOfWork = unitOfWork;
         }
 
-        public IActionResult Index()
+        [HttpGet]
+        public IActionResult Index(int? categoryId)
         {
-            IEnumerable<Product> productList = _unitOfWork.Product.GetAll(includeProperties: "Category");
+            Console.WriteLine("CategoryId: " + categoryId);
+            IEnumerable<Product> productList;
+            if (categoryId != null)
+            {
+                productList = _unitOfWork.Product.GetAll((product => product.CategoryId == (categoryId)), includeProperties: "Category");
+            }
+            else
+            {
+                productList = _unitOfWork.Product.GetAll(includeProperties: "Category");
+            }
 
+            IEnumerable<Category> categories = _unitOfWork.Category.GetAll();
             var listCart = HttpContext.Session.GetObject<List<(int, int)>>(SessionKey.ShoppingCartList);
             HttpContext.Session.SetInt32(SessionKey.ShoppingCartCount, listCart == null ? 0 : listCart.Count);
-
-            return View(productList);
+            var viewModel = new HomeViewModel(productList.ToList(), categories.ToList());
+            return View(viewModel);
         }
 
         [Authorize(Roles = UserRole.User_Individual)]

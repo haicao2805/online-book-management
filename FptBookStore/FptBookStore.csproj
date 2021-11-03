@@ -33,9 +33,11 @@
 
 	<ItemGroup>
 	  <Folder Include="wwwroot\image\product\" />
+	  <Folder Include="Areas\Customer\ViewModels\" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <None Remove="ViewModels\" />
+	  <None Remove="Areas\Customer\ViewModels\" />
 	</ItemGroup>
 </Project>
