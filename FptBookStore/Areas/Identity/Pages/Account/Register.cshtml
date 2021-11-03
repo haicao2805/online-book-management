@@ -60,10 +60,13 @@
                 <span asp-validation-for="Input.PostalCode" class="text-danger"></span>
             </div>
 
-            <div class="form-group">
-                <label asp-for="Input.Role"></label>
-                @Html.DropDownListFor(item => item.Input.Role, Model.Input.RoleList, "--Please select a role--", new { @class = "form-control" })
-            </div>
+            @if (User.IsInRole(UserRole.Admin))
+            {
+                <div class="form-group">
+                    <label asp-for="Input.Role"></label>
+                    @Html.DropDownListFor(item => item.Input.Role, Model.Input.RoleList, "--Please select a role--", new { @class = "form-control" })
+                </div>
+            }
 
             <button type="submit" class="btn btn-primary">Register</button>
         </form>

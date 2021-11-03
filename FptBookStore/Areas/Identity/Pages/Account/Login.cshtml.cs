@@ -94,7 +94,7 @@ namespace FptBookStore.Areas.Identity.Pages.Account
 
                     var user = _unitOfWork.ApplicationUser.GetFirstOrDefault(item => item.Email == Input.Email);
 
-                    _logger.LogInformation("User logged in.");
+                    _logger.LogInformation("User logged in." + user.Role);
                     return LocalRedirect(returnUrl);
                 }
                 if (result.RequiresTwoFactor)

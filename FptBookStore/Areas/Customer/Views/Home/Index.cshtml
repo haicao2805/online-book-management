@@ -23,11 +23,11 @@
                                             <div class="product__inner overflow-hidden p-3 p-md-4d875">
                                                 <div class="woocommerce-LoopProduct-link woocommerce-loop-product__link d-block position-relative">
                                                     <div class="woocommerce-loop-product__thumbnail">
-                                                        <a asp-action="Details" asp-route-id="@product.Id" class="d-block"><img src="@product.ImageUrl" class="img-fluid d-block mx-auto attachment-shop_catalog size-shop_catalog wp-post-image img-fluid" alt="image-description"></a>
+                                                        <a asp-area="Customer" asp-action="Index" asp-controller="Detail" asp-route-id="@product.Id" class="d-block"><img src="@product.ImageUrl" class="img-fluid d-block mx-auto attachment-shop_catalog size-shop_catalog wp-post-image img-fluid" alt="image-description"></a>
                                                     </div>
                                                     <div class="woocommerce-loop-product__body product__body pt-3 bg-white">
-                                                        <h2 class="woocommerce-loop-product__title product__title h6 text-lh-md mb-1 text-height-2 crop-text-2 h-dark"><a asp-action="Details" asp-route-id="@product.Id">@product.Title</a></h2>
-                                                        <div class="font-size-2  mb-1 text-truncate"><a href="../others/authors-single.html" class="text-gray-700">@product.Author</a></div>
+                                                        <h2 class="woocommerce-loop-product__title product__title h6 text-lh-md mb-1 text-height-2 crop-text-2 h-dark"><a asp-area="Customer" asp-action="Index" asp-controller="Detail" asp-route-id="@product.Id">@product.Title</a></h2>
+                                                        <div class="font-size-2  mb-1 text-truncate"><a class="text-gray-700">@product.Author</a></div>
                                                         <div class="price d-flex align-items-center font-weight-medium font-size-3">
                                                             <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>@product.Price</span>
                                                         </div>
