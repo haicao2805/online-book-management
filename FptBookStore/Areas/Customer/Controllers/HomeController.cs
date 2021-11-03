@@ -1,4 +1,5 @@
-﻿using FptBookStore.DataAccess.BaseRepository.Interface;
+﻿using FptBookStore.Areas.Customer.ViewModels;
+using FptBookStore.DataAccess.BaseRepository.Interface;
 using FptBookStore.Entities;
 using FptBookStore.Utility;
 using FptBookStore.ViewModels;
@@ -27,120 +28,30 @@ namespace FptBookStore.Areas.Customer.Controllers
             _unitOfWork = unitOfWork;
         }
 
-        public IActionResult Index()
+        [HttpGet]
+        public IActionResult Index(int? categoryId)
         {
-            IEnumerable<Product> productList = _unitOfWork.Product.GetAll(includeProperties: "Category");
+            Console.WriteLine("CategoryId: " + categoryId);
+            IEnumerable<Product> productList;
+            IEnumerable<Product> newestProductList = new List<Product>();
 
-            var listCart = HttpContext.Session.GetObject<List<(int, int)>>(SessionKey.ShoppingCartList);
-            HttpContext.Session.SetInt32(SessionKey.ShoppingCartCount, listCart == null ? 0 : listCart.Count);
-
-            return View(productList);
-        }
-
-        [Authorize(Roles = UserRole.User_Individual)]
-        public IActionResult Details(int id)
-        {
-            var product = _unitOfWork.Product.GetFirstOrDefault(item => item.Id == id, includeProperties: "Category");
-            ShoppingCart shoppingCart = new ShoppingCart()
+            if (categoryId != null)
             {
-                Product = product,
-                ProductId = product.Id
-
-            };
-            return View(shoppingCart);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [Authorize(Roles = UserRole.User_Individual)]
-        public IActionResult Details(ShoppingCart cartObj)
-        {
-            if (ModelState.IsValid)
-            {
-                Product product = _unitOfWork.Product.GetFirstOrDefault(item => item.Id == cartObj.ProductId, includeProperties: "Category");
-
-                List<(int, int)> listCart = HttpContext.Session.GetObject<List<(int, int)>>(SessionKey.ShoppingCartList);
-                if (listCart == null)
-                {
-                    if (product.Quantity < cartObj.Count)
-                    {
-                        ViewData["errorMessage"] = "Cannot add more than the remaining quantity";
-                        ShoppingCart shoppingCart = new ShoppingCart()
-                        {
-                            Product = product,
-                            ProductId = product.Id
-
-                        };
-                        return View(shoppingCart);
-                    }
-                    else
-                    {
-                        listCart = new List<(int, int)>();
-                        listCart.Add((product.Id, cartObj.Count));
-                    }
-                }
-                else
-                {
-                    bool IsContainThisBook = false;
-                    for (int i = 0; i < listCart.Count; i++)
-                    {
-                        if (listCart[i].Item1 == product.Id)
-                        {
-                            if (product.Quantity < listCart[i].Item2 + cartObj.Count)
-                            {
-                                ViewData["errorMessage"] = "Cannot add more than the remaining quantity";
-                                ShoppingCart shoppingCart = new ShoppingCart()
-                                {
-                                    Product = product,
-                                    ProductId = product.Id
-
-                                };
-                                return View(shoppingCart);
-                            }
-                            else
-                            {
-                                listCart[i] = (listCart[i].Item1, listCart[i].Item2 + cartObj.Count);
-                            }
-                            IsContainThisBook = true;
-                            break;
-                        }
-                    }
-                    if (!IsContainThisBook)
-                    {
-                        if (product.Quantity < cartObj.Count)
-                        {
-                            ViewData["errorMessage"] = "Cannot add more than the remaining quantity";
-                            ShoppingCart shoppingCart = new ShoppingCart()
-                            {
-                                Product = product,
-                                ProductId = product.Id
-
-                            };
-                            return View(shoppingCart);
-                        }
-                        else
-                        {
-                            listCart.Add((product.Id, cartObj.Count));
-                        }
-                    }
-                }
-
-                HttpContext.Session.SetObject(SessionKey.ShoppingCartList, listCart);
-                HttpContext.Session.SetInt32(SessionKey.ShoppingCartCount, listCart.Count);
-
-                return RedirectToAction(nameof(Index));
+                productList = _unitOfWork.Product.GetAll((product => product.CategoryId == (categoryId)), includeProperties: "Category");
             }
             else
             {
-                var product = _unitOfWork.Product.GetFirstOrDefault(item => item.Id == cartObj.ProductId, includeProperties: "Category");
-                ShoppingCart shoppingCart = new ShoppingCart()
-                {
-                    Product = product,
-                    ProductId = product.Id
-
-                };
-                return View(shoppingCart);
+                productList = _unitOfWork.Product.GetAll(includeProperties: "Category");
             }
+
+            newestProductList = _unitOfWork.Product.GetAll().OrderBy(product => product.CreatedDate);
+
+
+            IEnumerable<Category> categories = _unitOfWork.Category.GetAll();
+            var listCart = HttpContext.Session.GetObject<List<(int, int)>>(SessionKey.ShoppingCartList);
+            HttpContext.Session.SetInt32(SessionKey.ShoppingCartCount, listCart == null ? 0 : listCart.Count);
+            var viewModel = new HomeViewModel(productList.ToList(), categories.ToList(), newestProductList.ToList());
+            return View(viewModel);
         }
 
         public IActionResult Privacy()

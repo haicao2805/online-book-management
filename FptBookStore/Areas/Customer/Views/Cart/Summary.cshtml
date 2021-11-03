@@ -2,136 +2,225 @@
 @using System.IO
 @using Microsoft.Extensions.Configuration
 
-<form method="post">
-    <br />
-    <div class="backgroundWhiteBorder">
-        <div class="container">
-            <div class="card">
-                <div class="card-header bg-dark text-light ml-0 row container">
-                    <div class="col-6">
-                        <i class="fa fa-shopping-cart"></i> &nbsp;
-                        Order Summary
-                    </div>
-                    <div class="col-6 text-right">
-                        <a asp-area="Customer" asp-controller="Cart" asp-action="Index" class="btn btn-outline-info btn-sm">Back to Cart</a>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="container rounded p-2">
-                        <div class="row">
-                            <div class="col-12 col-lg-6 pb-4">
-                                <div class="row">
-                                    <h4 class="d-flex justify-content-between align-items-center mb-3">
-                                        <span class="text-info">PickUp Details:</span>
-                                    </h4>
-                                </div>
-                                <div class="row my-1">
-                                    <div class="col-3">
-                                        <label>Name</label>
-                                    </div>
-                                    <div class="col-9">
-                                        <input asp-for="OrderHeader.Name" type="text" class="form-control" readonly />
-                                        <span asp-validation-for="OrderHeader.Name" class="text-danger"></span>
-                                    </div>
-                                </div>
-                                <div class="row my-1">
-                                    <div class="col-3">
-                                        <label>PhoneNumber</label>
-                                    </div>
-                                    <div class="col-9">
-                                        <input asp-for="OrderHeader.PhoneNumber" type="text" class="form-control" readonly />
-                                        <span asp-validation-for="OrderHeader.PhoneNumber" class="text-danger"></span>
-                                    </div>
-                                </div>
-                                <div class="row my-1">
-                                    <div class="col-3">
-                                        <label>StreetAddress</label>
-                                    </div>
-                                    <div class="col-9">
-                                        <input asp-for="OrderHeader.StreetAddress" type="text" class="form-control" readonly />
-                                        <span asp-validation-for="OrderHeader.StreetAddress" class="text-danger"></span>
-                                    </div>
-                                </div>
-                                <div class="row my-1">
-                                    <div class="col-3">
-                                        <label>City</label>
-                                    </div>
-                                    <div class="col-9">
-                                        <input asp-for="OrderHeader.City" type="text" class="form-control" readonly />
-                                        <span asp-validation-for="OrderHeader.City" class="text-danger"></span>
-                                    </div>
-                                </div>
-                                <div class="row my-1">
-                                    <div class="col-3">
-                                        <label>State</label>
-                                    </div>
-                                    <div class="col-9">
-                                        <input asp-for="OrderHeader.State" type="text" class="form-control" readonly />
-                                        <span asp-validation-for="OrderHeader.State" class="text-danger"></span>
-                                    </div>
-                                </div>
-                                <div class="row my-1">
-                                    <div class="col-3">
-                                        <label>PostalCode</label>
-                                    </div>
-                                    <div class="col-9">
-                                        <input asp-for="OrderHeader.PostalCode" type="text" class="form-control" readonly />
-                                        <span asp-validation-for="OrderHeader.PostalCode" class="text-danger"></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 col-lg-5 offset-lg-1">
-                                <h4 class="d-flex justify-content-between align-items-center mb-3">
-                                    <span class="text-info">Order Summary:</span>
-                                </h4>
-                                <ul class="list-group mb-3">
-                                    @{ var total = 0.0;}
-                                    @foreach (var item in Model.ListCart)
-                                    {
-                                        <li class="list-group-item d-flex justify-content-between">
-                                            <div>
-                                                <h6 class="my-0">@item.Product.Title</h6>
-                                                <small class="text-muted">Quantity: @item.Count</small>
+@{
+    Layout = "~/Views/Shared/_layout.cshtml";
+}
+<body class="right-sidebar woocommerce-checkout">
+    <div id="content" class="site-content bg-punch-light space-bottom-3">
+        <div class="col-full container">
+            <div id="primary" class="content-area">
+                <main id="main" class="site-main">
+                    <article id="post-6" class="post-6 page type-page status-publish hentry">
+                        <header class="entry-header space-top-2 space-bottom-1 mb-2">
+                            <h4 class="entry-title font-size-7 text-center">Checkout</h4>
+                        </header>
+                        <div class="entry-content">
+                            <div class="woocommerce">
+                                <form name="checkout" method="post" class="checkout woocommerce-checkout row mt-8" action="https://themes.woocommerce.com/storefront/checkout/" enctype="multipart/form-data" novalidate="novalidate">
+                                    <div class="col2-set col-md-6 col-lg-7 col-xl-8 mb-6 mb-md-0" id="customer_details">
+                                        <div class="px-4 pt-5 bg-white border">
+                                            <div class="woocommerce-billing-fields">
+                                                <h3 class="mb-4 font-size-3">Billing details</h3>
+                                                <div class="woocommerce-billing-fields__field-wrapper row">
+                                                    <p class="col-12 mb-4d75 form-row form-row-wide" id="billing_company_field" data-priority="30">
+                                                        <label asp-for="OrderHeader.Name" class="form-label">Full name</label>
+                                                        <input asp-for="OrderHeader.Name" type="text" class="input-text form-control" id="billing_company" placeholder="" autocomplete="organization">
+                                                        <span asp-validation-for="OrderHeader.Name"></span>
+                                                    </p>
+
+                                                    <p class="col-12 mb-4d75 form-row form-row-wide" id="billing_company_field" data-priority="30">
+                                                        <label asp-for="OrderHeader.PhoneNumber" class="form-label">Phone number</label>
+                                                        <input asp-for="OrderHeader.PhoneNumber" type="text" class="input-text form-control" id="billing_company" placeholder="" autocomplete="organization">
+                                                        <span asp-validation-for="OrderHeader.PhoneNumber"></span>
+                                                    </p>
+
+                                                    <p class="col-12 mb-3 form-row form-row-wide address-field validate-required" id="billing_address_1_field" data-priority="50">
+                                                        <label asp-for="OrderHeader.StreetAddress" class="form-label">Street address</label>
+                                                        <input asp-for="OrderHeader.StreetAddress" type="text" class="input-text form-control" id="billing_company" placeholder="" autocomplete="organization">
+                                                        <span asp-validation-for="OrderHeader.StreetAddress"></span>
+                                                    </p>
+                                                    <p class="col-12 mb-3 form-row form-row-wide address-field validate-required" id="billing_address_1_field" data-priority="50">
+                                                        <label asp-for="OrderHeader.City" class="form-label">City</label>
+                                                        <input asp-for="OrderHeader.City" type="text" class="input-text form-control" id="billing_company" placeholder="" autocomplete="organization">
+                                                        <span asp-validation-for="OrderHeader.City"></span>
+                                                    </p>
+                                                    <p class="col-12 mb-3 form-row form-row-wide address-field validate-required" id="billing_address_1_field" data-priority="50">
+                                                        <label asp-for="OrderHeader.State" class="form-label">State</label>
+                                                        <input asp-for="OrderHeader.State" type="text" class="input-text form-control" id="billing_company" placeholder="" autocomplete="organization">
+                                                        <span asp-validation-for="OrderHeader.State"></span>
+                                                    </p>
+                                                    <p class="col-12 mb-3 form-row form-row-wide address-field validate-required" id="billing_address_1_field" data-priority="50">
+                                                        <label asp-for="OrderHeader.PostalCode" class="form-label">Postal code</label>
+                                                        <input asp-for="OrderHeader.PostalCode" type="text" class="input-text form-control" id="billing_company" placeholder="" autocomplete="organization">
+                                                        <span asp-validation-for="OrderHeader.PostalCode"></span>
+                                                    </p>
+                                                </div>
                                             </div>
-                                            <span class="text-muted">@(item.Price * @item.Count)</span>
-                                        </li>
-                                    }
-                                    <li class="list-group-item d-flex justify-content-between bg-light">
-                                        <small class="text-info">Total</small>
-                                        <strong class="text-info">@Model.OrderHeader.OrderTotal</strong>
-                                    </li>
-                                </ul>
+                                        </div>
+                                        <div class="px-4 pt-5 bg-white border border-top-0 mt-n-one">
+
+                                        </div>
+                                    </div>
+                                    <h3 id="order_review_heading" class="d-none">Your order</h3>
+                                    <div id="order_review" class="col-md-6 col-lg-5 col-xl-4 woocommerce-checkout-review-order">
+                                        <div id="checkoutAccordion" class="border border-gray-900 bg-white mb-5">
+                                            <div class="p-4d875 border">
+                                                <div id="checkoutHeadingOnee" class="checkout-head">
+                                                    <a href="#" class="text-dark d-flex align-items-center justify-content-between collapsed" data-toggle="collapse" data-target="#checkoutCollapseOnee" aria-expanded="false" aria-controls="checkoutCollapseOnee">
+                                                        <h3 class="checkout-title mb-0 font-weight-medium font-size-3">Your order</h3>
+                                                        <svg class="mins" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="15px" height="2px">
+                                                            <path fill-rule="evenodd" fill="rgb(22, 22, 25)" d="M0.000,-0.000 L15.000,-0.000 L15.000,2.000 L0.000,2.000 L0.000,-0.000 Z"></path>
+                                                        </svg>
+                                                        <svg class="plus" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="15px" height="15px">
+                                                            <path fill-rule="evenodd" fill="rgb(22, 22, 25)" d="M15.000,8.000 L9.000,8.000 L9.000,15.000 L7.000,15.000 L7.000,8.000 L0.000,8.000 L0.000,6.000 L7.000,6.000 L7.000,-0.000 L9.000,-0.000 L9.000,6.000 L15.000,6.000 L15.000,8.000 Z"></path>
+                                                        </svg>
+                                                    </a>
+                                                </div>
+                                                <div id="checkoutCollapseOnee" class="mt-4 checkout-content collapse" aria-labelledby="checkoutHeadingOnee" data-parent="#checkoutAccordion" style="">
+                                                    <table class="shop_table woocommerce-checkout-review-order-table">
+                                                        <thead class="d-none">
+                                                            <tr>
+                                                                <th class="product-name">Product</th>
+                                                                <th class="product-total">Total</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <!-- Cart item area -->
+                                                            @foreach (var item in Model.ListCart)
+                                                            {
+                                                                <tr class="cart_item">
+                                                                    <td class="product-name">
+                                                                        @item.Product.Title&nbsp; <strong class="product-quantity">× @item.Product.Price</strong>
+                                                                    </td>
+                                                                    <td class="product-total">
+                                                                        <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">£</span>@Html.Raw(item.Product.Price * item.Count)</span>
+                                                                    </td>
+                                                                </tr>
+                                                            }
+
+                                                        </tbody>
+                                                        <tfoot class="d-none">
+                                                            <tr class="cart-subtotal">
+                                                                <th>Subtotal</th>
+                                                                <td>
+                                                                    <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">£</span>@Model.OrderHeader.OrderTotal</span>
+                                                                </td>
+                                                            </tr>
+                                                            <tr class="order-total">
+                                                                <th>Total</th>
+                                                                <td><strong><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">£</span>@Model.OrderHeader.OrderTotal</span></strong> </td>
+                                                            </tr>
+                                                        </tfoot>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <div class="p-4d875 border">
+                                                <div id="checkoutHeadingOne" class="checkout-head">
+                                                    <a href="#" class="text-dark d-flex align-items-center justify-content-between collapsed" data-toggle="collapse" data-target="#checkoutCollapseOne" aria-expanded="false" aria-controls="checkoutCollapseOne">
+                                                        <h3 class="checkout-title mb-0 font-weight-medium font-size-3">Cart Totals</h3>
+                                                        <svg class="mins" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="15px" height="2px">
+                                                            <path fill-rule="evenodd" fill="rgb(22, 22, 25)" d="M0.000,-0.000 L15.000,-0.000 L15.000,2.000 L0.000,2.000 L0.000,-0.000 Z"></path>
+                                                        </svg>
+                                                        <svg class="plus" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="15px" height="15px">
+                                                            <path fill-rule="evenodd" fill="rgb(22, 22, 25)" d="M15.000,8.000 L9.000,8.000 L9.000,15.000 L7.000,15.000 L7.000,8.000 L0.000,8.000 L0.000,6.000 L7.000,6.000 L7.000,-0.000 L9.000,-0.000 L9.000,6.000 L15.000,6.000 L15.000,8.000 Z"></path>
+                                                        </svg>
+                                                    </a>
+                                                </div>
+                                                <div id="checkoutCollapseOne" class="mt-4 checkout-content collapse" aria-labelledby="checkoutHeadingOne" data-parent="#checkoutAccordion" style="">
+                                                    <table class="shop_table shop_table_responsive">
+                                                        <tbody>
+                                                            <tr class="checkout-subtotal">
+                                                                <th>Subtotal</th>
+                                                                <td data-title="Subtotal">
+                                                                    <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">£</span>@Model.OrderHeader.OrderTotal</span>
+                                                                </td>
+                                                            </tr>
+                                                            <tr class="order-shipping">
+                                                                <th>Shipping</th>
+                                                                <td data-title="Shipping">Free Shipping</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="p-4d875 border">
+                                                <table class="shop_table shop_table_responsive">
+                                                    <tbody>
+                                                        <tr class="order-total">
+                                                            <th>Total</th>
+                                                            <td data-title="Total"><strong><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">£</span>@Model.OrderHeader.OrderTotal</span></strong> </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="p-4d875 border">
+                                                <div id="checkoutHeadingThreee" class="checkout-head">
+                                                    <a href="#" class="text-dark d-flex align-items-center justify-content-between" data-toggle="collapse" data-target="#checkoutCollapseThreee" aria-expanded="true" aria-controls="checkoutCollapseThreee">
+                                                        <h3 class="checkout-title mb-0 font-weight-medium font-size-3">Payment</h3>
+                                                        <svg class="mins" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="15px" height="2px">
+                                                            <path fill-rule="evenodd" fill="rgb(22, 22, 25)" d="M0.000,-0.000 L15.000,-0.000 L15.000,2.000 L0.000,2.000 L0.000,-0.000 Z"></path>
+                                                        </svg>
+                                                        <svg class="plus" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="15px" height="15px">
+                                                            <path fill-rule="evenodd" fill="rgb(22, 22, 25)" d="M15.000,8.000 L9.000,8.000 L9.000,15.000 L7.000,15.000 L7.000,8.000 L0.000,8.000 L0.000,6.000 L7.000,6.000 L7.000,-0.000 L9.000,-0.000 L9.000,6.000 L15.000,6.000 L15.000,8.000 Z"></path>
+                                                        </svg>
+                                                    </a>
+                                                </div>
+                                                <div id="checkoutCollapseThreee" class="mt-4 checkout-content collapse show" aria-labelledby="checkoutHeadingThreee" data-parent="#checkoutAccordion" style="">
+                                                    <div id="payment" class="woocommerce-checkout-payment">
+                                                        <ul class="wc_payment_methods payment_methods methods">
+                                                            <li class="wc_payment_method payment_method_bacs">
+
+                                                                <label for="ml-4 pl-4 payment_method_bacs" style="display: block;">  VISA/MASTER CARD </label>
+                                                                <div class="payment_box payment_method_bacs" style="display: block;">
+                                                                    <p>Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order won’t be shipped until the funds have cleared in our account.</p>
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="p-4d875 border">
+                                                <table class="shop_table shop_table_responsive">
+                                                    <tbody>
+                                                        <tr class="order-total">
+                                                            <p style="color:maroon; font-size:14px;">Estimate Arrival Date: @DateTime.Now.AddDays(7).ToShortDateString() - @DateTime.Now.AddDays(14).ToShortDateString()</p>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-row place-order">
+                                            <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                                                    @{ string stripePublishableKey = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json", true, true).Build()["StripeStrings:StripePublishableKey"]; }
+                                                    data-key="@stripePublishableKey"
+                                                    @{ var orderTotal = @Model.OrderHeader.OrderTotal * 100;}
+                                                    data-amount=@orderTotal
+                                                    data-name="FPT BookStore"
+                                                    data-label="Place Order"
+                                                    data-locale="auto"
+                                                    data-allow-remember-me="false"
+                                                    data-image="https://us.123rf.com/450wm/uasumy/uasumy1509/uasumy150900038/45874733-mockup-book-logo-flipping-colored-pages-of-the-book-emblem-of-the-bookstore-or-library.jpg?ver=6"></script>
+                                            <script>document.getElementsByClassName("stripe-button-el")[0].style.display = "none";</script>
+                                            <button type="submit" value="Place Order" class="button alt btn btn-dark btn-block rounded-0 py-4">Place Order</button>
+                                        </div>
+                                </form>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="card-footer">
-                    <div class="row">
-                        <div class="col-12 col-md-8 pt-2">
-                            <p style="color:maroon; font-size:14px;">Estimate Arrival Date: @DateTime.Now.AddDays(7).ToShortDateString() - @DateTime.Now.AddDays(14).ToShortDateString()</p>
-                        </div>
-                        <div class="col-12 col-md-4">
-                            <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                                    @{ string stripePublishableKey = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json", true, true).Build()["StripeStrings:StripePublishableKey"]; }
-                                    data-key="@stripePublishableKey"
-                                    @{ var orderTotal = @Model.OrderHeader.OrderTotal * 100;}
-                                    data-amount=@orderTotal
-                                    data-name="FPT BookStore"
-                                    data-label="Place Order"
-                                    data-locale="auto"
-                                    data-allow-remember-me="false"
-                                    data-image="https://us.123rf.com/450wm/uasumy/uasumy1509/uasumy150900038/45874733-mockup-book-logo-flipping-colored-pages-of-the-book-emblem-of-the-bookstore-or-library.jpg?ver=6"></script>
-                            <script>
-                                document.getElementsByClassName("stripe-button-el")[0].style.display = "none";
-                            </script>
-                            <button type="submit" value="Place Order" class="btn btn-primary form-control">Place Order</button>
-                        </div>
-                    </div>
-                </div>
+
+                    </article>
+
+                </main>
+
             </div>
+
         </div>
+
     </div>
-</form>
+
+</body>
 @section Scripts{
     <partial name="_ValidationScriptsPartial" />
 }

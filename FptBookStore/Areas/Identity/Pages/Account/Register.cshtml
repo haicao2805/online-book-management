@@ -6,7 +6,7 @@
 }
 
 
-
+<div class="row" style="height:100px"></div>
 <div class="row">
     <div class="col-md-4 offset-4">
         <h1>@ViewData["Title"]</h1>
@@ -62,16 +62,17 @@
 
             @if (User.IsInRole(UserRole.Admin))
             {
-                    <div class="form-group">
-                        <label asp-for="Input.Role"></label>
+                <div class="form-group">
+                    <label asp-for="Input.Role"></label>
                     @Html.DropDownListFor(item => item.Input.Role, Model.Input.RoleList, "--Please select a role--", new { @class = "form-control" })
-                    </div>
+                </div>
             }
 
             <button type="submit" class="btn btn-primary">Register</button>
         </form>
     </div>
 </div>
+<div class="row" style="height:150px"></div>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

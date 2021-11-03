@@ -32,10 +32,14 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="wwwroot\image\product\" />
+	  <None Include="wwwroot\*" />
+	  <Folder Include="Areas\Customer\ViewModels\" />
+	  <Folder Include="Areas\Customer\Views\Detail\" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <None Remove="ViewModels\" />
+	  <None Remove="Areas\Customer\ViewModels\" />
+	  <None Remove="Areas\Customer\Views\Detail\" />
 	</ItemGroup>
 </Project>

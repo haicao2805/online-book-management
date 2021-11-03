@@ -83,7 +83,7 @@ namespace FptBookStore.Areas.Admin.Controllers
             return RedirectToAction("Detail", "Order", new { id = orderHeader.Id });
         }
 
-        [Authorize(Roles = UserRole.Admin + "," + UserRole.Employee)]
+        [Authorize(Roles = UserRole.Admin)]
         public IActionResult StartProcessing(int id)
         {
             OrderHeader orderHeader = _unitOfWork.OrderHeader.GetFirstOrDefault(item => item.Id == id);
@@ -94,7 +94,7 @@ namespace FptBookStore.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = UserRole.Admin + "," + UserRole.Employee)]
+        [Authorize(Roles = UserRole.Admin)]
         public IActionResult ShipOrder()
         {
             OrderHeader orderHeader = _unitOfWork.OrderHeader.GetFirstOrDefault(item => item.Id == OrderDetailVM.OrderHeader.Id);
@@ -108,7 +108,7 @@ namespace FptBookStore.Areas.Admin.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        [Authorize(Roles = UserRole.Admin + "," + UserRole.Employee)]
+        [Authorize(Roles = UserRole.Admin)]
         public IActionResult CancelOrder(int id)
         {
             OrderHeader orderHeader = _unitOfWork.OrderHeader.GetFirstOrDefault(item => item.Id == id);
@@ -145,7 +145,7 @@ namespace FptBookStore.Areas.Admin.Controllers
             var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
 
             IEnumerable<OrderHeader> orders;
-            if (User.IsInRole(UserRole.Admin) || User.IsInRole(UserRole.Employee))
+            if (User.IsInRole(UserRole.Admin))
             {
                 orders = _unitOfWork.OrderHeader.GetAll(includeProperties: "ApplicationUser");
             }

@@ -1,0 +1,200 @@
+﻿@model DetailViewModel
+
+@{
+}
+
+<div class="product">
+    <div class="container">
+        <div class="row">
+            <!-- Product image area -->
+            <div class="col-md-5 woocommerce-product-gallery woocommerce-product-gallery--with-images images">
+                <figure class="woocommerce-product-gallery__wrapper pt-8 mb-0">
+                    <div class="js-slick-carousel u-slick slick-initialized slick-slider slick-dotted" data-pagi-classes="text-center u-slick__pagination my-4">
+                        <div class="slick-list draggable">
+                            <div class="slick-track" style="opacity: 1; width: 1410px; transform: translate3d(0px, 0px, 0px);">
+                                <div class="js-slide slick-slide" data-slick-index="2" aria-hidden="true" style="width: 470px; height: auto;" tabindex="-1" role="tabpanel" id="slick-slide02" aria-describedby="slick-slide-control02">
+                                    <!-- Image url -->
+                                    <img src="@Model.Product.ImageUrl" alt="Image Description" class="mx-auto img-fluid">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </figure>
+            </div>
+            <div class="col-md-7 pl-0 summary entry-summary border-left">
+                <div class="space-top-2 px-4 px-xl-7 border-bottom pb-5">
+                    <!-- Product title -->
+                    <h1 class="product_title entry-title font-size-7 mb-3">@Model.Product.Title</h1>
+                    <div class="font-size-2 mb-4">
+
+
+                        <span class=" font-weight-medium">By (Author) </span>
+                        <!-- Author name -->
+                        <span class="ml-2 text-gray-600">@Model.Product.Author</span>
+                    </div>
+                    <p class="price font-size-22 font-weight-medium mb-3">
+                        <!-- Price -->
+                        <span class="woocommerce-Price-amount amount">
+                            <span class="woocommerce-Price-currencySymbol">$</span>@Model.Product.Price100
+                        </span> –
+                        <span class="woocommerce-Price-amount amount">
+                            <span class="woocommerce-Price-currencySymbol">$</span>@Model.Product.Price
+                        </span>
+                    </p>
+
+                    <div class="row mx-gutters-2 mb-4">
+                        <div class="col-6 col-md-3 mb-3 mb-md-0">
+                            <div class="">
+                                <input type="radio" id="typeOfListingRadio1" name="typeOfListingRadio1" class="custom-control-input checkbox-outline__input">
+                                <label class="border-bottom d-block checkbox-outline__label py-3 px-1 mb-0" for="typeOfListingRadio1">
+                                    <span class="d-block">Price</span>
+                                    <span class="">$@Model.Product.Price</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-3 mb-3 mb-md-0">
+                            <div class="">
+                                <input type="radio" id="typeOfListingRadio2" name="typeOfListingRadio1" class="custom-control-input checkbox-outline__input" checked="">
+                                <label class="border-bottom d-block checkbox-outline__label py-3 px-1 mb-0" for="typeOfListingRadio2">
+                                    <span class="d-block">Price 50</span>
+                                    <span class="">$@Model.Product.Price50</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <div class="">
+                                <input type="radio" id="typeOfListingRadio3" name="typeOfListingRadio1" class="custom-control-input checkbox-outline__input">
+                                <label class="border-bottom d-block checkbox-outline__label py-3 px-1 mb-0" for="typeOfListingRadio3">
+                                    <span class="d-block">Price 100</span>
+                                    <span class="">$@Model.Product.Price100</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="woocommerce-product-details__short-description font-size-2 mb-5">
+                        @if (Model.Product.Description.Length > 300)
+                        {
+                            @Html.Raw(Model.Product.Description.Substring(0, 300))
+                        }
+                        else
+                        {
+                            @Html.Raw(Model.Product.Description);
+                        }
+                    </div>
+                    <form class="cart d-md-flex align-items-center" method="post" enctype="multipart/form-data">
+                        @Html.HiddenFor(m => m.AddToCartInput.ProductId)
+                        <div class="quantity mb-4 mb-md-0 d-flex align-items-center">
+                            <div class="border px-3 width-120">
+                                <div class="js-quantity">
+                                    <div class="d-flex align-items-center">
+                                        <label class="screen-reader-text sr-only">Quantity</label>
+                                        <a class="js-minus text-dark" href="javascript:;">
+                                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="10px" height="1px">
+                                                <path fill-rule="evenodd" fill="rgb(22, 22, 25)" d="M-0.000,-0.000 L10.000,-0.000 L10.000,1.000 L-0.000,1.000 L-0.000,-0.000 Z"></path>
+                                            </svg>
+                                        </a>
+                                        <input asp-for="AddToCartInput.Count" type="number" class="input-text qty text js-result form-control text-center border-0" step="1" min="1" max="100" value="1" title="Qty">
+                                        <a class="js-plus text-dark" href="javascript:;">
+                                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="10px" height="10px">
+                                                <path fill-rule="evenodd" fill="rgb(22, 22, 25)" d="M10.000,5.000 L6.000,5.000 L6.000,10.000 L5.000,10.000 L5.000,5.000 L-0.000,5.000 L-0.000,4.000 L5.000,4.000 L5.000,-0.000 L6.000,-0.000 L6.000,4.000 L10.000,4.000 L10.000,5.000 Z"></path>
+                                            </svg>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <button type="submit" name="add-to-cart" value="7145" class="btn btn-dark border-0 rounded-0 p-3 min-width-250 ml-md-4 single_add_to_cart_button button alt">Add to cart</button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Long description -->
+    <div class="js-scroll-nav mb-10">
+        <div class="woocommerce-tabs wc-tabs-wrapper  2 mx-lg-auto">
+            <div id="Description" class="">
+                <div class="border-top border-bottom">
+                    <ul class="container tabs wc-tabs nav justify-content-md-center flex-nowrap flex-md-wrap overflow-auto overflow-md-visble">
+                        <li class="flex-shrink-0 flex-md-shrink-1 nav-item active">
+                            <a class="nav-link py-4 font-weight-medium active">
+                                Description
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="tab-content font-size-2 container">
+                    <div class="row">
+                        <div class="col-xl-8 offset-xl-2">
+                            <div class="woocommerce-Tabs-panel woocommerce-Tabs-panel--description panel entry-content wc-tab pt-9">
+                                @Html.Raw(Model.Product.Description)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>$(document).on('ready', function () {
+        // initialization of unfold component
+        $.HSCore.components.HSUnfold.init($('[data-unfold-target]'));
+
+        // initialization of select picker
+        $.HSCore.components.HSSelectPicker.init('.js-select');
+
+        // initialization of slick carousel
+        $.HSCore.components.HSSlickCarousel.init('.js-slick-carousel');
+
+        // initialization of malihu scrollbar
+        $.HSCore.components.HSMalihuScrollBar.init($('.js-scrollbar'));
+
+        // initialization of popups
+        $.HSCore.components.HSFancyBox.init('.js-fancybox');
+
+        // initialization of quantity counter
+        $.HSCore.components.HSQantityCounter.init('.js-quantity');
+
+        // initialization of show animations
+        $.HSCore.components.HSShowAnimation.init('.js-animation-link');
+
+        // initialization of HSScrollNav component
+        $.HSCore.components.HSScrollNav.init($('.js-scroll-nav'), {
+            duration: 700
+        });
+
+        // init zeynepjs
+        var zeynep = $('.zeynep').zeynep({
+            onClosed: function () {
+                // enable main wrapper element clicks on any its children element
+                $("body main").attr("style", "");
+
+                console.log('the side menu is closed.');
+            },
+            onOpened: function () {
+                // disable main wrapper element clicks on any its children element
+                $("body main").attr("style", "pointer-events: none;");
+
+                console.log('the side menu is opened.');
+            }
+        });
+
+        // handle zeynep overlay click
+        $(".zeynep-overlay").click(function () {
+            zeynep.close();
+        });
+
+        // open side menu if the button is clicked
+        $(".cat-menu").click(function () {
+            if ($("html").hasClass("zeynep-opened")) {
+                zeynep.close();
+            } else {
+                zeynep.open();
+            }
+        });
+    });</script>

@@ -24,11 +24,12 @@ namespace FptBookStore.Utility
 
         private Task Execute(string sendgridApiKey, string subject, string htmlMessage, string email)
         {
-            var client = new SendGridClient(sendgridApiKey);
-            var from = new EmailAddress("haicao2805@gmail.com", "Bulky Book");
-            var to = new EmailAddress(email, "End User");
-            var msg = MailHelper.CreateSingleEmail(from, to, subject, htmlMessage, "");
-            return client.SendEmailAsync(msg);
+            //var client = new SendGridClient(sendgridApiKey);
+            //var from = new EmailAddress("haicao2805@gmail.com", "Bulky Book");
+            //var to = new EmailAddress(email, "End User");
+            //var msg = MailHelper.CreateSingleEmail(from, to, subject, htmlMessage, "");
+            //return client.SendEmailAsync(msg
+            return Task.CompletedTask;
         }
     }
 }
