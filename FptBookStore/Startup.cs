@@ -18,6 +18,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FptBookStore.DataAccess.BaseRepository.Interface;
+using Microsoft.Extensions.FileProviders;
+using System.IO;
 
 namespace FptBookStore
 {
@@ -48,6 +50,9 @@ namespace FptBookStore
 
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddRazorPages();
+            // Allow static files within the .well-known directory to allow for automatic SSL renewal
+
+
             services.ConfigureApplicationCookie(options =>
             {
                 options.LoginPath = "/Identity/Account/Login";
@@ -77,8 +82,10 @@ namespace FptBookStore
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-            app.UseStaticFiles();
-
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                ServeUnknownFileTypes = true, // this was needed as IIS would not serve extensionless URLs from the directory without it
+            });
             app.UseRouting();
             StripeConfiguration.ApiKey = Configuration["StripeStrings:StripeSecretKey"];
             app.UseSession();
