@@ -21,7 +21,7 @@ using Product = FptBookStore.Entities.Product;
 namespace FptBookStore.Areas.Customer.Controllers
 {
     [Area("Customer")]
-    [Authorize(Roles = UserRole.User_Individual)]
+    [Authorize(Roles = UserRole.Customer)]
     public class CartController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;

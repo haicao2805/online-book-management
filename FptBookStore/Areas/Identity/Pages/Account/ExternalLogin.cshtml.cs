@@ -147,7 +147,7 @@ namespace FptBookStore.Areas.Identity.Pages.Account
                 var result = await _userManager.CreateAsync(user);
                 if (result.Succeeded)
                 {
-                    await _userManager.AddToRoleAsync(user, UserRole.User_Individual);
+                    await _userManager.AddToRoleAsync(user, UserRole.Customer);
                     result = await _userManager.AddLoginAsync(user, info);
                     if (result.Succeeded)
                     {

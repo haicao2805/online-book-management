@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 namespace FptBookStore.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize(Roles = UserRole.Admin + "," + UserRole.Employee)]
+    [Authorize(Roles = UserRole.Admin)]
     public class UserController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -68,13 +68,8 @@ namespace FptBookStore.Areas.Admin.Controllers
 
             var roleId = userRoles.FirstOrDefault(item => item.UserId == obj.Id).RoleId;
             var role = roles.FirstOrDefault(item => item.Id == roleId).Name;
-            
-            if (role == UserRole.Admin)
-            {
-                return Json(new { success = false, message = "Error while Locking/Unlocking" });
-            }
 
-            if(roleLoginUser == UserRole.Employee && role == UserRole.Employee)
+            if (role == UserRole.Admin)
             {
                 return Json(new { success = false, message = "Error while Locking/Unlocking" });
             }

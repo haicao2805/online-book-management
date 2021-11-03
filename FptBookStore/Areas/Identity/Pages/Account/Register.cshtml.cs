@@ -88,7 +88,7 @@ namespace FptBookStore.Areas.Identity.Pages.Account
 
             Input = new InputModel
             {
-                RoleList = _roleManager.Roles.Where(r => r.Name != UserRole.User_Individual).Select(r => new SelectListItem
+                RoleList = _roleManager.Roles.Where(r => r.Name != UserRole.Customer).Select(r => new SelectListItem
                 {
                     Text = r.Name,
                     Value = r.Name
@@ -124,7 +124,7 @@ namespace FptBookStore.Areas.Identity.Pages.Account
 
                     if (user.Role == null)
                     {
-                        await _userManager.AddToRoleAsync(user, UserRole.User_Individual);
+                        await _userManager.AddToRoleAsync(user, UserRole.Customer);
                     }
                     else
                     {
@@ -171,7 +171,7 @@ namespace FptBookStore.Areas.Identity.Pages.Account
             // If we got this far, something failed, redisplay form
             Input = new InputModel
             {
-                RoleList = _roleManager.Roles.Where(r => r.Name != UserRole.User_Individual).Select(r => new SelectListItem
+                RoleList = _roleManager.Roles.Where(r => r.Name != UserRole.Customer).Select(r => new SelectListItem
                 {
                     Text = r.Name,
                     Value = r.Name

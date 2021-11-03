@@ -23,7 +23,7 @@ namespace FptBookStore.Areas.Customer.Controllers
             _unitOfWork = unitOfWork;
         }
 
-        [Authorize(Roles = UserRole.User_Individual)]
+        [Authorize(Roles = UserRole.Customer)]
         public IActionResult Index(int id)
         {
             var product = _unitOfWork.Product.GetFirstOrDefault(item => item.Id == id, includeProperties: "Category");
@@ -37,7 +37,7 @@ namespace FptBookStore.Areas.Customer.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = UserRole.User_Individual)]
+        [Authorize(Roles = UserRole.Customer)]
         public IActionResult Index(DetailViewModel model)
         {
             AddToCartInput cartObj = model.AddToCartInput;

@@ -28,7 +28,7 @@
                             <div class="row my-1">
                                 <div class="col-3">Name</div>
                                 <div class="col-9">
-                                    @if (User.IsInRole(UserRole.Admin) || User.IsInRole(UserRole.Employee))
+                                    @if (User.IsInRole(UserRole.Admin))
                                     {
                                         <input asp-for="OrderHeader.Name" type="text" class="form-control" />
                                     }
@@ -41,7 +41,7 @@
                             <div class="row my-1">
                                 <div class="col-3">Phone</div>
                                 <div class="col-9">
-                                    @if (User.IsInRole(UserRole.Admin) || User.IsInRole(UserRole.Employee))
+                                    @if (User.IsInRole(UserRole.Admin))
                                     {
                                         <input asp-for="OrderHeader.PhoneNumber" type="text" class="form-control" />
                                     }
@@ -54,7 +54,7 @@
                             <div class="row my-1">
                                 <div class="col-3">Address</div>
                                 <div class="col-9">
-                                    @if (User.IsInRole(UserRole.Admin) || User.IsInRole(UserRole.Employee))
+                                    @if (User.IsInRole(UserRole.Admin))
                                     {
                                         <input asp-for="OrderHeader.StreetAddress" type="text" class="form-control" />
                                     }
@@ -67,7 +67,7 @@
                             <div class="row my-1">
                                 <div class="col-3">City</div>
                                 <div class="col-9">
-                                    @if (User.IsInRole(UserRole.Admin) || User.IsInRole(UserRole.Employee))
+                                    @if (User.IsInRole(UserRole.Admin))
                                     {
                                         <input asp-for="OrderHeader.City" type="text" class="form-control" />
                                     }
@@ -80,7 +80,7 @@
                             <div class="row my-1">
                                 <div class="col-3">State</div>
                                 <div class="col-9">
-                                    @if (User.IsInRole(UserRole.Admin) || User.IsInRole(UserRole.Employee))
+                                    @if (User.IsInRole(UserRole.Admin))
                                     {
                                         <input asp-for="OrderHeader.State" type="text" class="form-control" />
                                     }
@@ -93,7 +93,7 @@
                             <div class="row my-1">
                                 <div class="col-3">Postal Code</div>
                                 <div class="col-9">
-                                    @if (User.IsInRole(UserRole.Admin) || User.IsInRole(UserRole.Employee))
+                                    @if (User.IsInRole(UserRole.Admin))
                                     {
                                         <input asp-for="OrderHeader.PostalCode" type="text" class="form-control" />
                                     }
@@ -106,7 +106,7 @@
                             <div class="row my-1">
                                 <div class="col-3">Email</div>
                                 <div class="col-9">
-                                    @if (User.IsInRole(UserRole.Admin) || User.IsInRole(UserRole.Employee))
+                                    @if (User.IsInRole(UserRole.Admin))
                                     {
                                         <input asp-for="OrderHeader.ApplicationUser.Email" type="text" class="form-control" />
                                     }
@@ -119,7 +119,7 @@
                             <div class="row my-1">
                                 <div class="col-3">Order Date</div>
                                 <div class="col-9">
-                                    @if (User.IsInRole(UserRole.Admin) || User.IsInRole(UserRole.Employee))
+                                    @if (User.IsInRole(UserRole.Admin))
                                     {
                                         <input value="@Model.OrderHeader.OrderDate.ToShortDateString()" type="text" class="form-control" />
                                     }
@@ -132,7 +132,7 @@
                             <div class="row my-1">
                                 <div class="col-3">Carrier</div>
                                 <div class="col-9">
-                                    @if (User.IsInRole(UserRole.Admin) || User.IsInRole(UserRole.Employee))
+                                    @if (User.IsInRole(UserRole.Admin))
                                     {
                                         <input asp-for="OrderHeader.Carrier" id="carrier" type="text" class="form-control" />
                                     }
@@ -145,7 +145,7 @@
                             <div class="row my-1">
                                 <div class="col-3">Tracking</div>
                                 <div class="col-9">
-                                    @if (User.IsInRole(UserRole.Admin) || User.IsInRole(UserRole.Employee))
+                                    @if (User.IsInRole(UserRole.Admin))
                                     {
                                         <input asp-for="OrderHeader.TrackingNumber" id="trackingNumber" type="text" class="form-control" />
                                     }
@@ -161,7 +161,7 @@
                                     <input value="@Model.OrderHeader.ShippingDate.ToShortDateString()" id="shippingDate" type="text" readonly class="form-control" />
                                 </div>
                             </div>
-                            @if (User.IsInRole(UserRole.Admin) || User.IsInRole(UserRole.Employee))
+                            @if (User.IsInRole(UserRole.Admin))
                             {
                                 <div class="row my-1">
                                     <div class="col-3">Transaction ID</div>
@@ -228,7 +228,7 @@
 
                             </ul>
 
-                            @if (User.IsInRole(UserRole.Admin) || User.IsInRole(UserRole.Employee))
+                            @if (User.IsInRole(UserRole.Admin))
                             {
                                 <br />
                                 @if (Model.OrderHeader.OrderStatus == Status.Approved)
@@ -248,7 +248,7 @@
                             }
 
                             @if (Model.OrderHeader.PaymentStatus == PaymentStatus.DelayedPayment
-                              && Model.OrderHeader.OrderStatus == Status.Shipped)
+                             && Model.OrderHeader.OrderStatus == Status.Shipped)
                             {
                                 <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
                                         @{ string stripePublishableKey = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json", true, true).Build()["StripeStrings:StripePublishableKey"]; }
@@ -260,15 +260,13 @@
                                         data-locale="auto"
                                         data-allow-remember-me="false"
                                         data-image="https://stripe.com/img/documentation/checkout/marketplace.png"></script>
-                                <script>
-                                    document.getElementsByClassName("stripe-button-el")[0].style.display = "none";
-                                </script>
+                                <script>document.getElementsByClassName("stripe-button-el")[0].style.display = "none";</script>
                                 <button type="submit" value="Place Order" class="btn btn-success form-control">Pay Now</button>
                             }
 
                             @if (Model.OrderHeader.OrderStatus != Status.Refunded
-                     && Model.OrderHeader.OrderStatus != Status.Canceled
-                     && (User.IsInRole(UserRole.Admin) || User.IsInRole(UserRole.Employee)))
+                    && Model.OrderHeader.OrderStatus != Status.Canceled
+                    && (User.IsInRole(UserRole.Admin)))
                             {
                                 <div class="pt-2">
                                     <a asp-area="Admin" asp-controller="Order" asp-action="CancelOrder" asp-route-id="@Model.OrderHeader.Id"
@@ -284,8 +282,7 @@
 </form>
 
 @section Scripts{
-    <script>
-        function validateInput() {
+    <script>function validateInput() {
             if (document.getElementById("trackingNumber").value.toString() == "") {
                 swal("Error", "Please enter tracking number", "error");
                 return false;
@@ -308,6 +305,5 @@
             if (shippingDate.value == '1/1/0001') {
                 shippingDate.value = '';
             }
-        })
-    </script>
+        })</script>
 }
