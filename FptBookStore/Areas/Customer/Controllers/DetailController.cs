@@ -30,6 +30,7 @@ namespace FptBookStore.Areas.Customer.Controllers
             DetailViewModel viewModel = new DetailViewModel()
             {
                 Product = product,
+                AddToCartInput = new AddToCartInput(id, 0)
             };
             return View(viewModel);
         }
