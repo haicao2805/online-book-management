@@ -44,7 +44,7 @@ namespace FptBookStore.Areas.Customer.Controllers
                 productList = _unitOfWork.Product.GetAll(includeProperties: "Category");
             }
 
-            //newestProductList = _unitOfWork.Product.GetAll((product => product.))
+            newestProductList = _unitOfWork.Product.GetAll().OrderBy(product => product.CreatedDate);
 
 
             IEnumerable<Category> categories = _unitOfWork.Category.GetAll();

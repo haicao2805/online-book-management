@@ -1,6 +1,11 @@
 ﻿@{
     Layout = "/Views/Shared/_layout.cshtml";
+
+    string selectedCategory = Context.Request.Query["categoryId"];
+
 }
+
+
 
 <body>
 
@@ -82,6 +87,9 @@
     </section>
     <section class="space-bottom-3">
         <div class="container">
+            <header class="mb-5 d-md-flex justify-content-between align-items-center">
+                <h2 class="font-size-7 mb-3 mb-md-0">Newest Books</h2>
+            </header>
             <div class="js-slick-carousel u-slick products border" data-pagi-classes="text-center u-slick__pagination mt-md-8 mt-4 position-absolute right-0 left-0" data-slides-show="3" data-responsive='[{
                    "breakpoint": 992,
                    "settings": {
@@ -100,7 +108,7 @@
                 }]'>
 
 
-                @foreach (Product product in Model.Products)
+                @foreach (Product product in Model.NewestProducts)
                 {
                     <div class="product product__card border-right">
                         <div class="media p-3 p-md-4d875">
@@ -124,6 +132,9 @@
         <div class="left-sidebar">
             <div class="site-content space-bottom-3" id="content">
                 <div class="container">
+                    <header id="bookbycategory" class="mb-5 d-md-flex justify-content-between align-items-center">
+                        <h2 class="font-size-7 mb-3 mb-md-0">Books By Category</h2>
+                    </header>
                     <div class="row pt-4 mt-4">
 
                         <!-- Product area -->
@@ -181,6 +192,7 @@
 
                         @*Category area*@
                         <div id="secondary" class="sidebar widget-area order-1" role="complementary">
+                            <input type="hidden" id="selectedCategory" value="@selectedCategory" />
                             <div id="widgetAccordion">
                                 <div id="woocommerce_product_categories-2" class="widget p-4d875 border woocommerce widget_product_categories">
                                     <div id="widgetHeadingOne" class="widget-head">
@@ -203,6 +215,12 @@
                                             <!-- Category items -->
                                         </ul>
                                     </div>
+                                    <script>window.onload = function () {
+                                            var selectedCategoryId = document.getElementById("selectedCategory").value;
+                                            if (selectedCategoryId !== "") {
+                                                window.location.href = `#bookbycategory`;
+                                            }
+                                        }</script>
                                 </div>
                             </div>
                         </div>
