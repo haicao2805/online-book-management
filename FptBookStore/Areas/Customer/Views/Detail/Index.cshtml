@@ -14,7 +14,7 @@
                             <div class="slick-track" style="opacity: 1; width: 1410px; transform: translate3d(0px, 0px, 0px);">
                                 <div class="js-slide slick-slide" data-slick-index="2" aria-hidden="true" style="width: 470px; height: auto;" tabindex="-1" role="tabpanel" id="slick-slide02" aria-describedby="slick-slide-control02">
                                     <!-- Image url -->
-                                    <img src="@Model.Product.ImageUrl" alt="Image Description" class="mx-auto img-fluid">
+                                    <img src="@Model.Product.ImageUrl" style="height: 350px" alt="Image Description" class="mx-auto img-fluid">
                                 </div>
                             </div>
                         </div>
@@ -73,14 +73,17 @@
                     </div>
 
                     <div class="woocommerce-product-details__short-description font-size-2 mb-5">
-                        @if (Model.Product.Description.Length > 300)
-                        {
-                            @Html.Raw(Model.Product.Description.Substring(0, 300))
-                        }
-                        else
-                        {
-                            @Html.Raw(Model.Product.Description);
-                        }
+                        <span style=" overflow: hidden; text-overflow: ellipsis">
+                            @if (Model.Product.Description.Length > 300)
+                            {
+                                @Html.Raw(Model.Product.Description)
+                            }
+                            else
+                            {
+                                @Html.Raw(Model.Product.Description);
+                            }
+                            asjdn sdkjsnd skdjnsd sdkjnsd skdjnsakdnas dksjdns dskdnsd
+                        </span>
                     </div>
                     <form class="cart d-md-flex align-items-center" method="post" enctype="multipart/form-data">
                         @Html.HiddenFor(m => m.AddToCartInput.ProductId)
