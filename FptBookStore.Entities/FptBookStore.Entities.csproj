@@ -6,6 +6,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="MaterialDesignThemes" Version="4.2.1" />
+		<PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.7" />
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.2.0" />
 		<PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="5.0.10" />
 		<PackageReference Include="PagedList.Mvc" Version="4.5.0" />
