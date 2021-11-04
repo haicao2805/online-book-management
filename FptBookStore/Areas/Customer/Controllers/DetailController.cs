@@ -23,7 +23,6 @@ namespace FptBookStore.Areas.Customer.Controllers
             _unitOfWork = unitOfWork;
         }
 
-        [Authorize(Roles = UserRole.Customer)]
         public IActionResult Index(int id)
         {
             var product = _unitOfWork.Product.GetFirstOrDefault(item => item.Id == id, includeProperties: "Category");

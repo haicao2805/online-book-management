@@ -68,5 +68,99 @@ namespace FptBookStore.Areas.Customer.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = UserRole.Customer)]
+        public IActionResult AddToCard(HomeViewModel model)
+        {
+            AddToCartInput cartObj = model.AddToCartInput;
+            if (ModelState.IsValid)
+            {
+                Product product = _unitOfWork.Product.GetFirstOrDefault(item => item.Id == cartObj.ProductId, includeProperties: "Category");
+
+                List<(int, int)> listCart = HttpContext.Session.GetObject<List<(int, int)>>(SessionKey.ShoppingCartList);
+                if (listCart == null)
+                {
+                    if (product.Quantity < cartObj.Count)
+                    {
+                        ViewData["errorMessage"] = "Cannot add more than the remaining quantity";
+                        ShoppingCart shoppingCart = new ShoppingCart()
+                        {
+                            Product = product,
+                            ProductId = product.Id
+
+                        };
+                        return View(shoppingCart);
+                    }
+                    else
+                    {
+                        listCart = new List<(int, int)>();
+                        listCart.Add((product.Id, cartObj.Count));
+                    }
+                }
+                else
+                {
+                    bool IsContainThisBook = false;
+                    for (int i = 0; i < listCart.Count; i++)
+                    {
+                        if (listCart[i].Item1 == product.Id)
+                        {
+                            if (product.Quantity < listCart[i].Item2 + cartObj.Count)
+                            {
+                                ViewData["errorMessage"] = "Cannot add more than the remaining quantity";
+                                ShoppingCart shoppingCart = new ShoppingCart()
+                                {
+                                    Product = product,
+                                    ProductId = product.Id
+
+                                };
+                                return View(shoppingCart);
+                            }
+                            else
+                            {
+                                listCart[i] = (listCart[i].Item1, listCart[i].Item2 + cartObj.Count);
+                            }
+                            IsContainThisBook = true;
+                            break;
+                        }
+                    }
+                    if (!IsContainThisBook)
+                    {
+                        if (product.Quantity < cartObj.Count)
+                        {
+                            ViewData["errorMessage"] = "Cannot add more than the remaining quantity";
+                            ShoppingCart shoppingCart = new ShoppingCart()
+                            {
+                                Product = product,
+                                ProductId = product.Id
+
+                            };
+                            return View(shoppingCart);
+                        }
+                        else
+                        {
+                            listCart.Add((product.Id, cartObj.Count));
+                        }
+                    }
+                }
+
+                HttpContext.Session.SetObject(SessionKey.ShoppingCartList, listCart);
+                HttpContext.Session.SetInt32(SessionKey.ShoppingCartCount, listCart.Count);
+
+                return RedirectToAction(nameof(Index));
+            }
+            else
+            {
+                var product = _unitOfWork.Product.GetFirstOrDefault(item => item.Id == cartObj.ProductId, includeProperties: "Category");
+                ShoppingCart shoppingCart = new ShoppingCart()
+                {
+                    Product = product,
+                    ProductId = product.Id
+
+                };
+                return View(shoppingCart);
+            }
+        }
     }
 }

@@ -11,11 +11,12 @@ namespace FptBookStore.Areas.Customer.ViewModels
         public List<Category> Categories { get; set; }
         public List<Product> NewestProducts { get; set; }
         public String Message { get; set; }
+        public AddToCartInput AddToCartInput { get; set; }
 
 
         public HomeViewModel()
         {
-         }
+        }
 
         public HomeViewModel(IPagedList<Product> products, List<Category> categories, string message, List<Product> newestProducts)
         {
