@@ -192,14 +192,14 @@
                                 <div class="tab-pane fade show active" id="pills-one-example1" role="tabpanel"
                                      aria-labelledby="pills-one-example1-tab">
 
-                                    <ul class="products list-unstyled row no-gutters row-cols-2 row-cols-lg-3 row-cols-wd-4 border-top border-left mb-6">
+                                    <ul class="products list-unstyled row no-gutters row-cols-2 row-cols-lg-3 row-cols-wd-3 border-top border-left mb-6">
                                         <!-- Product item -->
                                         @foreach (Product product in Model.Products)
                                         {
                                             if (product.Quantity > 0)
                                             {
                                                 <li class="product col">
-                                                    <div class="product__inner overflow-hidden p-3 p-md-4d875">
+                                                    <div class="product__inner overflow-hidden p-4 p-md-4d875">
                                                         <div class="woocommerce-LoopProduct-link woocommerce-loop-product__link d-block position-relative">
                                                             <div class="woocommerce-loop-product__thumbnail">
                                                                 <a asp-area="Customer" asp-action="Index"
@@ -254,25 +254,25 @@
                             <nav aria-label="Page navigation example">
                                 <ul class="pagination pagination__custom justify-content-md-center flex-nowrap flex-md-wrap overflow-auto overflow-md-visble">
                                     <li class="flex-shrink-0 flex-md-shrink-1 page-item">
-                                        <a class="page-link"
-                                           href="#">Previous</a>
+                                        <a class="page-link" id="previous"
+                                           href="?page=1#bookbycategory">Previous</a>
                                     </li>
                                     <!-- un selected page -->
                                     <li class="flex-shrink-0 flex-md-shrink-1 page-item">
-                                        <a href="?page=1"><p style="font-size: 18px;" class="page-link">1</p></a>
+                                        <a href="?page=1#bookbycategory" id="page1"><p style="font-size: 18px;" class="page-link">1</p></a>
+                                        <!--  <a href="?page=1&categoryId=6#bookbycategory"><p style="font-size: 18px;" class="page-link">1</p></a> -->
                                     </li>
-                                    <!-- selected page -->
-                                    <li class="flex-shrink-0 flex-md-shrink-1 page-item active" aria-current="page">
-                                        <a href="?page=2"><p style="font-size: 18px;" class="page-link">2</p></a>
-                                    </li>
-                                    <li class="flex-shrink-0 flex-md-shrink-1 page-item active" aria-current="page">
-                                        <a href="?page=3"><p style="font-size: 18px;" class="page-link">3</p></a>
+                                        <!-- selected page -->
+                                    <li class="flex-shrink-0 flex-md-shrink-1 page-item">
+                                        <a href="?page=2#bookbycategory" id="page2"><p style="font-size: 18px;" class="page-link">2</p></a>
                                     </li>
                                     <li class="flex-shrink-0 flex-md-shrink-1 page-item">
-                                        <a class="page-link"
-                                           href="#">Next</a>
+                                        <a href="?page=3#bookbycategory" id="page1"><p style="font-size: 18px;" class="page-link">3</p></a>
                                     </li>
-
+                                    <li class="flex-shrink-0 flex-md-shrink-1 page-item">
+                                        <a class="page-link" id="next"
+                                           href="?page=2#bookbycategory">Next</a>
+                                    </li>
                                 </ul>
                             </nav>
                         </div>
@@ -315,12 +315,39 @@
                                         }
                                     </div>
                                     <script>
+                                        var url = new URL(location.href);
+                                        var pageCurrent = url.searchParams.get("page") ?? 1;
+                                        var categoryCurrent = url.searchParams.get("categoryId") ?? 1;
+                                        const pageNext = parseInt(pageCurrent) + 1;
+                                        const pagePre = pageCurrent - 1;
                                         window.onload = function () {
                                             var selectedCategoryId = document.getElementById("selectedCategory").value;
                                             if (selectedCategoryId !== "") {
                                                 window.location.href = `#bookbycategory`;
                                             }
-                                        }</script>
+                                        }
+                                        const urlWeb = location.protocol + '//' + location.host + location.pathname;
+                                        if (location.href.includes("page") && location.href.includes("categoryId")) {
+                                            document.getElementById("next").href = urlWeb + "?page=" + pageNext + '&categoryId=' + categoryCurrent + '#bookbycategory';
+                                            document.getElementById("previous").href = urlWeb + "?page=" + pagePre + '&categoryId=' + categoryCurrent + '#bookbycategory';
+                                            document.getElementById("page1").href = urlWeb + "?page=1" + '&categoryId=' + categoryCurrent + '#bookbycategory';
+                                            document.getElementById("page2").href = urlWeb + "?page=2" + '&categoryId=' + categoryCurrent + '#bookbycategory';
+                                            document.getElementById("page3").href = urlWeb + "?page=3" + '&categoryId=' + categoryCurrent + '#bookbycategory';
+                                        }
+                                        else if (location.href.includes("categoryId")) {
+                                            document.getElementById("next").href = urlWeb + "?page=" + pageNext + '&categoryId=' + categoryCurrent + '#bookbycategory';
+                                            document.getElementById("previous").href = urlWeb + "?page=" + pagePre + '&categoryId=' + categoryCurrent + '#bookbycategory';
+                                            document.getElementById("page1").href = urlWeb + "?page=1" + '&categoryId=' + categoryCurrent + '#bookbycategory';
+                                            document.getElementById("page2").href = urlWeb + "?page=2" + '&categoryId=' + categoryCurrent + '#bookbycategory';
+                                            document.getElementById("page3").href = urlWeb + "?page=3" + '&categoryId=' + categoryCurrent + '#bookbycategory';
+                                        }
+                                        else if (location.href.includes("page")) {
+                                            document.getElementById("next").href = urlWeb + "?page=" + pageNext +'#bookbycategory';
+                                            document.getElementById("previous").href = urlWeb + "?page=" + pagePre +'#bookbycategory';
+                                        }
+                                        if (pagePre === 0) pagePre = 1;
+                                        if (pageNext === 0) pageNext = 1;
+                                    </script>
                                 </div>
                             </div>
                         </div>
