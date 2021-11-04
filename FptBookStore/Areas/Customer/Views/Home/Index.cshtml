@@ -115,8 +115,8 @@
                             <a asp-area="Customer" asp-action="Index" asp-controller="Detail" asp-route-id="@product.Id" class="d-block"><img src="@product.ImageUrl" alt="image-description"></a>
                             <div class="media-body ml-4d875">
                                 <div class="text-uppercase font-size-1 mb-1 text-truncate"><a asp-area="Customer" asp-action="Index" asp-controller="Detail" asp-route-id="@product.Id">Hard Cover</a></div>
-                                <h2 class="woocommerce-loop-product__title h6 text-lh-md mb-1 text-height-2 crop-text-2 h-dark"><a href="../shop/single-product-v1.html">@product.Title</a></h2>
-                                <div class="font-size-2 mb-1 text-truncate"><a href="../others/authors-single.html" class="text-gray-700">@product.Author</a></div>
+                                <h2 class="woocommerce-loop-product__title h6 text-lh-md mb-1 text-height-2 crop-text-2 h-dark"><a asp-area="Customer" asp-action="Index" asp-controller="Detail">@product.Title</a></h2>
+                                <div class="font-size-2 mb-1 text-truncate"><a>@product.Author</a></div>
                                 <div class="price d-flex align-items-center font-weight-medium font-size-3">
                                     <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>@product.Price</span>
                                 </div>
