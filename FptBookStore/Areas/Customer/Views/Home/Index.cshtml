@@ -1,6 +1,6 @@
 ﻿@{
     Layout = "/Views/Shared/_layout.cshtml";
-
+    DetailViewModel detailViewModel = new DetailViewModel();
     string selectedCategory = Context.Request.Query["categoryId"];
 }
 
@@ -154,11 +154,13 @@
                                        asp-action="Index" asp-controller="Detail" asp-route-id="@product.Id">Hard Cover</a>
                                 </div>
                                 <h2 class="woocommerce-loop-product__title h6 text-lh-md mb-1 text-height-2 crop-text-2 h-dark">
-                                    <a href="../shop/single-product-v1.html">@product.Title</a>
+                                    <a asp-area="Customer"
+                                       asp-action="Index" asp-controller="Detail" asp-route-id="@product.Id">
+                                        @product.Title
+                                    </a>
                                 </h2>
                                 <div class="font-size-2 mb-1 text-truncate">
-                                    <a href="../others/authors-single.html"
-                                       class="text-gray-700">@product.Author</a>
+                                    <a class="text-gray-700">@product.Author</a>
                                 </div>
                                 <div class="price d-flex align-items-center font-weight-medium font-size-3">
                                     <span class="woocommerce-Price-amount amount">
@@ -224,16 +226,19 @@
                                                                 </div>
                                                             </div>
                                                             <div class="product__hover d-flex align-items-center">
-
-                                                                <a href="../shop/single-product-v2.html"
-                                                                   class="text-uppercase text-dark h-dark font-weight-medium mr-auto"
-                                                                   data-toggle="tooltip" data-placement="right" title=""
-                                                                   data-original-title="ADD TO CART">
-                                                                    <span class="product__add-to-cart">ADD TO CART</span>
-                                                                    <span class="product__add-to-cart-icon font-size-4">
-                                                                        <i class="flaticon-icon-126515"></i>
-                                                                    </span>
-                                                                </a>
+                                                                <form>
+                                                                    <input name="AddToCartInput.ProductId" value="@product.Id" type="hidden" />
+                                                                    <input name="AddToCartInput.Count" value="1" type="hidden" />
+                                                                    <button type="submit"
+                                                                            class="text-uppercase text-dark h-dark font-weight-medium mr-auto"
+                                                                            data-toggle="tooltip" data-placement="right" title=""
+                                                                            data-original-title="ADD TO CART">
+                                                                        <span class="product__add-to-cart">ADD TO CART</span>
+                                                                        <span class="product__add-to-cart-icon font-size-4">
+                                                                            <i class="flaticon-icon-126515"></i>
+                                                                        </span>
+                                                                    </button>
+                                                                </form>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -306,8 +311,7 @@
                                             <!-- Category items -->
                                         </ul>
                                     </div>
-                                    <script>
-                                        window.onload = function () {
+                                    <script>window.onload = function () {
                                             var selectedCategoryId = document.getElementById("selectedCategory").value;
                                             if (selectedCategoryId !== "") {
                                                 window.location.href = `#bookbycategory`;
@@ -352,8 +356,7 @@
     <script src="~/js/components/hs.show-animation.js"></script>
 
 
-    <script>
-        $(document).on('ready', function () {
+    <script>$(document).on('ready', function () {
             // initialization of unfold component
             $.HSCore.components.HSUnfold.init($('[data-unfold-target]'));
 
