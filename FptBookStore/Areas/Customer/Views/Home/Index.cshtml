@@ -196,6 +196,7 @@
                                         <!-- Product item -->
                                         @foreach (Product product in Model.Products)
                                         {
+                                            <p>Id: @product.Id</p>
                                             if (product.Quantity > 0)
                                             {
                                                 <li class="product col">
@@ -226,11 +227,13 @@
                                                                 </div>
                                                             </div>
                                                             <div class="product__hover d-flex align-items-center">
-                                                                <form id="cart-form" method="post">
+                                                                @{
+                                                                    var formId = product.Id + "cart-form";
+                                                                }
+                                                                <form id="@formId" method="post">
                                                                     <input asp-for="AddToCartInput.Count" value="1" type="hidden" />
                                                                     <input asp-for="AddToCartInput.ProductId" value="@product.Id" type="hidden" />
-                                                                    <input name="AddToCartInput.Count" value="1" type="hidden" />
-                                                                    <a onclick="document.getElementById('cart-form').submit()"
+                                                                    <a onclick='document.getElementById("@formId").submit()'
                                                                        class="text-uppercase text-dark h-dark font-weight-medium mr-auto"
                                                                        data-toggle="tooltip" data-placement="right" title=""
                                                                        data-original-title="ADD TO CART">
