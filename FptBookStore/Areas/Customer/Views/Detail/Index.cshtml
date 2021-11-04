@@ -76,7 +76,7 @@
                         <span style=" overflow: hidden; text-overflow: ellipsis">
                             @if (Model.Product.Description.Length > 300)
                             {
-                                @Html.Raw(Model.Product.Description)
+                                @Html.Raw(Model.Product.Description.Substring(0, 250))
                             }
                             else
                             {
