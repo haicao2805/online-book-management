@@ -235,16 +235,26 @@
                                                                     <a onclick='document.getElementById("@formId").submit()'
                                                                        class="text-uppercase text-dark h-dark font-weight-medium mr-auto"
                                                                        data-toggle="tooltip" data-placement="right" title=""
-                                                                       data-original-title="ADD TO CART">
+                                                                       data-original-title="Add to cart">
                                                                         <span class="product__add-to-cart">ADD TO CART</span>
+                                                                        <span class="product__add-to-cart-icon font-size-4">
+                                                                            <i class="flaticon-icon-126515"></i>
+                                                                        </span>
+                                                                    </a>
+                                                                    <a onclick="document.getElementById('cart-form').submit()"
+                                                                       class="text-uppercase text-dark h-dark font-weight-medium mr-auto"
+                                                                       data-toggle="tooltip" data-placement="right" title=""
+                                                                       data-original-title="View Detail" asp-controller="Detail" asp-action="Index" asp-route-Id="@product.Id">
+                                                                        <span class="product__add-to-cart">DETAIL</span>
                                                                         <span class="product__add-to-cart-icon font-size-4">
                                                                             <i class="flaticon-icon-126515"></i>
                                                                         </span>
                                                                     </a>
                                                                 </form>
                                                             </div>
+                                                            <br />
                                                         </div>
-                                                    </div>
+                                                        </div>
                                                 </li>
                                             }
                                         }
