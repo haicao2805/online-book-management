@@ -28,7 +28,8 @@ namespace FptBookStore.Areas.Admin.Controllers
         public OrderDetailViewModel OrderDetailVM { get; set; }
         public IActionResult Index()
         {
-            return View();
+            IEnumerable<OrderHeader> ordList = _unitOfWork.OrderHeader.GetAll();
+            return View(ordList);
         }
 
         public IActionResult Detail(int id)

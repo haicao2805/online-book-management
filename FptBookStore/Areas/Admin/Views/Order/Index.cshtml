@@ -25,46 +25,84 @@
             break;
     }
 }
+@model IEnumerable<OrderHeader>
 
-<div class="border p-3">
-    <div class="justify-content-between d-flex mb-3">
-        <div class="p-2">
-            <h2 class="text-primary">Order List</h2>
+<div style="padding: 60px">
+
+    <div class="border p-3">
+        <div class="justify-content-between d-flex mb-3">
+            <div class="p-2">
+                <h2 class="text-primary">Order List</h2>
+            </div>
+            <div class="p-2">
+                <ul class="list-group list-group-horizontal-sm">
+                    <a asp-controller="Order" asp-action="Index" asp-route-status="inprocess" style="text-decoration:none;">
+                    <li class="list-group-item @inprocess">In Process</li>
+                    </a>
+
+                    <a asp-controller="Order" asp-action="Index" asp-route-status="compeleted" style="text-decoration:none;">
+                    <li class="list-group-item @compeleted">Compeleted</li>
+                    </a>
+
+                    <a asp-controller="Order" asp-action="Index" asp-route-status="rejected" style="text-decoration:none;">
+                    <li class="list-group-item @rejected">Rejected</li>
+                    </a>
+
+                    <a asp-controller="Order" asp-action="Index" asp-route-status="all" style="text-decoration:none;">
+                    <li class="list-group-item @all">All</li>
+                    </a>
+                </ul>
+            </div>
         </div>
-        <div class="p-2">
-            <ul class="list-group list-group-horizontal-sm">
-                <a asp-controller="Order" asp-action="Index" asp-route-status="inprocess" style="text-decoration:none;">
-                <li class="list-group-item @inprocess">In Process</li>
-                </a>
-
-                <a asp-controller="Order" asp-action="Index" asp-route-status="compeleted" style="text-decoration:none;">
-                <li class="list-group-item @compeleted">Compeleted</li>
-                </a>
-
-                <a asp-controller="Order" asp-action="Index" asp-route-status="rejected" style="text-decoration:none;">
-                <li class="list-group-item @rejected">Rejected</li>
-                </a>
-
-                <a asp-controller="Order" asp-action="Index" asp-route-status="all" style="text-decoration:none;">
-                <li class="list-group-item @all">All</li>
-                </a>
-            </ul>
+        <br />
+        @if (Model.Count() > 0)
+        {
+            <table class="table table-striped table-bordered" id="tblData" style="width:100%">
+                <thead class="thead-dark">
+                    <tr class="table-info">
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>TrackingNumber</th>
+                        <th>PaymentStatus</th>
+                        <th>TransactionId</th>
+                        <th>OrderStatus</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var order in Model)
+                    {
+                        <tr>
+                            <td class="text-black-100">
+                                @order.Id
+                            </td>
+                            <td class="text-black-100">
+                                @order.Name
+                            </td>
+                            <td class="text-black-100">
+                                @order.TrackingNumber
+                            </td>
+                            <td class="text-black-100">
+                                @order.PaymentStatus
+                            </td>
+                            <td class="text-black-100">
+                                @order.TransactionId
+                            </td>
+                            <td class="text-black-100">
+                                @order.OrderStatus
+                            </td>
+                            <td class="text-black-100">
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+         }
+         else
+         {
+            <h1>Not created Order yet</h1>
+         }
         </div>
-    </div>
-    <br />
-    <table class="table table-striped table-bordered" id="tblData" style="width:100%">
-        <thead class="thead-dark">
-            <tr class="table-info">
-                <th>Id</th>
-                <th>Name</th>
-                <th>Phone Number</th>
-                <th>Email</th>
-                <th>Order Status</th>
-                <th>Order Total</th>
-                <th></th>
-            </tr>
-        </thead>
-    </table>
 </div>
 
 @section Scripts{

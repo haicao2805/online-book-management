@@ -4,71 +4,74 @@
 @model IEnumerable<ApplicationUser>
 
 <br />
-<div class="row">
-    <div class="col-6">
-        <h2 class="text-primary">User List</h2>
+<div style="padding: 60px">
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-primary">User List</h2>
+        </div>
+        <div class="col-6 text-right ">
+            <a class="btn btn-outline-secondary-black-100 font-weight-bold" asp-area="Identity" asp-page="/Account/Register">Create New User</a>
+        </div>
     </div>
-    <div class="col-6 text-right ">
-        <a class="btn btn-primary text-white" asp-area="Identity" asp-page="/Account/Register">Create New User</a>
-    </div>
+
+    <br />
+    @if (Model.Count() > 0)
+    {
+
+        <div class="p-4 border rounded">
+            <table class="table table-striped table-bordered" id="tblData" style="width:100%">
+                <thead class="thead-dark">
+                    <tr class="table-info">
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>City</th>
+                        <th>State</th>
+                        <th>PostalCode</th>
+                        <th>Role</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var user in Model)
+                    {
+                        <tr>
+                            <td class="text-black-100">
+                                @user.Name
+                            </td>
+                            <td class="text-black-100">
+                                @user.Email
+                            </td>
+                            <td class="text-black-100">
+                                @user.PhoneNumber
+                            </td>
+                            <td class="text-black-100">
+                                @user.City
+                            </td>
+                            <td class="text-black-100">
+                                @user.State
+                            </td>
+                            <td class="text-black-100">
+                                @user.PostalCode
+                            </td>
+                            <td class="text-black-100">
+                                @user.Role
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <h1>
+            Not created user yet
+        </h1>
+        <a class="btn btn-primary text-white" asp-area="Identity" asp-page="/Account/Register">Create New User Now</a>
+
+    }
 </div>
 
-<br />
-@if (Model.Count() > 0)
-{
-
-    <div class="p-4 border rounded">
-        <table class="table table-striped table-bordered" id="tblData" style="width:100%">
-            <thead class="thead-dark">
-                <tr class="table-info">
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Phone</th>
-                    <th>City</th>
-                    <th>State</th>
-                    <th>PostalCode</th>
-                    <th>Role</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var user in Model)
-                {
-                    <tr>
-                        <td class="text-black-100">
-                            @user.Name
-                        </td>
-                        <td class="text-black-100">
-                            @user.Email
-                        </td>
-                        <td class="text-black-100">
-                            @user.PhoneNumber
-                        </td>
-                        <td class="text-black-100">
-                            @user.City
-                        </td>
-                        <td class="text-black-100">
-                            @user.State
-                        </td>
-                        <td class="text-black-100">
-                            @user.PostalCode
-                        </td>
-                        <td class="text-black-100">
-                            @user.Role
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
-}
-else
-{
-    <h1>
-        Not created user yet
-    </h1>
-    <a class="btn btn-primary text-white" asp-area="Identity" asp-page="/Account/Register">Create New User Now</a>
-
-}
 @section Scripts{
     <script src="~/js/user.js"></script>
 }
