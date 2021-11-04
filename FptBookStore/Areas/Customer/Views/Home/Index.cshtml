@@ -1,6 +1,6 @@
-﻿@{
+﻿@model HomeViewModel
+@{
     Layout = "/Views/Shared/_layout.cshtml";
-    DetailViewModel detailViewModel = new DetailViewModel();
     string selectedCategory = Context.Request.Query["categoryId"];
 }
 
@@ -226,18 +226,19 @@
                                                                 </div>
                                                             </div>
                                                             <div class="product__hover d-flex align-items-center">
-                                                                <form>
-                                                                    <input name="AddToCartInput.ProductId" value="@product.Id" type="hidden" />
+                                                                <form action="AddToCard" method="post">
+                                                                    <input asp-for="AddToCartInput.Count" value="1" type="hidden" />
+                                                                    <input asp-for="AddToCartInput.ProductId" value="@product.Id" type="hidden" />
                                                                     <input name="AddToCartInput.Count" value="1" type="hidden" />
-                                                                    <button type="submit"
-                                                                            class="text-uppercase text-dark h-dark font-weight-medium mr-auto"
-                                                                            data-toggle="tooltip" data-placement="right" title=""
-                                                                            data-original-title="ADD TO CART">
+                                                                    <div type="submit"
+                                                                         class="text-uppercase text-dark h-dark font-weight-medium mr-auto"
+                                                                         data-toggle="tooltip" data-placement="right" title=""
+                                                                         data-original-title="ADD TO CART">
                                                                         <span class="product__add-to-cart">ADD TO CART</span>
                                                                         <span class="product__add-to-cart-icon font-size-4">
                                                                             <i class="flaticon-icon-126515"></i>
                                                                         </span>
-                                                                    </button>
+                                                                    </div>
                                                                 </form>
                                                             </div>
                                                         </div>
