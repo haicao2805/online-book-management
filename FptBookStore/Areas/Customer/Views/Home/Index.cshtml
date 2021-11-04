@@ -5,7 +5,7 @@
 }
 
 
-@using PagedList;
+@using PagedList.Mvc;
 
 <body>
 
@@ -259,12 +259,14 @@
                                     </li>
                                     <!-- un selected page -->
                                     <li class="flex-shrink-0 flex-md-shrink-1 page-item">
-                                        <a class="page-link"
-                                           href="#">1</a>
+                                        <a href="?page=1"><p style="font-size: 18px;" class="page-link">1</p></a>
                                     </li>
                                     <!-- selected page -->
                                     <li class="flex-shrink-0 flex-md-shrink-1 page-item active" aria-current="page">
-                                        <a class="page-link" href="#">3</a>
+                                        <a href="?page=2"><p style="font-size: 18px;" class="page-link">2</p></a>
+                                    </li>
+                                    <li class="flex-shrink-0 flex-md-shrink-1 page-item active" aria-current="page">
+                                        <a href="?page=3"><p style="font-size: 18px;" class="page-link">3</p></a>
                                     </li>
                                     <li class="flex-shrink-0 flex-md-shrink-1 page-item">
                                         <a class="page-link"
@@ -312,7 +314,8 @@
                                             </ul>
                                         }
                                     </div>
-                                    <script>window.onload = function () {
+                                    <script>
+                                        window.onload = function () {
                                             var selectedCategoryId = document.getElementById("selectedCategory").value;
                                             if (selectedCategoryId !== "") {
                                                 window.location.href = `#bookbycategory`;
@@ -326,16 +329,6 @@
             </div>
         </div>
     </section>
-
-
-    <!--Pagination        -->
-    <form asp-controller="Home" asp-action="Index">
-        <p>
-            Page: <input type="number" name="page" />
-            &nbsp;
-            <input type="submit" class="btn btn-dark" value="Page" style="width: 250px" />
-        </p>
-    </form>
 
 
 
@@ -357,7 +350,8 @@
     <script src="~/js/components/hs.show-animation.js"></script>
 
 
-    <script>$(document).on('ready', function () {
+    <script>
+        $(document).on('ready', function () {
             // initialization of unfold component
             $.HSCore.components.HSUnfold.init($('[data-unfold-target]'));
 

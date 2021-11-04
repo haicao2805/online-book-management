@@ -45,7 +45,7 @@ namespace FptBookStore.Areas.Customer.Controllers
                 productList = _unitOfWork.Product.GetAll(includeProperties: "Category");
             }
             //Pagination
-            int pageSize = 2;
+            int pageSize = 3;
             productList.ToPagedList(page ?? 1, pageSize);
 
             newestProductList = _unitOfWork.Product.GetAll().OrderBy(product => product.CreatedDate);
