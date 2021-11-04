@@ -5,21 +5,30 @@
     var title = Model.Product.Id == 0 ? "Create Product" : "Update Product";
 
 }
-<div style="padding: 60px">
+
+<div style="padding: 100px">
     <form method="post" enctype="multipart/form-data">
         <div class="row p-3 border">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="col-12 border-bottom text-primary">
                 <h2 class="text-black font-weight-bold">@title</h2>
             </div>
-            <div class="col-8 pt-4">
+
+            <div class="
+                 @if (Model.Product.Id == 0)
+            {
+                     @Html.Raw("col-9 pt-4")
+            } else {
+                     @Html.Raw("col-8 pt-4")
+                 }
+                 ">
                 @if (Model.Product.Id != 0)
                 {
                     <input type="hidden" asp-for="Product.Id" />
                 }
-                <div class="form-group row">
+                <div class="form-group row" style="align-items: center;">
                     <div class="col-4">
-                        <label asp-for="Product.Title"></label>
+                        <label class="float-right" asp-for="Product.Title"></label>
                     </div>
                     <div class="col-8">
                         <input asp-for="Product.Title" class="form-control" />
@@ -29,16 +38,16 @@
 
                 <div class="form-group row">
                     <div class="col-4">
-                        <label asp-for="Product.Description"></label>
+                        <label class="float-right" asp-for="Product.Description"></label>
                     </div>
                     <div class="col-8">
                         <textarea asp-for="Product.Description" class="form-control"></textarea>
                     </div>
                 </div>
 
-                <div class="form-group row">
+                <div class="form-group row" style="align-items: center;">
                     <div class="col-4">
-                        <label asp-for="Product.ISBN"></label>
+                        <label class="float-right" asp-for="Product.ISBN"></label>
                     </div>
                     <div class="col-8">
                         <input asp-for="Product.ISBN" class="form-control" />
@@ -46,9 +55,9 @@
                     </div>
                 </div>
 
-                <div class="form-group row">
+                <div class="form-group row" style="align-items: center;">
                     <div class="col-4">
-                        <label asp-for="Product.Author"></label>
+                        <label class="float-right" asp-for="Product.Author"></label>
                     </div>
                     <div class="col-8">
                         <input asp-for="Product.Author" class="form-control" />
@@ -56,9 +65,9 @@
                     </div>
                 </div>
 
-                <div class="form-group row">
+                <div class="form-group row" style="align-items: center;">
                     <div class="col-4">
-                        <label asp-for="Product.Price"></label>
+                        <label class="float-right" asp-for="Product.Price">Price</label>
                     </div>
                     <div class="col-8">
                         <input asp-for="Product.Price" class="form-control" />
@@ -66,9 +75,9 @@
                     </div>
                 </div>
 
-                <div class="form-group row">
+                <div class="form-group row" style="align-items: center;">
                     <div class="col-4">
-                        <label asp-for="Product.Price50"></label>
+                        <label class="float-right" asp-for="Product.Price50">Price 50</label>
                     </div>
                     <div class="col-8">
                         <input asp-for="Product.Price50" class="form-control" />
@@ -76,9 +85,9 @@
                     </div>
                 </div>
 
-                <div class="form-group row">
+                <div class="form-group row" style="align-items: center;">
                     <div class="col-4">
-                        <label asp-for="Product.Price100"></label>
+                        <label class="float-right" asp-for="Product.Price100"></label>
                     </div>
                     <div class="col-8">
                         <input asp-for="Product.Price100" class="form-control" />
@@ -86,9 +95,9 @@
                     </div>
                 </div>
 
-                <div class="form-group row">
+                <div class="form-group row" style="align-items: center;">
                     <div class="col-4">
-                        <label asp-for="Product.Quantity"></label>
+                        <label class="float-right" asp-for="Product.Quantity"></label>
                     </div>
                     <div class="col-8">
                         <input asp-for="Product.Quantity" class="form-control" />
@@ -96,9 +105,9 @@
                     </div>
                 </div>
 
-                <div class="form-group row">
-                    <div class="col-4">
-                        Category
+                <div class="form-group row" style="align-items: center;">
+                    <div class="col-4 float-right">
+                        <label class="float-right">Category</label>
                     </div>
                     <div class="col-8">
                         @Html.DropDownListFor(
@@ -112,30 +121,30 @@
                 </div>
 
 
-                <div class="form-group row">
-                    <div class="col-4">
-                        Image
+                <div class="form-group row" style="align-items: center;">
+                    <div class="col-4" style="align-items: center;">
+                        <label class="float-right">Image</label>
                     </div>
                     <div class="col-8">
                         <input type="file" name="files" id="uploadBox" multiple class="form-control" />
                     </div>
                 </div>
 
-                <div class="form-group row">
+                <div class="form-group row" style="align-items: center;">
                     <div class="col-8 offset-4">
                         @if (Model.Product.Id == 0)
                         {
-                        <div class="row">
-                            <div class="col">
-                                <a asp-action="Index" class="btn btn-dark form-control">Back</a>
+                            <div class="row">
+                                <div class="col">
+                                    <a asp-action="Index" class="btn btn-dark form-control">Back</a>
+                                </div>
+                                <div class="col">
+                                    <button type="submit" onclick="return validateInput()"
+                                            class="btn btn-outline-success font-weight-bold form-control">
+                                        Create
+                                    </button>
+                                </div>
                             </div>
-                            <div class="col">
-                                <button type="submit" onclick="return validateInpu
-                     t          ()" class="btn btn-outline-success font-weight-bold form-control">
-                                    Create
-                                </button>
-                            </div>
-                        </div>
                         }
                         else
                         {
@@ -147,7 +156,7 @@
             @if (Model.Product.Id != 0)
             {
                 <div class="col-3 offset-1 p-4">
-                    <img src="@Model.Product.ImageUrl" width="100%" style="border: 1px solid #bbb999" />
+                    <img src="@Model.Product.ImageUrl" style="width: 300px; border: 1px solid #bbb999" />
                 </div>
             }
         </div>

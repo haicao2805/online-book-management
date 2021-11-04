@@ -72,7 +72,7 @@ namespace FptBookStore.Areas.Customer.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = UserRole.Customer)]
-        public IActionResult AddToCard(HomeViewModel model)
+        public IActionResult Index(HomeViewModel model)
         {
             AddToCartInput cartObj = model.AddToCartInput;
             if (ModelState.IsValid)
