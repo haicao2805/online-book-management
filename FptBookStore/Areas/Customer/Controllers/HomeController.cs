@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -29,7 +30,7 @@ namespace FptBookStore.Areas.Customer.Controllers
         }
 
         [HttpGet]
-        public IActionResult Index(int? categoryId)
+        public IActionResult Index(int? categoryId, int? page)
         {
             Console.WriteLine("CategoryId: " + categoryId);
             IEnumerable<Product> productList;
@@ -43,6 +44,9 @@ namespace FptBookStore.Areas.Customer.Controllers
             {
                 productList = _unitOfWork.Product.GetAll(includeProperties: "Category");
             }
+            //Pagination
+            int pageSize = 2;
+            productList.ToPagedList(page ?? 1, pageSize);
 
             newestProductList = _unitOfWork.Product.GetAll().OrderBy(product => product.CreatedDate);
 
@@ -50,7 +54,7 @@ namespace FptBookStore.Areas.Customer.Controllers
             IEnumerable<Category> categories = _unitOfWork.Category.GetAll();
             var listCart = HttpContext.Session.GetObject<List<(int, int)>>(SessionKey.ShoppingCartList);
             HttpContext.Session.SetInt32(SessionKey.ShoppingCartCount, listCart == null ? 0 : listCart.Count);
-            var viewModel = new HomeViewModel(productList.ToList(), categories.ToList(), newestProductList.ToList());
+            var viewModel = new HomeViewModel(productList.ToList().ToPagedList(page ?? 1, pageSize), categories.ToList(), newestProductList.ToList());
             return View(viewModel);
         }
 

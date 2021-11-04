@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using FptBookStore.Entities;
+using PagedList;
 
 namespace FptBookStore.Areas.Customer.ViewModels
 {
     public class HomeViewModel
     {
-        public List<Product> Products { get; set; }
+        public IPagedList<Product> Products { get; set; }
         public List<Category> Categories { get; set; }
         public List<Product> NewestProducts { get; set; }
         public String Message { get; set; }
@@ -14,10 +15,9 @@ namespace FptBookStore.Areas.Customer.ViewModels
 
         public HomeViewModel()
         {
+         }
 
-        }
-
-        public HomeViewModel(List<Product> products, List<Category> categories, string message, List<Product> newestProducts)
+        public HomeViewModel(IPagedList<Product> products, List<Category> categories, string message, List<Product> newestProducts)
         {
             Products = products;
             Categories = categories;
@@ -25,7 +25,7 @@ namespace FptBookStore.Areas.Customer.ViewModels
             NewestProducts = newestProducts;
         }
 
-        public HomeViewModel(List<Product> products, List<Category> categories, List<Product> newestProducts)
+        public HomeViewModel(IPagedList<Product> products, List<Category> categories, List<Product> newestProducts)
         {
             Products = products;
             Categories = categories;

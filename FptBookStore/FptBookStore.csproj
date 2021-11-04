@@ -17,6 +17,7 @@
 		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.9" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.9" />
 		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
+		<PackageReference Include="PagedList.Mvc" Version="4.5.0" />
 		<PackageReference Include="Stripe.net" Version="39.70.0" />
 	</ItemGroup>
 
