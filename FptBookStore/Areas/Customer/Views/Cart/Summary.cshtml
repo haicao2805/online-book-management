@@ -93,7 +93,7 @@
                                                                         @item.Product.Title&nbsp; <strong class="product-quantity">× @item.Product.Price</strong>
                                                                     </td>
                                                                     <td class="product-total">
-                                                                        <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">£</span>@Html.Raw(item.Product.Price * item.Count)</span>
+                                                                        <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>@Html.Raw(item.Product.Price * item.Count)</span>
                                                                     </td>
                                                                 </tr>
                                                             }
@@ -103,12 +103,12 @@
                                                             <tr class="cart-subtotal">
                                                                 <th>Subtotal</th>
                                                                 <td>
-                                                                    <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">£</span>@Model.OrderHeader.OrderTotal</span>
+                                                                    <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>@Model.OrderHeader.OrderTotal</span>
                                                                 </td>
                                                             </tr>
                                                             <tr class="order-total">
                                                                 <th>Total</th>
-                                                                <td><strong><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">£</span>@Model.OrderHeader.OrderTotal</span></strong> </td>
+                                                                <td><strong><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>@Model.OrderHeader.OrderTotal</span></strong> </td>
                                                             </tr>
                                                         </tfoot>
                                                     </table>
@@ -132,7 +132,7 @@
                                                             <tr class="checkout-subtotal">
                                                                 <th>Subtotal</th>
                                                                 <td data-title="Subtotal">
-                                                                    <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">£</span>@Model.OrderHeader.OrderTotal</span>
+                                                                    <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>@Model.OrderHeader.OrderTotal</span>
                                                                 </td>
                                                             </tr>
                                                             <tr class="order-shipping">
@@ -150,7 +150,7 @@
                                                     <tbody>
                                                         <tr class="order-total">
                                                             <th>Total</th>
-                                                            <td data-title="Total"><strong><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">£</span>@Model.OrderHeader.OrderTotal</span></strong> </td>
+                                                            <td data-title="Total"><strong><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>@Model.OrderHeader.OrderTotal</span></strong> </td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -173,9 +173,6 @@
                                                             <li class="wc_payment_method payment_method_bacs">
 
                                                                 <label for="ml-4 pl-4 payment_method_bacs" style="display: block;">  VISA/MASTER CARD </label>
-                                                                <div class="payment_box payment_method_bacs" style="display: block;">
-                                                                    <p>Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order won’t be shipped until the funds have cleared in our account.</p>
-                                                                </div>
                                                             </li>
                                                         </ul>
                                                     </div>

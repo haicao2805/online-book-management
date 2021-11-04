@@ -7,11 +7,11 @@
     <form method="post">
         @if (Model.ListCart.Count() > 0)
         {
-            <div class="site-content bg-punch-light overflow-hidden" id="content">
+            <div class="site-content bg-punch-light overflow-hidden" id="content" style="padding: 60px">
                 <div class="container">
                     <header class="entry-header space-top-2 space-bottom-1 mb-2">
                         <!-- Cart item count -->
-                        <h1 class="entry-title font-size-7">Your cart: count items</h1>
+                        <h1 class="entry-title font-size-7">Your cart: @Model.ListCart.Count() item(s)</h1>
                     </header>
                     <div class="row pb-8">
                         <div id="primary" class="content-area">
@@ -152,7 +152,14 @@
         }
         else
         {
-            <div>There are no items in the shopping cart</div>
+    <div style="height: 420px; padding: 70px; margin-left: 370px" class="text-black-50">
+        <p style="font-size: 40px">
+            Oh Sorry :(
+        </p>
+        <p style="font-size: 29px">
+            There is no item in the shopping cart
+        </p>
+    </div>
         }
     </form>
 </body>
