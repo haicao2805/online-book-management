@@ -52,7 +52,7 @@ namespace FptBookStore.Areas.Customer.Controllers
 
             if (newestProductList.Count() > 15)
             {
-                newestProductList = newestProductList.GetRange(0, 15);
+                newestProductList.RemoveRange(14, newestProductList.Count() - 15);
             }
 
 
