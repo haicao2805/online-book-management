@@ -34,7 +34,7 @@ namespace FptBookStore.Areas.Customer.Controllers
         {
             Console.WriteLine("CategoryId: " + categoryId);
             IEnumerable<Product> productList;
-            IEnumerable<Product> newestProductList = new List<Product>();
+            List<Product> newestProductList = new List<Product>();
 
             if (categoryId != null)
             {
@@ -48,13 +48,18 @@ namespace FptBookStore.Areas.Customer.Controllers
             int pageSize = 2;
             productList.ToPagedList(page ?? 1, pageSize);
 
-            newestProductList = _unitOfWork.Product.GetAll().OrderBy(product => product.CreatedDate);
+            newestProductList = _unitOfWork.Product.GetAll().OrderBy(product => product.CreatedDate).ToList();
+
+            if (newestProductList.Count() > 15)
+            {
+                newestProductList = newestProductList.GetRange(0, 15);
+            }
 
 
             IEnumerable<Category> categories = _unitOfWork.Category.GetAll();
             var listCart = HttpContext.Session.GetObject<List<(int, int)>>(SessionKey.ShoppingCartList);
             HttpContext.Session.SetInt32(SessionKey.ShoppingCartCount, listCart == null ? 0 : listCart.Count);
-            var viewModel = new HomeViewModel(productList.ToList().ToPagedList(page ?? 1, pageSize), categories.ToList(), newestProductList.ToList());
+            var viewModel = new HomeViewModel(productList.ToList().ToPagedList(page ?? 1, pageSize), categories.ToList(), newestProductList);
             return View(viewModel);
         }
 
