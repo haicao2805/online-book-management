@@ -50,7 +50,7 @@ namespace FptBookStore.Areas.Customer.Controllers
 
             newestProductList = _unitOfWork.Product.GetAll().OrderBy(product => product.CreatedDate).ToList();
 
-            if (newestProductList.Count() > 15)
+            if (newestProductList.Count > 15)
             {
                 newestProductList.RemoveRange(14, newestProductList.Count() - 15);
             }
