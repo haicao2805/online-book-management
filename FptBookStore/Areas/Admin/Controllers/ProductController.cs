@@ -70,7 +70,7 @@ namespace FptBookStore.Areas.Admin.Controllers
                 if (files.Count > 0)
                 {
                     string fileName = Guid.NewGuid().ToString();
-                    var uploadFolder = Path.Combine("/DataSource/image/product");
+                    var uploadFolder = Path.Combine(webRootPath, "image/product");
                     var extension = Path.GetExtension(files[0].FileName);
                     productViewModel.Product.CreatedDate = DateTime.Now;
                     if (productViewModel.Product.ImageUrl != null)

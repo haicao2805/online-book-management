@@ -1,6 +1,6 @@
 **/.vs
 **/bin
 **/obj
-
+**/FptBookStore/wwwroot/image
 appsettings.json
 appsettings.Development.json
