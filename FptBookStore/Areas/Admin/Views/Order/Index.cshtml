@@ -4,6 +4,7 @@
     var status = Context.Request.Query["status"];
 
     var inprocess = "text-primary";
+    var approved = "text-primary";
     var pending = "text-primary";
     var compeleted = "text-primary";
     var rejected = "text-primary";
@@ -11,8 +12,11 @@
 
     switch (status)
     {
-        case "inprocess":
+        case "processing":
             inprocess = "active text-white";
+            break;
+        case "approved":
+            approved = "active text-white";
             break;
         case "compeleted":
             compeleted = "active text-white";
@@ -40,7 +44,7 @@
                     <li class="list-group-item @inprocess">In Process</li>
                     </a>
                     <a asp-controller="Order" asp-action="Index" asp-route-status="approved" style="text-decoration:none;">
-                    <li class="list-group-item @inprocess">Approved</li>
+                    <li class="list-group-item @approved">Approved</li>
                     </a>
 
                     <a asp-controller="Order" asp-action="Index" asp-route-status="compeleted" style="text-decoration:none;">
