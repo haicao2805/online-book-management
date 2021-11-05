@@ -13,13 +13,13 @@
         <a class="btn btn-primary-outline" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage" style="padding-top:10px">Hi @User.Identity.Name</a>
         <span style="color:transparent">aaa</span>
         <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" style="float: right">
-            <button type="submit" class="btn btn-primary mb-6 mb-lg-0">Logout</button>
+            <button type="submit" class="btn btn-primary mb-6 mt-3 mb-lg-0">Logout</button>
         </form>
     }
     else
     {
-        <a class="btn btn-info" asp-area="Identity" asp-page="/Account/Login" class="mb-6 mb-lg-0">Login</a>
+        <a class="btn btn-info mb-6 mt-3 mb-lg-0" asp-area="Identity" asp-page="/Account/Login">Login</a>
         <span style="color:transparent">aaa</span>
-        <a class="btn btn-dark" asp-area="Identity" asp-page="/Account/Register" class="mb-6 mb-lg-0" style="float: right">Register</a>
+        <a class="btn btn-dark mb-6 mt-3 mb-lg-0" asp-area="Identity" asp-page="/Account/Register" style="float: right">Register</a>
     }
 </ul>
