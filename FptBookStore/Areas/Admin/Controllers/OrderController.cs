@@ -26,9 +26,25 @@ namespace FptBookStore.Areas.Admin.Controllers
 
         [BindProperty]
         public OrderDetailViewModel OrderDetailVM { get; set; }
-        public IActionResult Index()
+        public IActionResult Index(string? status)
         {
-            IEnumerable<OrderHeader> ordList = _unitOfWork.OrderHeader.GetAll();
+            Console.WriteLine("status", status);
+            IEnumerable<OrderHeader> ordList = null;
+            if (status != null || status == "")
+            {
+                if(status.ToUpper() != "ALL")
+                {
+                    ordList = _unitOfWork.OrderHeader.GetAll().Where(item => item.OrderStatus.ToUpper().Equals(status.ToUpper()));
+                }
+                else
+                {
+                    ordList = _unitOfWork.OrderHeader.GetAll();
+                }
+            }
+            else
+            {
+                ordList = _unitOfWork.OrderHeader.GetAll();
+            }
             return View(ordList);
         }
 

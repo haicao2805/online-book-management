@@ -36,8 +36,11 @@
             </div>
             <div class="p-2">
                 <ul class="list-group list-group-horizontal-sm">
-                    <a asp-controller="Order" asp-action="Index" asp-route-status="inprocess" style="text-decoration:none;">
+                    <a asp-controller="Order" asp-action="Index" asp-route-status="processing" style="text-decoration:none;">
                     <li class="list-group-item @inprocess">In Process</li>
+                    </a>
+                    <a asp-controller="Order" asp-action="Index" asp-route-status="approved" style="text-decoration:none;">
+                    <li class="list-group-item @inprocess">Approved</li>
                     </a>
 
                     <a asp-controller="Order" asp-action="Index" asp-route-status="compeleted" style="text-decoration:none;">
