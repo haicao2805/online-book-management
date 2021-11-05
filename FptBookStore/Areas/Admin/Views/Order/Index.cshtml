@@ -36,8 +36,11 @@
             </div>
             <div class="p-2">
                 <ul class="list-group list-group-horizontal-sm">
-                    <a asp-controller="Order" asp-action="Index" asp-route-status="inprocess" style="text-decoration:none;">
+                    <a asp-controller="Order" asp-action="Index" asp-route-status="processing" style="text-decoration:none;">
                     <li class="list-group-item @inprocess">In Process</li>
+                    </a>
+                    <a asp-controller="Order" asp-action="Index" asp-route-status="approved" style="text-decoration:none;">
+                    <li class="list-group-item @inprocess">Approved</li>
                     </a>
 
                     <a asp-controller="Order" asp-action="Index" asp-route-status="compeleted" style="text-decoration:none;">
@@ -62,6 +65,8 @@
                     <tr class="table-info">
                         <th>Id</th>
                         <th>Name</th>
+                        <th>Order Date</th>
+                        <th>Payment Due Date</th>
                         <th>TrackingNumber</th>
                         <th>PaymentStatus</th>
                         <th>TransactionId</th>
@@ -80,6 +85,12 @@
                                 @order.Name
                             </td>
                             <td class="text-black-100">
+                                @order.OrderDate
+                            </td>
+                            <td class="text-black-100">
+                                @order.PaymentDueDate
+                            </td>
+                            <td class="text-black-100">
                                 @order.TrackingNumber
                             </td>
                             <td class="text-black-100">
@@ -92,6 +103,7 @@
                                 @order.OrderStatus
                             </td>
                             <td class="text-black-100">
+                                <a asp-area="Admin" asp-action="Detail" asp-controller="Order" asp-route-id="@order.Id" class="btn btn-outline-carolina text-black-100 font-size-3">Detail</a>
                             </td>
                         </tr>
                     }
