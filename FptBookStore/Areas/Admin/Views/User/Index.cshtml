@@ -3,6 +3,8 @@
 }
 @model IEnumerable<ApplicationUser>
 
+
+
 <br />
 <div style="padding: 60px">
     <div class="row">
@@ -28,7 +30,8 @@
                         <th>City</th>
                         <th>State</th>
                         <th>PostalCode</th>
-                        <th>Role</th>
+                        <th>LockOut End</th>
+                        <th>Status</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -54,7 +57,13 @@
                                 @user.PostalCode
                             </td>
                             <td class="text-black-100">
-                                @user.Role
+                                @user.LockoutEnd
+                            </td>
+                            <td class="text-black-100">
+                                    <form method="post" asp-controller="User" asp-action="LockOrUnlock">
+                                    <input type="hidden" asp-for="@user.Id" name="id" value="@user.Id"/>
+                                    <input type="submit" value="Update" class="btn btn-carolina text-black-50 font-weight-bold" />
+                                </form>
                             </td>
                         </tr>
                     }

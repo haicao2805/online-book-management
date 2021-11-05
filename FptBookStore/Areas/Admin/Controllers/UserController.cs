@@ -28,34 +28,16 @@ namespace FptBookStore.Areas.Admin.Controllers
             return View(usersList);
         }
 
-        #region API Call
-        [HttpGet]
-        public IActionResult GetAll()
-        {
-            var users = _unitOfWork.ApplicationUser.GetAll().ToList();
-            var userRoles = _unitOfWork.IdentityUserRole.GetAll().ToList();
-            var roles = _unitOfWork.IdentityRole.GetAll().ToList();
 
-            foreach (var user in users)
-            {
-                var roleId = userRoles.FirstOrDefault(item => item.UserId == user.Id).RoleId;
-                user.Role = roles.FirstOrDefault(item => item.Id == roleId).Name;
-            }
-
-            return Json(new
-            {
-                data = users
-            });
-        }
 
         [HttpPost]
-        public IActionResult LockOrUnlock([FromBody] string id)
+        public IActionResult LockOrUnlock(string id)
         {
+            IEnumerable<ApplicationUser> usersList = _unitOfWork.ApplicationUser.GetAll();
             var obj = _unitOfWork.ApplicationUser.GetFirstOrDefault(item => item.Id == id);
             var userRoles = _unitOfWork.IdentityUserRole.GetAll().ToList();
             var roles = _unitOfWork.IdentityRole.GetAll().ToList();
 
-            // get data of login user
             var claimsIdentity = (ClaimsIdentity)User.Identity;
             var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
             var loginUser = _unitOfWork.ApplicationUser.GetFirstOrDefault(item => item.Id == claim.Value);
@@ -72,12 +54,11 @@ namespace FptBookStore.Areas.Admin.Controllers
 
             if (role == UserRole.Admin)
             {
-                return Json(new { success = false, message = "Error while Locking/Unlocking" });
+                return View("Index", usersList);
             }
 
             if (obj.LockoutEnd != null && obj.LockoutEnd > DateTime.Now)
             {
-                // this current user is locked, we will unlock him/her
                 obj.LockoutEnd = DateTime.Now;
             }
             else
@@ -86,8 +67,7 @@ namespace FptBookStore.Areas.Admin.Controllers
             }
             _unitOfWork.ApplicationUser.Update(obj);
             _unitOfWork.Save();
-            return Json(new { success = true, message = "Locking/Unlocking successful" });
+            return View("Index", usersList);
         }
-        #endregion
     }
 }
