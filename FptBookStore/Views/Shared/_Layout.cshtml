@@ -70,6 +70,7 @@
                                 </a>
                             </li>
 
+
                             @if (User.IsInRole(UserRole.Customer))
                             {
                                 @if (HttpContextAccessor.HttpContext.Session.GetInt32(SessionKey.ShoppingCartCount) != null)
