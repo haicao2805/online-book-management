@@ -158,7 +158,7 @@
                             <div class="row my-1">
                                 <div class="col-3">Shipping Date</div>
                                 <div class="col-9">
-                                    <input value="@Model.OrderHeader.ShippingDate.ToShortDateString()" id="shippingDate" type="text" readonly class="form-control" />
+                                    <input value="@Model.OrderHeader.ShippingDate" id="shippingDate" type="text" readonly class="form-control" />
                                 </div>
                             </div>
                             @if (User.IsInRole(UserRole.Admin))
@@ -174,14 +174,14 @@
                                     {
                                         <div class="col-3">Payment Due Date</div>
                                         <div class="col-9">
-                                            <input value="@Model.OrderHeader.PaymentDueDate.ToShortDateString()" readonly type="text" class="form-control" />
+                                            <input value="@Model.OrderHeader.PaymentDueDate" readonly type="text" class="form-control" />
                                         </div>
                                     }
                                     else
                                     {
                                         <div class="col-3">Payment Date</div>
                                         <div class="col-9">
-                                            <input value="@Model.OrderHeader.PaymentDate.ToShortDateString()" readonly id="paymentDate" type="text" class="form-control" />
+                                            <input value="@Model.OrderHeader.PaymentDate" readonly id="paymentDate" type="text" class="form-control" />
                                         </div>
                                     }
                                 </div>

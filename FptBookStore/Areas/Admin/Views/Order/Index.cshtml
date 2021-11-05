@@ -62,11 +62,13 @@
                     <tr class="table-info">
                         <th>Id</th>
                         <th>Name</th>
+                        <th>Order Date</th>
+                        <th>Payment Due Date</th>
                         <th>TrackingNumber</th>
                         <th>PaymentStatus</th>
                         <th>TransactionId</th>
                         <th>OrderStatus</th>
-                        <th>Detail</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -78,6 +80,12 @@
                             </td>
                             <td class="text-black-100">
                                 @order.Name
+                            </td>
+                            <td class="text-black-100">
+                                @order.OrderDate
+                            </td>
+                            <td class="text-black-100">
+                                @order.PaymentDueDate
                             </td>
                             <td class="text-black-100">
                                 @order.TrackingNumber
@@ -92,7 +100,7 @@
                                 @order.OrderStatus
                             </td>
                             <td class="text-black-100">
-                                <a asp-area="Admin" asp-action="Detail" asp-controller="Order" asp-route-id="@order.Id">Detail</a>
+                                <a asp-area="Admin" asp-action="Detail" asp-controller="Order" asp-route-id="@order.Id" class="btn btn-outline-carolina text-black-100 font-size-3">Detail</a>
                             </td>
                         </tr>
                     }
