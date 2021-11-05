@@ -66,7 +66,7 @@
                         <th>PaymentStatus</th>
                         <th>TransactionId</th>
                         <th>OrderStatus</th>
-                        <th></th>
+                        <th>Detail</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -92,6 +92,7 @@
                                 @order.OrderStatus
                             </td>
                             <td class="text-black-100">
+                                <a asp-area="Admin" asp-action="Detail" asp-controller="Order" asp-route-id="@order.Id">Detail</a>
                             </td>
                         </tr>
                     }
