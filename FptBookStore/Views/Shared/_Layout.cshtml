@@ -76,7 +76,7 @@
                                 {
                                     <li style="color:white;">
                                         <form action="/Customer/Cart">
-                                            <button type="submit" class="nav-link link-black-100 mx-4 px-0 py-5 font-weight-medium active border-bottom border-primary border-width-2">
+                                            <button id="cartbutton" type="submit">
                                                 @{
                                                     var count = HttpContextAccessor.HttpContext.Session.GetInt32(SessionKey.ShoppingCartCount);
                                                 }
@@ -88,7 +88,7 @@
                                 else
                                 {
                                     <li style="color:white;">
-                                        <button asp-area="Customer" asp-controller="Cart" asp-action="Index" class="nav-link link-black-100 mx-4 px-0 py-5 font-weight-medium active border-bottom border-primary border-width-2">
+                                        <button id="cartbutton" asp-area="Customer" asp-controller="Cart" asp-action="Index" class="nav-link link-black-100 mx-4 px-0 py-5 font-weight-medium active border-bottom border-primary border-width-2">
                                             Cart(0)
                                         </button>
                                     </li>
