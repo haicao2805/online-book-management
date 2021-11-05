@@ -28,23 +28,51 @@ namespace FptBookStore.Areas.Admin.Controllers
         public OrderDetailViewModel OrderDetailVM { get; set; }
         public IActionResult Index(string? status)
         {
-            Console.WriteLine("status", status);
+
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+            ApplicationUser user = _unitOfWork.ApplicationUser.GetFirstOrDefault(item => item.Id == claim.Value);
+            var isAdmin = User.IsInRole(UserRole.Admin);
+
             IEnumerable<OrderHeader> ordList = null;
-            if (status != null || status == "")
+            //Admin
+            if (isAdmin)
             {
-                if(status.ToUpper() != "ALL")
+                if (status != null || status == "")
                 {
-                    ordList = _unitOfWork.OrderHeader.GetAll().Where(item => item.OrderStatus.ToUpper().Equals(status.ToUpper()));
+                    if (status.ToUpper() != "ALL")
+                    {
+                        ordList = _unitOfWork.OrderHeader.GetAll().Where(item => item.OrderStatus.ToUpper().Equals(status.ToUpper()));
+                    }
+                    else
+                    {
+                        ordList = _unitOfWork.OrderHeader.GetAll();
+                    }
                 }
                 else
                 {
                     ordList = _unitOfWork.OrderHeader.GetAll();
                 }
             }
-            else
+            else if (!isAdmin && (user != null))
             {
-                ordList = _unitOfWork.OrderHeader.GetAll();
+                if (status != null || status == "")
+                {
+                    if (status.ToUpper() != "ALL")
+                    {
+                        ordList = _unitOfWork.OrderHeader.GetAll().Where(item => item.OrderStatus.ToUpper().Equals(status.ToUpper()) && item.ApplicationUserId.Equals(user.Id));
+                    }
+                    else
+                    {
+                        ordList = _unitOfWork.OrderHeader.GetAll().Where(item => item.ApplicationUserId.Equals(user.Id));
+                    }
+                }
+                else
+                {
+                    ordList = _unitOfWork.OrderHeader.GetAll().Where(item => item.ApplicationUserId.Equals(user.Id));
+                }
             }
+
             return View(ordList);
         }
 

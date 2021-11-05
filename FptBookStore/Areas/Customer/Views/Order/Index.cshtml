@@ -1,9 +1,4 @@
-﻿@using FptBookStore.Utility
-@using Microsoft.AspNetCore.Http
-@inject IHttpContextAccessor HttpContextAccessor
-
-
-@{
+﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 
     var status = Context.Request.Query["status"];
@@ -12,7 +7,7 @@
     var approved = "text-primary";
     var pending = "text-primary";
     var compeleted = "text-primary";
-    var refunded = "text-primary";
+    var rejected = "text-primary";
     var all = "text-primary";
 
     switch (status)
@@ -26,8 +21,8 @@
         case "compeleted":
             compeleted = "active text-white";
             break;
-        case "refunded":
-            refunded = "active text-white";
+        case "rejected":
+            rejected = "active text-white";
             break;
         default:
             all = "active text-white";
@@ -56,8 +51,8 @@
                     <li class="list-group-item @compeleted">Compeleted</li>
                     </a>
 
-                    <a asp-controller="Order" asp-action="Index" asp-route-status="refunded" style="text-decoration:none;">
-                    <li class="list-group-item @refunded">Rejected</li>
+                    <a asp-controller="Order" asp-action="Index" asp-route-status="Refunded" style="text-decoration:none;">
+                    <li class="list-group-item @rejected">Rejected</li>
                     </a>
 
                     <a asp-controller="Order" asp-action="Index" asp-route-status="all" style="text-decoration:none;">
@@ -80,46 +75,40 @@
                         <th>PaymentStatus</th>
                         <th>TransactionId</th>
                         <th>OrderStatus</th>
-                        @if (User.IsInRole(UserRole.Admin))
-                        {
-                            <th></th>
-                        }
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var order in Model)
                     {
-                    <tr>
-                        <td class="text-black-100">
-                            @order.Id
-                        </td>
-                        <td class="text-black-100">
-                            @order.Name
-                        </td>
-                        <td class="text-black-100">
-                            @order.OrderDate
-                        </td>
-                        <td class="text-black-100">
-                            @order.PaymentDueDate
-                        </td>
-                        <td class="text-black-100">
-                            @order.TrackingNumber
-                        </td>
-                        <td class="text-black-100">
-                            @order.PaymentStatus
-                        </td>
-                        <td class="text-black-100">
-                            @order.TransactionId
-                        </td>
-                        <td class="text-black-100">
-                            @order.OrderStatus
-                        </td>
-                            @if (User.IsInRole(UserRole.Admin))
-                            {
+                        <tr>
+                            <td class="text-black-100">
+                                @order.Id
+                            </td>
+                            <td class="text-black-100">
+                                @order.Name
+                            </td>
+                            <td class="text-black-100">
+                                @order.OrderDate
+                            </td>
+                            <td class="text-black-100">
+                                @order.PaymentDueDate
+                            </td>
+                            <td class="text-black-100">
+                                @order.TrackingNumber
+                            </td>
+                            <td class="text-black-100">
+                                @order.PaymentStatus
+                            </td>
+                            <td class="text-black-100">
+                                @order.TransactionId
+                            </td>
+                            <td class="text-black-100">
+                                @order.OrderStatus
+                            </td>
                             <td class="text-black-100">
                                 <a asp-area="Admin" asp-action="Detail" asp-controller="Order" asp-route-id="@order.Id" class="btn btn-outline-carolina text-black-100 font-size-3">Detail</a>
                             </td>
-                            }
                         </tr>
                     }
                 </tbody>
