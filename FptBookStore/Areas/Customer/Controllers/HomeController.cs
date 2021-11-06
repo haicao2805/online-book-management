@@ -58,7 +58,7 @@ namespace FptBookStore.Areas.Customer.Controllers
             newestProductList = _unitOfWork.Product.GetAll().OrderBy(product => product.CreatedDate).ToList();
             if (newestProductList.Count > 8)
             {
-                newestProductList = newestProductList.GetRange(0, 10);
+                newestProductList = newestProductList.GetRange(0, 8);
             }
 
             IEnumerable<Category> categories = _unitOfWork.Category.GetAll();
