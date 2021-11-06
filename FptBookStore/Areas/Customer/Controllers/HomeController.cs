@@ -56,12 +56,10 @@ namespace FptBookStore.Areas.Customer.Controllers
             if (page < 1) page = 1;
 
             newestProductList = _unitOfWork.Product.GetAll().OrderBy(product => product.CreatedDate).ToList();
-
-            if (newestProductList.Count > 15)
+            if (newestProductList.Count > 8)
             {
-                newestProductList.RemoveRange(14, newestProductList.Count() - 15);
+                newestProductList = newestProductList.GetRange(0, 10);
             }
-
 
             IEnumerable<Category> categories = _unitOfWork.Category.GetAll();
             var listCart = HttpContext.Session.GetObject<List<(int, int)>>(SessionKey.ShoppingCartList);
