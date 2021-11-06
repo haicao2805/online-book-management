@@ -25,15 +25,13 @@ namespace FptBookStore.Areas.Customer.Controllers
     public class CartController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IEmailSender _emailSender;
         private readonly UserManager<IdentityUser> _userManager;
 
         [BindProperty]
         public ShoppingCartViewModel ShoppingCartVM { get; set; }
-        public CartController(IUnitOfWork unitOfWork, IEmailSender emailSender, UserManager<IdentityUser> userManager)
+        public CartController(IUnitOfWork unitOfWork, UserManager<IdentityUser> userManager)
         {
             _unitOfWork = unitOfWork;
-            _emailSender = emailSender;
             _userManager = userManager;
         }
         public IActionResult Index()
@@ -103,9 +101,6 @@ namespace FptBookStore.Areas.Customer.Controllers
                 pageHandler: null,
                 values: new { area = "Identity", userId = user.Id, code = code },
                 protocol: Request.Scheme);
-
-            await _emailSender.SendEmailAsync(user.Email, "Confirm your email",
-                $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
             ModelState.AddModelError(string.Empty, "Verfication email is sent. Please check your email");
             return RedirectToAction(nameof(Index));
