@@ -4,7 +4,6 @@
     Layout = "~/Views/Shared/_layout.cshtml";
 }
 <body class="">
-    <form method="post" asp-action="UpdateQty">
         @if (Model.ListCart.Count() > 0)
         {
             <div class="site-content bg-punch-light overflow-hidden" id="content" style="padding: 20px">
@@ -66,14 +65,16 @@
                                                                                     </svg>
                                                                                 </a>
                                                                                 <!-- Quantity input -->
-                                                                                <input type="number" name="qty" asp-for="@item.Count" class="input-text qty text js-result form-control text-center border-0" step="1" min="0" max="100" title="Qty">
+                                                                                <form method="post" asp-action="UpdateQty">
+                                                                                    <input type="number" name="qty" asp-for="@item.Count" class="input-text qty text js-result form-control text-center border-0" step="1" min="0" max="@item.Product.Quantity" title="Qty">
+                                                                                    <input type="hidden" value="@item.ProductId" name="productId" />
+                                                                                    <input type="submit" value="Update" class="btn btn-outline-dark" style="display: none" />
+                                                                                </form>
                                                                                 <a class="js-plus text-dark" asp-action="Plus" asp-route-productId="@item.ProductId" type="submit">
                                                                                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="10px" height="10px">
                                                                                         <path fill-rule="evenodd" fill="rgb(22, 22, 25)" d="M10.000,5.000 L6.000,5.000 L6.000,10.000 L5.000,10.000 L5.000,5.000 L-0.000,5.000 L-0.000,4.000 L5.000,4.000 L5.000,-0.000 L6.000,-0.000 L6.000,4.000 L10.000,4.000 L10.000,5.000 Z"></path>
                                                                                     </svg>
                                                                                 </a>
-                                                                                <input type="hidden" value="@item.ProductId" name="productId" />
-                                                                                <input type="submit" value="Update" class="btn btn-outline-dark" style="display: none" />
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -163,6 +164,5 @@
                 </p>
             </div>
         }
-    </form>
 </body>
 
