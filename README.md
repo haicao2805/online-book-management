@@ -3,9 +3,9 @@
 
 link: http://fptbookstore.slimair.cool
  <br>
-account admin: ptnngoc22@gmail.com   ||   ngPk_12hee.@@ 
+account admin: ptnngoc22@gmail.com   || Password:  ngPk_12hee.@@ 
  <br>
-account customer: ngoc12A_@gmail.com  ||   ngoc12A_@gmail.com
+account customer: ngoc12A_@gmail.com  || Password:  ngoc12A_@gmail.com
  <br>
 Visa Card for Test: 4242424242424242  12/23 123
  <br>
