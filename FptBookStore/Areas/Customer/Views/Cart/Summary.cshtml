@@ -5,7 +5,7 @@
 @{
     Layout = "~/Views/Shared/_layout.cshtml";
 }
-<body class="right-sidebar woocommerce-checkout">
+<body class="right-sidebar fptbook-checkout">
     <div id="content" class="site-content bg-punch-light space-bottom-3">
         <div class="col-full container">
             <div id="primary" class="content-area">
@@ -15,13 +15,13 @@
                             <h4 class="entry-title font-size-7 text-center">Checkout</h4>
                         </header>
                         <div class="entry-content">
-                            <div class="woocommerce">
-                                <form name="checkout" method="post" class="checkout woocommerce-checkout row mt-8" enctype="multipart/form-data" novalidate="novalidate" method="post">
+                            <div class="fptbook">
+                                <form name="checkout" method="post" class="checkout fptbook-checkout row mt-8" enctype="multipart/form-data" novalidate="novalidate" method="post">
                                     <div class="col2-set col-md-6 col-lg-7 col-xl-8 mb-6 mb-md-0" id="customer_details">
                                         <div class="px-4 pt-5 bg-white border">
-                                            <div class="woocommerce-billing-fields">
+                                            <div class="fptbook-billing-fields">
                                                 <h3 class="mb-4 font-size-3">Billing details</h3>
-                                                <div class="woocommerce-billing-fields__field-wrapper row">
+                                                <div class="fptbook-billing-fields__field-wrapper row">
                                                     <p class="col-12 mb-4d75 form-row form-row-wide" id="billing_company_field" data-priority="30">
                                                         <label asp-for="OrderHeader.Name" class="form-label">Full name</label>
                                                         <input asp-for="OrderHeader.Name" type="text" class="input-text form-control" id="billing_company" placeholder="" autocomplete="organization">
@@ -62,7 +62,7 @@
                                         </div>
                                     </div>
                                     <h3 id="order_review_heading" class="d-none">Your order</h3>
-                                    <div id="order_review" class="col-md-6 col-lg-5 col-xl-4 woocommerce-checkout-review-order">
+                                    <div id="order_review" class="col-md-6 col-lg-5 col-xl-4 fptbook-checkout-review-order">
                                         <div id="checkoutAccordion" class="border border-gray-900 bg-white mb-5">
                                             <div class="p-4d875 border">
                                                 <div id="checkoutHeadingOnee" class="checkout-head">
@@ -77,7 +77,7 @@
                                                     </a>
                                                 </div>
                                                 <div id="checkoutCollapseOnee" class="mt-4 checkout-content collapse" aria-labelledby="checkoutHeadingOnee" data-parent="#checkoutAccordion" style="">
-                                                    <table class="shop_table woocommerce-checkout-review-order-table">
+                                                    <table class="shop_table fptbook-checkout-review-order-table">
                                                         <thead class="d-none">
                                                             <tr>
                                                                 <th class="product-name">Product</th>
@@ -93,7 +93,7 @@
                                                                         @item.Product.Title&nbsp; <strong class="product-quantity">× @item.Product.Price</strong>
                                                                     </td>
                                                                     <td class="product-total">
-                                                                        <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>@Html.Raw(item.Product.Price * item.Count)</span>
+                                                                        <span class="fptbook-Price-amount amount"><span class="fptbook-Price-currencySymbol">$</span>@Html.Raw(item.Product.Price * item.Count)</span>
                                                                     </td>
                                                                 </tr>
                                                             }
@@ -103,12 +103,12 @@
                                                             <tr class="cart-subtotal">
                                                                 <th>Subtotal</th>
                                                                 <td>
-                                                                    <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>@Model.OrderHeader.OrderTotal</span>
+                                                                    <span class="fptbook-Price-amount amount"><span class="fptbook-Price-currencySymbol">$</span>@Model.OrderHeader.OrderTotal</span>
                                                                 </td>
                                                             </tr>
                                                             <tr class="order-total">
                                                                 <th>Total</th>
-                                                                <td><strong><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>@Model.OrderHeader.OrderTotal</span></strong> </td>
+                                                                <td><strong><span class="fptbook-Price-amount amount"><span class="fptbook-Price-currencySymbol">$</span>@Model.OrderHeader.OrderTotal</span></strong> </td>
                                                             </tr>
                                                         </tfoot>
                                                     </table>
@@ -132,7 +132,7 @@
                                                             <tr class="checkout-subtotal">
                                                                 <th>Subtotal</th>
                                                                 <td data-title="Subtotal">
-                                                                    <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>@Model.OrderHeader.OrderTotal</span>
+                                                                    <span class="fptbook-Price-amount amount"><span class="fptbook-Price-currencySymbol">$</span>@Model.OrderHeader.OrderTotal</span>
                                                                 </td>
                                                             </tr>
                                                             <tr class="order-shipping">
@@ -150,7 +150,7 @@
                                                     <tbody>
                                                         <tr class="order-total">
                                                             <th>Total</th>
-                                                            <td data-title="Total"><strong><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>@Model.OrderHeader.OrderTotal</span></strong> </td>
+                                                            <td data-title="Total"><strong><span class="fptbook-Price-amount amount"><span class="fptbook-Price-currencySymbol">$</span>@Model.OrderHeader.OrderTotal</span></strong> </td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -168,7 +168,7 @@
                                                     </a>
                                                 </div>
                                                 <div id="checkoutCollapseThreee" class="mt-4 checkout-content collapse show" aria-labelledby="checkoutHeadingThreee" data-parent="#checkoutAccordion" style="">
-                                                    <div id="payment" class="woocommerce-checkout-payment">
+                                                    <div id="payment" class="fptbook-checkout-payment">
                                                         <ul class="wc_payment_methods payment_methods methods">
                                                             <li class="wc_payment_method payment_method_bacs">
 

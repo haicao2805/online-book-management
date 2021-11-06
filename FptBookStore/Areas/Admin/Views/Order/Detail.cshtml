@@ -206,11 +206,11 @@
                                             <div class="col-8">
                                                 <input type="hidden" asp-for="@item.Id" />
                                                 <h6 class="my-0">@item.Product.Title</h6>
-                                                <small class="text-muted">Price : @item.Price</small><br />
+                                                <small class="text-muted">Price : @item.Price $</small><br />
                                                 <small class="text-muted">Quantity : @item.Count</small>
                                             </div>
                                             <div class="col-4">
-                                                <h5 class="text-success">@(item.Count * item.Price)</h5>
+                                                <h5 class="text-success">@(item.Count * item.Price) $</h5>
                                             </div>
                                         </div>
                                     </li>
@@ -221,7 +221,7 @@
                                             <h5 class="text-white">TOTAL </h5>
                                         </div>
                                         <div class="col-6 text-right">
-                                            <h5 class="text-white">@Model.OrderHeader.OrderTotal</h5>
+                                            <h5 class="text-white">@Model.OrderHeader.OrderTotal $</h5>
                                         </div>
                                     </div>
                                 </li>
@@ -247,6 +247,7 @@
                             }
                             else
                             {
+                                <p class="font-size-4 text-black-50 font-weight-bold">Status</p>
                                 <label class="btn btn-primary form-control">@Model.OrderHeader.OrderStatus</label>
                             }
 

@@ -17,8 +17,8 @@
                             <main id="main" class="site-main ">
                                 <div class="page type-page status-publish hentry">
                                     <div class="entry-content">
-                                        <div class="woocommerce">
-                                            <table class="shop_table shop_table_responsive cart woocommerce-cart-form__contents">
+                                        <div class="fptbook">
+                                            <table class="shop_table shop_table_responsive cart fptbook-cart-form__contents">
                                                 <thead>
                                                     <tr>
                                                         <th class="product-name">Product</th>
@@ -33,7 +33,7 @@
                                                     <!-- item area -->
                                                     @foreach (var item in Model.ListCart)
                                                     {
-                                                        <tr class="woocommerce-cart-form__cart-item cart_item">
+                                                        <tr class="fptbook-cart-form__cart-item cart_item">
                                                             <td class="product-name" data-title="Product">
                                                                 <div class="d-flex align-items-center">
                                                                     <a href="#">
@@ -50,7 +50,7 @@
                                                             </td>
                                                             <td class="product-price" data-title="Price">
                                                                 <!-- Price -->
-                                                                <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>@item.Price</span>
+                                                                <span class="fptbook-Price-amount amount"><span class="fptbook-Price-currencySymbol">$</span>@item.Price</span>
                                                             </td>
                                                             <td class="product-quantity" data-title="Quantity" style="width: 150px">
                                                                 <div class="quantity d-flex align-items-center">
@@ -81,7 +81,7 @@
                                                                 </div>
                                                             </td>
                                                             <td class="product-subtotal" data-title="Total">
-                                                                <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>@Html.Raw(item.Price * item.Count)</span>
+                                                                <span class="fptbook-Price-amount amount"><span class="fptbook-Price-currencySymbol">$</span>@Html.Raw(item.Price * item.Count)</span>
                                                             </td>
                                                             <td class="product-remove">
                                                                 <a asp-action="Delete" asp-route-productId="@item.ProductId" class="remove" aria-label="Remove this item">
@@ -120,7 +120,7 @@
                                                     <th>Subtotal</th>
                                                     <!--  Subtotal -->
                                                     <td data-title="Subtotal">
-                                                        <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>@Model.OrderHeader.OrderTotal</span>
+                                                        <span class="fptbook-Price-amount amount"><span class="fptbook-Price-currencySymbol">$</span>@Model.OrderHeader.OrderTotal</span>
                                                     </td>
                                                 </tr>
                                                 <tr class="order-shipping">
@@ -139,7 +139,7 @@
                                             <tr class="order-total">
                                                 <th>Total</th>
                                                 <!-- Total all -->
-                                                <td data-title="Total"><strong><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>@Model.OrderHeader.OrderTotal</span></strong> </td>
+                                                <td data-title="Total"><strong><span class="fptbook-Price-amount amount"><span class="fptbook-Price-currencySymbol">$</span>@Model.OrderHeader.OrderTotal</span></strong> </td>
                                             </tr>
                                         </tbody>
                                     </table>

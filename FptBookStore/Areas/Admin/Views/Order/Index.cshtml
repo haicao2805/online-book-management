@@ -80,10 +80,7 @@
                         <th>PaymentStatus</th>
                         <th>TransactionId</th>
                         <th>OrderStatus</th>
-                        @if (User.IsInRole(UserRole.Admin))
-                        {
                             <th></th>
-                        }
                     </tr>
                 </thead>
                 <tbody>
@@ -114,12 +111,9 @@
                         <td class="text-black-100">
                             @order.OrderStatus
                         </td>
-                            @if (User.IsInRole(UserRole.Admin))
-                            {
                             <td class="text-black-100">
                                 <a asp-area="Admin" asp-action="Detail" asp-controller="Order" asp-route-id="@order.Id" class="btn btn-outline-carolina text-black-100 font-size-3">Detail</a>
                             </td>
-                            }
                         </tr>
                     }
                 </tbody>
