@@ -11,7 +11,7 @@
     var inprocess = "text-primary";
     var approved = "text-primary";
     var pending = "text-primary";
-    var compeleted = "text-primary";
+    var shipped = "text-primary";
     var refunded = "text-primary";
     var all = "text-primary";
 
@@ -24,7 +24,7 @@
             approved = "active text-white";
             break;
         case "compeleted":
-            compeleted = "active text-white";
+            shipped = "active text-white";
             break;
         case "refunded":
             refunded = "active text-white";
@@ -45,15 +45,15 @@
             </div>
             <div class="p-2">
                 <ul class="list-group list-group-horizontal-sm">
-                    <a asp-controller="Order" asp-action="Index" asp-route-status="processing" style="text-decoration:none;">
-                    <li class="list-group-item @inprocess">In Process</li>
-                    </a>
                     <a asp-controller="Order" asp-action="Index" asp-route-status="approved" style="text-decoration:none;">
                     <li class="list-group-item @approved">Approved</li>
                     </a>
+                    <a asp-controller="Order" asp-action="Index" asp-route-status="processing" style="text-decoration:none;">
+                    <li class="list-group-item @inprocess">In Process</li>
+                    </a>
 
-                    <a asp-controller="Order" asp-action="Index" asp-route-status="compeleted" style="text-decoration:none;">
-                    <li class="list-group-item @compeleted">Compeleted</li>
+                    <a asp-controller="Order" asp-action="Index" asp-route-status="shipped" style="text-decoration:none;">
+                    <li class="list-group-item @shipped">Shipped</li>
                     </a>
 
                     <a asp-controller="Order" asp-action="Index" asp-route-status="refunded" style="text-decoration:none;">
