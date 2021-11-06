@@ -30,19 +30,26 @@ namespace FptBookStore.Areas.Customer.Controllers
         }
 
         [HttpGet]
-        public IActionResult Index(int? categoryId, int? page)
+        public IActionResult Index(int? categoryId, int? page, string? bookName)
         {
-            Console.WriteLine("CategoryId: " + categoryId);
             IEnumerable<Product> productList;
             List<Product> newestProductList = new List<Product>();
 
             if (categoryId != null)
             {
                 productList = _unitOfWork.Product.GetAll((product => product.CategoryId == (categoryId)), includeProperties: "Category");
+                if (bookName != null)
+                {
+                    productList = productList.Where(product => product.Title.ToUpper().Contains(bookName.ToUpper()));
+                }
             }
             else
             {
                 productList = _unitOfWork.Product.GetAll(includeProperties: "Category");
+                if (bookName != null)
+                {
+                    productList = productList.Where(product => product.Title.ToUpper().Contains(bookName.ToUpper()));
+                }
             }
             //Pagination
             int pageSize = 12;

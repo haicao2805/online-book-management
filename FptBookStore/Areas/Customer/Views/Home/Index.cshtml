@@ -186,6 +186,11 @@
                 <div class="container">
                     <header id="bookbycategory" class="mb-5 d-md-flex justify-content-between align-items-center">
                         <h2 class="font-size-7 mb-3 mb-md-0">Books By Category</h2>
+                        <h2 class="font-size-10 mb-3 mb-md-0"style=" color: transparent">Books By Category</h2>
+                        <h2 class="font-size-10 mb-3 mb-md-0"style=" color: transparent"> By Category aa</h2>
+                            <input class="input-group" style="width: 300px; height: 50px; padding: 20px; border-radius: 5px" type="text" name="bookName" id="searchKeyWord" placeholder="Search Book By Title...." />
+                            <!--Search o day ne-->
+                            <button class="btn btn-dark" id="searchBtn" onclick="search()">Search</button>
                     </header>
                     <div class="row pt-4 mt-4">
 
@@ -350,6 +355,7 @@
                                         var url = new URL(location.href);
                                         var pageCurrent = url.searchParams.get("page") ?? 1;
                                         var categoryCurrent = url.searchParams.get("categoryId") ?? 1;
+                                        var bookNameCurrent = url.searchParams.get("bookName") ?? "";
                                         const pageNext = parseInt(pageCurrent) + 1;
                                         const pagePre = pageCurrent - 1;
                                         window.onload = function () {
@@ -379,6 +385,11 @@
                                         }
                                         if (pagePre === 0) pagePre = 1;
                                         if (pageNext === 0) pageNext = 1;
+
+                                        function search() {
+                                            var keyWord = document.getElementById("searchKeyWord").value;
+                                            window.location.replace(urlWeb + "?bookName=" + keyWord +'#bookbycategory');
+                                        }
                                     </script>
                                 </div>
                             </div>
