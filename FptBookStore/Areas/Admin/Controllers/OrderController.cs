@@ -86,47 +86,6 @@ namespace FptBookStore.Areas.Admin.Controllers
             return View(OrderDetailVM);
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [ActionName("Detail")]
-        public IActionResult DetailPOST(string stripeToken)
-        {
-            OrderHeader orderHeader = _unitOfWork.OrderHeader.GetFirstOrDefault(item => item.Id == OrderDetailVM.OrderHeader.Id, includeProperties: "ApplicationUser");
-
-            if (stripeToken != null)
-            {
-                var options = new ChargeCreateOptions()
-                {
-                    Amount = Convert.ToInt32(orderHeader.OrderTotal * 100),
-                    Currency = "usd",
-                    Description = "Order ID: " + orderHeader.Id,
-                    Source = stripeToken
-                };
-
-                var service = new ChargeService();
-                Charge charge = service.Create(options);
-
-                if (charge.BalanceTransactionId == null)
-                {
-                    orderHeader.PaymentStatus = PaymentStatus.Rejected;
-                }
-                else
-                {
-                    orderHeader.TransactionId = charge.Id;
-                }
-
-                if (charge.Status.ToLower() == "succeeded")
-                {
-                    orderHeader.PaymentStatus = PaymentStatus.Approved;
-                    orderHeader.OrderDate = DateTime.Now;
-                }
-
-                _unitOfWork.OrderHeader.Update(orderHeader);
-                _unitOfWork.Save();
-            }
-
-            return RedirectToAction("Detail", "Order", new { id = orderHeader.Id });
-        }
 
         [Authorize(Roles = UserRole.Admin)]
         public IActionResult StartProcessing(int id)
