@@ -349,5 +349,41 @@ namespace FptBookStore.Areas.Customer.Controllers
         {
             return View(id);
         }
+
+        [HttpPost]
+        public IActionResult UpdateQty(int productId, int qty)
+        {
+
+            var listCart = HttpContext.Session.GetObject<List<(int, int)>>(SessionKey.ShoppingCartList);
+
+            var numberOfCartOfUser = listCart.Count;
+            int deleteCartIndex = -1;
+
+            for (var i = 0; i < listCart.Count; i++)
+            {
+                if (listCart[i].Item1 == productId)
+                {
+                    if (qty == 0)
+                    {
+                        HttpContext.Session.SetInt32(SessionKey.ShoppingCartCount, numberOfCartOfUser - 1);
+                        deleteCartIndex = i;
+                        break;
+                    }
+                    else
+                    {
+                        listCart[i] = (listCart[i].Item1, qty);
+                    }
+                }
+            }
+
+            if (deleteCartIndex != -1)
+            {
+                listCart.RemoveAt(deleteCartIndex);
+            }
+
+            HttpContext.Session.SetObject(SessionKey.ShoppingCartList, listCart);
+
+            return RedirectToAction(nameof(Index));
+        }
     }
 }

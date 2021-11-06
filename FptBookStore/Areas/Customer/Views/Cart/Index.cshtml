@@ -3,17 +3,17 @@
     var errorMessage = this.ViewContext.HttpContext.Request.Query["errorMessage"];
     Layout = "~/Views/Shared/_layout.cshtml";
 }
-<body class="right-sidebar woocommerce-cart">
-    <form method="post">
+<body class="">
+    <form method="post" asp-action="UpdateQty">
         @if (Model.ListCart.Count() > 0)
         {
-            <div class="site-content bg-punch-light overflow-hidden" id="content" style="padding: 60px">
+            <div class="site-content bg-punch-light overflow-hidden" id="content" style="padding: 20px">
                 <div class="container">
                     <header class="entry-header space-top-2 space-bottom-1 mb-2">
                         <!-- Cart item count -->
                         <h1 class="entry-title font-size-7">Your cart: @Model.ListCart.Count() item(s)</h1>
                     </header>
-                    <div class="row pb-8">
+                    <div class="row pb-8" style="width: 1500px;">
                         <div id="primary" class="content-area">
                             <main id="main" class="site-main ">
                                 <div class="page type-page status-publish hentry">
@@ -25,6 +25,7 @@
                                                         <th class="product-name">Product</th>
                                                         <th class="product-price">Price</th>
                                                         <th class="product-quantity">Quantity</th>
+                                                        <!--<th class="product-quantity"></th>-->
                                                         <th class="product-subtotal">Total</th>
                                                         <th class="product-remove">&nbsp;</th>
                                                     </tr>
@@ -50,9 +51,9 @@
                                                             </td>
                                                             <td class="product-price" data-title="Price">
                                                                 <!-- Price -->
-                                                                <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">£</span>@item.Price</span>
+                                                                <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>@item.Price</span>
                                                             </td>
-                                                            <td class="product-quantity" data-title="Quantity">
+                                                            <td class="product-quantity" data-title="Quantity" style="width: 150px">
                                                                 <div class="quantity d-flex align-items-center">
 
                                                                     <div class="border px-3 width-120">
@@ -65,20 +66,21 @@
                                                                                     </svg>
                                                                                 </a>
                                                                                 <!-- Quantity input -->
-                                                                                <input type="number" asp-for="@item.Count" class="input-text qty text js-result form-control text-center border-0" step="1" min="1" max="100" title="Qty">
+                                                                                <input type="number" name="qty" asp-for="@item.Count" class="input-text qty text js-result form-control text-center border-0" step="1" min="0" max="100" title="Qty">
                                                                                 <a class="js-plus text-dark" asp-action="Plus" asp-route-productId="@item.ProductId" type="submit">
                                                                                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="10px" height="10px">
                                                                                         <path fill-rule="evenodd" fill="rgb(22, 22, 25)" d="M10.000,5.000 L6.000,5.000 L6.000,10.000 L5.000,10.000 L5.000,5.000 L-0.000,5.000 L-0.000,4.000 L5.000,4.000 L5.000,-0.000 L6.000,-0.000 L6.000,4.000 L10.000,4.000 L10.000,5.000 Z"></path>
                                                                                     </svg>
                                                                                 </a>
+                                                                                <input type="hidden" value="@item.ProductId" name="productId" />
+                                                                                <input type="submit" value="Update" class="btn btn-outline-dark" style="display: none" />
                                                                             </div>
                                                                         </div>
                                                                     </div>
-
                                                                 </div>
                                                             </td>
                                                             <td class="product-subtotal" data-title="Total">
-                                                                <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">£</span>@Html.Raw(item.Price * item.Count)</span>
+                                                                <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>@Html.Raw(item.Price * item.Count)</span>
                                                             </td>
                                                             <td class="product-remove">
                                                                 <a asp-action="Delete" asp-route-productId="@item.ProductId" class="remove" aria-label="Remove this item">
@@ -96,7 +98,7 @@
                                 </div>
                             </main>
                         </div>
-                        <div id="secondary" class="sidebar cart-collaterals order-1" role="complementary">
+                        <div id="secondary" class="sidebar cart-collaterals order-1" role="complementary" style="margin-left: 30px; width: 300px">
                             <div id="cartAccordion" class="border border-gray-900 bg-white mb-5">
                                 <div class="p-4d875 border">
                                     <div id="cartHeadingOne" class="cart-head">
@@ -117,7 +119,7 @@
                                                     <th>Subtotal</th>
                                                     <!--  Subtotal -->
                                                     <td data-title="Subtotal">
-                                                        <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">£</span>@Model.OrderHeader.OrderTotal</span>
+                                                        <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>@Model.OrderHeader.OrderTotal</span>
                                                     </td>
                                                 </tr>
                                                 <tr class="order-shipping">
@@ -136,7 +138,7 @@
                                             <tr class="order-total">
                                                 <th>Total</th>
                                                 <!-- Total all -->
-                                                <td data-title="Total"><strong><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">£</span>@Model.OrderHeader.OrderTotal</span></strong> </td>
+                                                <td data-title="Total"><strong><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>@Model.OrderHeader.OrderTotal</span></strong> </td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -152,14 +154,14 @@
         }
         else
         {
-    <div style="height: 420px; padding: 70px; margin-left: 370px" class="text-black-50">
-        <p style="font-size: 40px">
-            Oh Sorry :(
-        </p>
-        <p style="font-size: 29px">
-            There is no item in the shopping cart
-        </p>
-    </div>
+            <div style="height: 420px; padding: 70px; margin-left: 370px" class="text-black-50">
+                <p style="font-size: 40px">
+                    Oh Sorry :(
+                </p>
+                <p style="font-size: 29px">
+                    There is no item in the shopping cart
+                </p>
+            </div>
         }
     </form>
 </body>
